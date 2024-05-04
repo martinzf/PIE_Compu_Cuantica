@@ -437,7 +437,7 @@ our free accounts to schedule calculations.
 
 \PY{c+c1}{\PYZsh{} Save backend}
 \PY{n}{df}\PY{o}{.}\PY{n}{backend\PYZus{}Q} \PY{o}{=} \PY{n}{backend\PYZus{}Q}\PY{o}{.}\PY{n}{name}
-\PY{n}{df}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{session.txt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\PY{n}{df}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{session.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
@@ -502,9 +502,9 @@ More generally, if we have a register initialised to a state
 transform is the following:
 
 \[
-H^{\otimes n}|j\rangle = \bigotimes_{i=0}^{n}H|j_i\rangle = 
-\frac{1}{2^{n/2}} \bigotimes_{i=0}^{n}(|0\rangle+(-1)^{j_i}|1\rangle) = 
-\frac{1}{2^{n/2}} \bigotimes_{i=0}^{n}\sum\limits_{k_i=0}^1 (-1)^{k_ij_i}|k_i\rangle =
+H^{\otimes n}|j\rangle = \bigotimes_{i=1}^{n}H|j_i\rangle = 
+\frac{1}{2^{n/2}} \bigotimes_{i=1}^{n}(|0\rangle+(-1)^{j_i}|1\rangle) = 
+\frac{1}{2^{n/2}} \bigotimes_{i=1}^{n}\sum\limits_{k_i=0}^1 (-1)^{k_ij_i}|k_i\rangle =
 \]
 
 \[
@@ -727,7 +727,7 @@ U_f|0\rangle|1\rangle = |f(1)\rangle|1\rangle
 \]
 
 N.B.: Qubit significance and indexing in Qiskit goes from right to left,
-top to bottom, \(0\) to \(n\).
+top to bottom, \(0\) to \(n-1\).
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{9}{\boxspacing}
