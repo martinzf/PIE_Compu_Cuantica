@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (MiKTeX 22.3) (preloaded format=xelatex 2024.4.27)  4 MAY 2024 12:34
+This is XeTeX, Version 3.141592653-2.6-0.999994 (MiKTeX 22.3) (preloaded format=xelatex 2024.4.27)  4 MAY 2024 13:00
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1196,62 +1196,52 @@ Package hyperref Info: Link coloring ON on input line 388.
 Package hyperref Warning: Rerun to get /PageLabels entry.
 
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 12.00128pt on input line 390.
+(Font)              scaled to size 6.00064pt on input line 398.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 8.00085pt on input line 390.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 6.00064pt on input line 390.
+(Font)              scaled to size 5.00053pt on input line 398.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 11.99872pt on input line 390.
+(Font)              scaled to size 5.99936pt on input line 398.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 7.99915pt on input line 390.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 5.99936pt on input line 390.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 390
+(Font)              scaled to size 4.99947pt on input line 398.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 398
 .
 (C:\Users\zapat\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 390
+LaTeX Font Info:    Trying to load font information for U+msb on input line 398
 .
 
 (C:\Users\zapat\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Trying to load font information for U+rsfs on input line 39
-0.
+8.
 
 (C:\Users\zapat\AppData\Local\Programs\MiKTeX\tex/latex/jknappen\ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 )
-
-LaTeX Warning: No \author given.
-
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 5.00053pt on input line 400.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 4.99947pt on input line 400.
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10.95> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 402.
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 400.
+
 [1
 
 ]
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 10.95116pt on input line 484.
+(Font)              scaled to size 10.95116pt on input line 482.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 7.6658pt on input line 484.
+(Font)              scaled to size 7.6658pt on input line 482.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 5.47559pt on input line 484.
+(Font)              scaled to size 5.47559pt on input line 482.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 10.94882pt on input line 484.
+(Font)              scaled to size 10.94882pt on input line 482.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 7.66417pt on input line 484.
+(Font)              scaled to size 7.66417pt on input line 482.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 5.47441pt on input line 484.
+(Font)              scaled to size 5.47441pt on input line 482.
 
 
 LaTeX Font Warning: Font shape `U/rsfs/m/n' in size <5.475> not available
-(Font)              size <5> substituted on input line 484.
+(Font)              size <5> substituted on input line 482.
 
 [2]
 Underfull \hbox (badness 10000) in paragraph at lines 594--595
@@ -1293,7 +1283,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 775--776
  []
 
 [7] [8]
-Overfull \hbox (44.59605pt too wide) detected at line 934
+Overfull \hbox (44.59605pt too wide) detected at line 935
 [][] [] [] [] [][][][][][] [] [] [] [] [][][]
  []
 
@@ -1302,7 +1292,7 @@ File: ZapataFergusonM_Session3_files/ZapataFergusonM_Session3_30_0.png Graphic
 file (type bmp)
 <ZapataFergusonM_Session3_files/ZapataFergusonM_Session3_30_0.png>
 
-Underfull \hbox (badness 10000) in paragraph at lines 982--983
+Underfull \hbox (badness 10000) in paragraph at lines 983--984
 
  []
 
@@ -1311,7 +1301,7 @@ File: ZapataFergusonM_Session3_files/ZapataFergusonM_Session3_32_0.png Graphic
 file (type bmp)
 <ZapataFergusonM_Session3_files/ZapataFergusonM_Session3_32_0.png>
 
-Underfull \hbox (badness 10000) in paragraph at lines 1006--1007
+Underfull \hbox (badness 10000) in paragraph at lines 1007--1008
 
  []
 
@@ -1319,12 +1309,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 1006--1007
 File: ZapataFergusonM_Session3_files/ZapataFergusonM_Session3_43_0.png Graphic 
 file (type bmp)
 <ZapataFergusonM_Session3_files/ZapataFergusonM_Session3_43_0.png>
-
-Underfull \hbox (badness 10000) in paragraph at lines 1186--1187
+ [13]
+Underfull \hbox (badness 10000) in paragraph at lines 1188--1189
 
  []
 
-[13] [14] [15] [16] (ZapataFergusonM_Session3.aux)
+[14] [15] [16] (ZapataFergusonM_Session3.aux)
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 0.475pt have occurred.
@@ -1340,15 +1330,15 @@ Package rerunfilecheck Warning: File `ZapataFergusonM_Session3.out' has changed
 
 Package rerunfilecheck Info: Checksums for `ZapataFergusonM_Session3.out':
 (rerunfilecheck)             Before: <no file>
-(rerunfilecheck)             After:  90B1961750FE0950E32046AC45066C90;1320.
+(rerunfilecheck)             After:  D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 30826 strings out of 410670
- 601224 string characters out of 2816708
+ 30801 strings out of 410670
+ 599449 string characters out of 2816708
  1075412 words of memory out of 3000000
- 51411 multiletter control sequences out of 15000+600000
- 477565 words of font info for 93 fonts, out of 8000000 for 9000
+ 51394 multiletter control sequences out of 15000+600000
+ 475487 words of font info for 81 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 99i,12n,115p,844b,555s stack positions out of 10000i,1000n,20000p,200000b,80000s
+ 99i,12n,115p,812b,631s stack positions out of 10000i,1000n,20000p,200000b,80000s
 
 Output written on ZapataFergusonM_Session3.pdf (16 pages).

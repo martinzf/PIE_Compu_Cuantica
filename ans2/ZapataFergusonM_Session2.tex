@@ -387,12 +387,10 @@
 
 \begin{document}
     
-    \maketitle
-    
     
 
     
-    \subsection{Session 2: An introduction to Qiskit and to IBM's
+    \section*{Session 2: An introduction to Qiskit and to IBM's
 interface}\label{session-2-an-introduction-to-qiskit-and-to-ibms-interface}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
@@ -421,7 +419,7 @@ interface}\label{session-2-an-introduction-to-qiskit-and-to-ibms-interface}
 
     \textbf{Sections 1 and 2 walk us through the basics of Qiskit.}
 
-\subsubsection{\texorpdfstring{\textbf{3. Executing
+\subsection*{\texorpdfstring{\textbf{3. Executing
 circuits}}{3. Executing circuits}}\label{executing-circuits}
 
     \textbf{Question:} Why does the histogram have only one bar
@@ -563,24 +561,41 @@ learned here
 
     \textbf{Answer:} We have learnt the following methods:
 
-Applied to a \texttt{QuantumCircuit} - \texttt{draw}: Plots a diagram of
-the circuit. - \texttt{initialize}: Given a normalised statevector of
-the appropriate dimension, prepares the circuit or subset of the circuit
-in that state. - \texttt{measure}: Collapses a particular qubit and
-stores result in a particular cbit. - \texttt{measure\_all}: Adds a cbit
-for each qubit in the circuit and measures all.
+Applied to a \texttt{QuantumCircuit} 
 
-Applied to an \texttt{AerSimulator} - \texttt{run}: Runs
-\texttt{QuantumCircuit} on the Aer backend and returns asynchronous
-simulation job.
+\begin{itemize}
+    \item \texttt{draw}: Plots a diagram of
+    the circuit. 
+    \item \texttt{initialize}: Given a normalised statevector of
+    the appropriate dimension, prepares the circuit or subset of the circuit
+    in that state. 
+    \item \texttt{measure}: Collapses a particular qubit and
+    stores result in a particular cbit. 
+    \item \texttt{measure\_all}: Adds a cbit
+    for each qubit in the circuit and measures all.
+\end{itemize}
 
-Applied to an \texttt{AerJob} - \texttt{result}: Awaits job result.
+Applied to an \texttt{AerSimulator} 
 
-Applied to a \texttt{Result} - \texttt{get\_counts}: Gets the histogram
-data of a quantum simulation.
+\begin{itemize}
+    \item  \texttt{run}: Runs \texttt{QuantumCircuit} on the Aer backend and returns 
+    asynchronous simulation job.
+\end{itemize}
 
-    \paragraph{\texorpdfstring{\textbf{5. Quantum Fourier
-Transform}}{5. Quantum Fourier Transform}}\label{quantum-fourier-transform}
+Applied to an \texttt{AerJob} 
+
+\begin{itemize}
+    \item \texttt{result}: Awaits job result.
+\end{itemize}
+
+Applied to a \texttt{Result} 
+
+\begin{itemize}
+    \item \texttt{get\_counts}: Gets the histogram
+    data of a quantum simulation.
+\end{itemize}
+
+    \subsection*{5. Quantum Fourier Transform}\label{quantum-fourier-transform}
 
     The discrete Fourier transform (DFT) changes the elements of a
 computational basis \(B\) to the Fourier basis \(F(B)\) according to the

@@ -387,12 +387,10 @@
 
 \begin{document}
     
-    \maketitle
-    
     
 
     
-    \subsection{Session 3: Execution of real quantum circuits on IBM's
+    \section*{Session 3: Execution of real quantum circuits on IBM's
 computers}\label{session-3-execution-of-real-quantum-circuits-on-ibms-computers}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
@@ -474,7 +472,7 @@ our free accounts to schedule calculations.
 \end{Verbatim}
 \end{tcolorbox}
 
-    \subsubsection{\texorpdfstring{\textbf{Random numbers}
+    \subsection*{\texorpdfstring{\textbf{Random numbers}
 }{Random numbers }}\label{random-numbers}
 
 The generation of random numbers using a classical simulator of a
@@ -484,8 +482,10 @@ circuit that prepares each of them in the superposition
 \(\tfrac{1}{\sqrt2}(|0\rangle+|1\rangle)\) and measures them in the
 computational basis \({|0\rangle,|1\rangle}\). This setup ensures that
 the measurement outcomes will be 0 or 1 with equal probabilities of 0.5.
-\#\#\#\# \textbf{Question 1}: Study the definition of the circuit with
-care
+
+\textbf{Question 1}: Study the definition of the circuit with
+care.
+
 
 \textbf{Answer:} It creates a barrier of Hadamard gates, which prepares
 each qubit in an equal superposition of \(|0\rangle\) and \(|1\rangle\).
@@ -581,8 +581,8 @@ is likely this job will be canceled
 \end{Verbatim}
 \end{tcolorbox}
 
-    \paragraph{\texorpdfstring{ \textbf{Question 2}: Comment on your results
-}{ Question 2: Comment on your results }}\label{question-2-comment-on-your-results}
+\textbf{Question 2}: Comment on your results.
+
 
 \textbf{Answer:} We obtained the following result from the IBM Quantum
 computer run in the lab with UCM tokens:
@@ -631,7 +631,7 @@ that we can plot in a histogram.
 log-normal. However, we generated very few random numbers, to draw any
 statistical conclusions we would likely have to produce many more.
 
-    \subsubsection{\texorpdfstring{\textbf{Deutsch's
+    \subsection*{\texorpdfstring{\textbf{Deutsch's
 algorithm}}{Deutsch's algorithm}}\label{deutschs-algorithm}
 
 To encode the action of a Boolean fuction, Deutsch's algorithm uses the
@@ -643,9 +643,9 @@ following operation over two qubits
 
 where \(\oplus\) denotes the binary addition (i.e.~the addition mod. 2).
 
-\paragraph{\texorpdfstring{\textbf{Homework 1} (to do later after the
+\textbf{Homework 1} (to do later after the
 lab on pen and paper): Prove that this is a unitary operation.
-}{Homework 1 (to do later after the lab on pen and paper):   Prove that this is a unitary operation. }}\label{homework-1-to-do-later-after-the-lab-on-pen-and-paper-prove-that-this-is-a-unitary-operation.}
+
 
 \textbf{Answer:} It is clear that the quantum oracle preserves the norm,
 therefore it is unitary. If we take
@@ -711,11 +711,11 @@ U_f = \begin{pmatrix}
 
 These matrices all represent permutations, which are unitary operations.
 
-    \paragraph{\texorpdfstring{ \textbf{Question 2}: Complete the following
+textbf{Question 2}: Complete the following
 cells to create quantum circuits for Oracle\_f that decides whether
 \(f\) is (or not) constant using the classical method with two
-evaluations
-}{ Question 2: Complete the following cells to create quantum circuits for Oracle\_f that decides whether f is (or not) constant using the classical method with two evaluations }}\label{question-2-complete-the-following-cells-to-create-quantum-circuits-for-oracle_f-that-decides-whether-f-is-or-not-constant-using-the-classical-method-with-two-evaluations}
+evaluations.
+
 
 \textbf{Answer:} To evaluate \(f\) using the oracle we can measure the
 leftmost qubit in the following two states:
@@ -784,10 +784,10 @@ top to bottom, \(0\) to \(n\).
 \end{Verbatim}
 \end{tcolorbox}
 
-    \paragraph{\texorpdfstring{ \textbf{Question 3}: By printing
+\textbf{Question 3}: By printing
 ``result\_clf.quasi\_dists'', explain why the following cell gives the
 calculated result for \(f(0)\) and \(f(1)\).
-}{ Question 3: By printing ``result\_clf.quasi\_dists'', explain why the following cell gives the calculated result for f(0) and f(1). }}\label{question-3-by-printing-result_clf.quasi_dists-explain-why-the-following-cell-gives-the-calculated-result-for-f0-and-f1.}
+
 
 \textbf{Answer:} The function \(f(x)\) appears to be \(\neg x\), and
 therefore a balanced function. Indeed, if we compare the
@@ -812,10 +812,10 @@ f(0) = 1
 f(1) = 0
     \end{Verbatim}
 
-    \paragraph{\texorpdfstring{ \textbf{Question 4}: Complete the following
+\textbf{Question 4}: Complete the following
 cells to create quantum circuits for Oracle\_g that solve the problem of
-whether \(g\) is constant using the classical method of two evaluations
-}{ Question 4: Complete the following cells to create quantum circuits for Oracle\_g that solve the problem of whether g is constant using the classical method of two evaluations }}\label{question-4-complete-the-following-cells-to-create-quantum-circuits-for-oracle_g-that-solve-the-problem-of-whether-g-is-constant-using-the-classical-method-of-two-evaluations}
+whether \(g\) is constant using the classical method of two evaluations.
+
 
 \textbf{Answer:} We may repeat the previous process. We find that
 \(g(x)=1\), therefore \(g\) is a constant function.
@@ -870,6 +870,7 @@ becomes:
 \[
 |-\rangle \left[\frac{|f(0)\rangle-|f(1)\rangle}{\sqrt{2}}\right].
 \]
+
 
     \textbf{Answer:} If \(f(0)\neq f(1)\), then \(f(0)\oplus 1=f(1)\) and
 \(f(1)\oplus 1=f(0)\), therefore \[
@@ -951,10 +952,10 @@ classical solution, we would have to check just over half of all
 possible bit strings (\(2^{n-1}+1\)), meaning the Deutsch-Jozsa
 algorithm has an exponential advantage over classical algorithms.
 
-    \paragraph{\texorpdfstring{ \textbf{Question 6}: Define a quantum
+\textbf{Question 6}: Define a quantum
 circuit to implement Deutsch's algorithm with the function \(f\) and
-another with the function \(g\)
-}{ Question 6: Define a quantum circuit to implement Deutsch's algorithm with the function f and another with the function g }}\label{question-6-define-a-quantum-circuit-to-implement-deutschs-algorithm-with-the-function-f-and-another-with-the-function-g}
+another with the function \(g\).
+
 
 \textbf{Answer:}
 
@@ -1030,10 +1031,10 @@ f is balanced
 g is constant
     \end{Verbatim}
 
-    \paragraph{\texorpdfstring{ \textbf{Question 7}: Does the result of your
+\textbf{Question 7}: Does the result of your
 quantum computation using Deutsch's algorithm agree with the previous
 classical
-result?}{ Question 7: Does the result of your quantum computation using Deutsch's algorithm agree with the previous classical result?}}\label{question-7-does-the-result-of-your-quantum-computation-using-deutschs-algorithm-agree-with-the-previous-classical-result}
+result?
 
     \textbf{Answer:} The classical result is that \(f\) is balanced and
 \(g\) is constant. After applying Deutsch's algorithm to both functions,
@@ -1107,7 +1108,7 @@ f is balanced
 g is constant
     \end{Verbatim}
 
-    \subsubsection{\texorpdfstring{\textbf{Experimental measurement of a
+    \subsection*{\texorpdfstring{\textbf{Experimental measurement of a
 Bell inequality (CHSH combination of
 correlators)}}{Experimental measurement of a Bell inequality   (CHSH combination of correlators)}}\label{experimental-measurement-of-a-bell-inequality-chsh-combination-of-correlators}
 
@@ -1131,10 +1132,10 @@ A_1=X,\quad A_2=Y, \quad B_1=\frac{-(X+Y)}{\sqrt{2}}, \quad B_2=\frac{-(X-Y)}{\s
 \] or rotationally equivalent configurations. Here \(X\) and \(Y\)
 denote the \(\sigma_x\) and \(\sigma_y\) Pauli matrices.
 
-    \paragraph{\texorpdfstring{ \textbf{Question 2}: Using this command,
+\textbf{Question 2}: Using this command,
 define the four product observables that appear in the CHSH inequality:
 \(A_1B_1\), \(A_2B_1\), \(A_1B_2\), and \(A_2B_2\):
-}{ Question 2: Using this command, define the four product observables that appear in the CHSH inequality: A\_1B\_1, A\_2B\_1, A\_1B\_2, and A\_2B\_2: }}\label{question-2-using-this-command-define-the-four-product-observables-that-appear-in-the-chsh-inequality-a_1b_1-a_2b_1-a_1b_2-and-a_2b_2}
+
 
 \textbf{Answer:}
 
@@ -1157,9 +1158,10 @@ define the four product observables that appear in the CHSH inequality:
 \end{Verbatim}
 \end{tcolorbox}
 
-    \paragraph{\texorpdfstring{ \textbf{Question 1}: Define a circuit that
+\textbf{Question 1}: Define a circuit that
 prepares the ``singlet state'' of two qubits
-\(|\Psi^-\rangle=\tfrac{1}{\sqrt2}(|01\rangle-|10\rangle)\).}{ Question 1: Define a circuit that prepares the ``singlet state'' of two qubits \textbar\textbackslash Psi\^{}-\textbackslash rangle=\textbackslash tfrac\{1\}\{\textbackslash sqrt2\}(\textbar01\textbackslash rangle-\textbar10\textbackslash rangle).}}\label{question-1-define-a-circuit-that-prepares-the-singlet-state-of-two-qubits-psi-rangletfrac1sqrt201rangle-10rangle.}
+\(|\Psi^-\rangle=\tfrac{1}{\sqrt2}(|01\rangle-|10\rangle)\).
+
 
 \textbf{Answer:} The following circuit specifically prepares the state
 \(\tfrac{i}{\sqrt2}(|01\rangle-|10\rangle)\), which is physically
@@ -1186,9 +1188,9 @@ equivalent to the requested state.
     { \hspace*{\fill} \\}
     
 
-    \paragraph{\texorpdfstring{ \textbf{Question 3}: Calculate the simulated
-value obtained for the CHSH inequality jointly with its error
-}{ Question 3: Calculate the simulated value obtained for the CHSH inequality jointly with its error }}\label{question-3-calculate-the-simulated-value-obtained-for-the-chsh-inequality-jointly-with-its-error}
+\textbf{Question 3}: Calculate the simulated
+value obtained for the CHSH inequality jointly with its error.
+
 
     \textbf{Answer:} The code we ran in the lab with UCM tokens yielded:
 
@@ -1240,11 +1242,11 @@ does it exceed 2 with sufficient statistical certainty?
 
     \end{Verbatim}
 
-    \paragraph{\texorpdfstring{ \textbf{Question 4}: Compute, with a hand
+\textbf{Question 4}: Compute, with a hand
 calculator or simple python commands, the experimental value obtained
 for the CHSH inequality jointly with its error from the quantum data
 obtained.
-}{ Question 4: Compute, with a hand calculator or simple python commands, the experimental value obtained for the CHSH inequality jointly with its error from the quantum data obtained. }}\label{question-4-compute-with-a-hand-calculator-or-simple-python-commands-the-experimental-value-obtained-for-the-chsh-inequality-jointly-with-its-error-from-the-quantum-data-obtained.}
+
 
     \textbf{Answer:} The code we ran in the lab with UCM tokens yielded:
 
@@ -1342,13 +1344,13 @@ thus are properly entangled. A computation such as this serves just as
 much as a proof of CHSH violation as it does as a calibration of a
 quantum computer.
 
-    \subsubsection{\texorpdfstring{\textbf{References}}{References}}\label{references}
+    \section*{\texorpdfstring{\textbf{References}}{References}}\label{references}
 
 {[}1{]} Cleve, R., Ekert, A., Macchiavello, C., \& Mosca, M. (1998).
 Quantum algorithms revisited. \emph{Proceedings of the Royal Society of
 London. Series A: Mathematical, Physical and Engineering Sciences,
 454(1969), 339--354}. Retrieved from
-https://arxiv.org/abs/quant-ph/9708016.
+\href{https://arxiv.org/abs/quant-ph/9708016}{https://arxiv.org/abs/quant-ph/9708016}.
 
 
     % Add a bibliography block to the postdoc
