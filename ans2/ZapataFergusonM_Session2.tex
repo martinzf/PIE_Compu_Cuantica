@@ -1,0 +1,995 @@
+\documentclass[11pt]{article}
+
+    \usepackage[breakable]{tcolorbox}
+    \usepackage{parskip} % Stop auto-indenting (to mimic markdown behaviour)
+    
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % Maintain compatibility with old templates. Remove in nbconvert 6.0
+    \let\Oldincludegraphics\includegraphics
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionFormat{nocaption}{}
+    \captionsetup{format=nocaption,aboveskip=0pt,belowskip=0pt}
+
+    \usepackage{float}
+    \floatplacement{figure}{H} % forces figures to be placed at the correct location
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+
+    \usepackage{iftex}
+    \ifPDFTeX
+        \usepackage[T1]{fontenc}
+        \IfFileExists{alphabeta.sty}{
+              \usepackage{alphabeta}
+          }{
+              \usepackage[mathletters]{ucs}
+              \usepackage[utf8x]{inputenc}
+          }
+    \else
+        \usepackage{fontspec}
+        \usepackage{unicode-math}
+    \fi
+
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics
+                         % to support a larger range
+    \makeatletter % fix for old versions of grffile with XeLaTeX
+    \@ifpackagelater{grffile}{2019/11/01}
+    {
+      % Do nothing on new versions
+    }
+    {
+      \def\Gread@@xetex#1{%
+        \IfFileExists{"\Gin@base".bb}%
+        {\Gread@eps{\Gin@base.bb}}%
+        {\Gread@@xetex@aux#1}%
+      }
+    }
+    \makeatother
+    \usepackage[Export]{adjustbox} % Used to constrain images to a maximum size
+    \adjustboxset{max size={0.9\linewidth}{0.9\paperheight}}
+
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    % The default LaTeX title has an obnoxious amount of whitespace. By default,
+    % titling removes some of it. It also provides customization options.
+    \usepackage{titling}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage{array}     % table support for pandoc >= 2.11.3
+    \usepackage{calc}      % table minipage width calculation for pandoc >= 2.11.1
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{soul}      % strikethrough (\st) support for pandoc >= 3.0.0
+    \usepackage{mathrsfs}
+    
+
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % common color for the border for error outputs.
+    \definecolor{outerrorbackground}{HTML}{FFDFDF}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+
+
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{ZapataFergusonM\_Session2}
+    
+    
+    
+    
+    
+    
+    
+% Pygments definitions
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\@namedef{PY@tok@w}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\@namedef{PY@tok@c}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cp}{\def\PY@tc##1{\textcolor[rgb]{0.61,0.40,0.00}{##1}}}
+\@namedef{PY@tok@k}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kp}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kt}{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\@namedef{PY@tok@o}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@ow}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\@namedef{PY@tok@nb}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@nf}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@nc}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@nn}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@ne}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.80,0.25,0.22}{##1}}}
+\@namedef{PY@tok@nv}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@no}{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\@namedef{PY@tok@nl}{\def\PY@tc##1{\textcolor[rgb]{0.46,0.46,0.00}{##1}}}
+\@namedef{PY@tok@ni}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.44,0.44,0.44}{##1}}}
+\@namedef{PY@tok@na}{\def\PY@tc##1{\textcolor[rgb]{0.41,0.47,0.13}{##1}}}
+\@namedef{PY@tok@nt}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@nd}{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\@namedef{PY@tok@s}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sd}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@si}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.64,0.35,0.47}{##1}}}
+\@namedef{PY@tok@se}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.36,0.12}{##1}}}
+\@namedef{PY@tok@sr}{\def\PY@tc##1{\textcolor[rgb]{0.64,0.35,0.47}{##1}}}
+\@namedef{PY@tok@ss}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@sx}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@m}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@gh}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\@namedef{PY@tok@gu}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\@namedef{PY@tok@gd}{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\@namedef{PY@tok@gi}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.52,0.00}{##1}}}
+\@namedef{PY@tok@gr}{\def\PY@tc##1{\textcolor[rgb]{0.89,0.00,0.00}{##1}}}
+\@namedef{PY@tok@ge}{\let\PY@it=\textit}
+\@namedef{PY@tok@gs}{\let\PY@bf=\textbf}
+\@namedef{PY@tok@ges}{\let\PY@bf=\textbf\let\PY@it=\textit}
+\@namedef{PY@tok@gp}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\@namedef{PY@tok@go}{\def\PY@tc##1{\textcolor[rgb]{0.44,0.44,0.44}{##1}}}
+\@namedef{PY@tok@gt}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\@namedef{PY@tok@err}{\def\PY@bc##1{{\setlength{\fboxsep}{\string -\fboxrule}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}}
+\@namedef{PY@tok@kc}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kd}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kn}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kr}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@bp}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@fm}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@vc}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vg}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vi}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vm}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@sa}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sb}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sc}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@dl}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@s2}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sh}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@s1}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@mb}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mf}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mh}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mi}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@il}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mo}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@ch}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cm}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cpf}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@c1}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cs}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % For linebreaks inside Verbatim environment from package fancyvrb.
+    \makeatletter
+        \newbox\Wrappedcontinuationbox
+        \newbox\Wrappedvisiblespacebox
+        \newcommand*\Wrappedvisiblespace {\textcolor{red}{\textvisiblespace}}
+        \newcommand*\Wrappedcontinuationsymbol {\textcolor{red}{\llap{\tiny$\m@th\hookrightarrow$}}}
+        \newcommand*\Wrappedcontinuationindent {3ex }
+        \newcommand*\Wrappedafterbreak {\kern\Wrappedcontinuationindent\copy\Wrappedcontinuationbox}
+        % Take advantage of the already applied Pygments mark-up to insert
+        % potential linebreaks for TeX processing.
+        %        {, <, #, %, $, ' and ": go to next line.
+        %        _, }, ^, &, >, - and ~: stay at end of broken line.
+        % Use of \textquotesingle for straight quote.
+        \newcommand*\Wrappedbreaksatspecials {%
+            \def\PYGZus{\discretionary{\char`\_}{\Wrappedafterbreak}{\char`\_}}%
+            \def\PYGZob{\discretionary{}{\Wrappedafterbreak\char`\{}{\char`\{}}%
+            \def\PYGZcb{\discretionary{\char`\}}{\Wrappedafterbreak}{\char`\}}}%
+            \def\PYGZca{\discretionary{\char`\^}{\Wrappedafterbreak}{\char`\^}}%
+            \def\PYGZam{\discretionary{\char`\&}{\Wrappedafterbreak}{\char`\&}}%
+            \def\PYGZlt{\discretionary{}{\Wrappedafterbreak\char`\<}{\char`\<}}%
+            \def\PYGZgt{\discretionary{\char`\>}{\Wrappedafterbreak}{\char`\>}}%
+            \def\PYGZsh{\discretionary{}{\Wrappedafterbreak\char`\#}{\char`\#}}%
+            \def\PYGZpc{\discretionary{}{\Wrappedafterbreak\char`\%}{\char`\%}}%
+            \def\PYGZdl{\discretionary{}{\Wrappedafterbreak\char`\$}{\char`\$}}%
+            \def\PYGZhy{\discretionary{\char`\-}{\Wrappedafterbreak}{\char`\-}}%
+            \def\PYGZsq{\discretionary{}{\Wrappedafterbreak\textquotesingle}{\textquotesingle}}%
+            \def\PYGZdq{\discretionary{}{\Wrappedafterbreak\char`\"}{\char`\"}}%
+            \def\PYGZti{\discretionary{\char`\~}{\Wrappedafterbreak}{\char`\~}}%
+        }
+        % Some characters . , ; ? ! / are not pygmentized.
+        % This macro makes them "active" and they will insert potential linebreaks
+        \newcommand*\Wrappedbreaksatpunct {%
+            \lccode`\~`\.\lowercase{\def~}{\discretionary{\hbox{\char`\.}}{\Wrappedafterbreak}{\hbox{\char`\.}}}%
+            \lccode`\~`\,\lowercase{\def~}{\discretionary{\hbox{\char`\,}}{\Wrappedafterbreak}{\hbox{\char`\,}}}%
+            \lccode`\~`\;\lowercase{\def~}{\discretionary{\hbox{\char`\;}}{\Wrappedafterbreak}{\hbox{\char`\;}}}%
+            \lccode`\~`\:\lowercase{\def~}{\discretionary{\hbox{\char`\:}}{\Wrappedafterbreak}{\hbox{\char`\:}}}%
+            \lccode`\~`\?\lowercase{\def~}{\discretionary{\hbox{\char`\?}}{\Wrappedafterbreak}{\hbox{\char`\?}}}%
+            \lccode`\~`\!\lowercase{\def~}{\discretionary{\hbox{\char`\!}}{\Wrappedafterbreak}{\hbox{\char`\!}}}%
+            \lccode`\~`\/\lowercase{\def~}{\discretionary{\hbox{\char`\/}}{\Wrappedafterbreak}{\hbox{\char`\/}}}%
+            \catcode`\.\active
+            \catcode`\,\active
+            \catcode`\;\active
+            \catcode`\:\active
+            \catcode`\?\active
+            \catcode`\!\active
+            \catcode`\/\active
+            \lccode`\~`\~
+        }
+    \makeatother
+
+    \let\OriginalVerbatim=\Verbatim
+    \makeatletter
+    \renewcommand{\Verbatim}[1][1]{%
+        %\parskip\z@skip
+        \sbox\Wrappedcontinuationbox {\Wrappedcontinuationsymbol}%
+        \sbox\Wrappedvisiblespacebox {\FV@SetupFont\Wrappedvisiblespace}%
+        \def\FancyVerbFormatLine ##1{\hsize\linewidth
+            \vtop{\raggedright\hyphenpenalty\z@\exhyphenpenalty\z@
+                \doublehyphendemerits\z@\finalhyphendemerits\z@
+                \strut ##1\strut}%
+        }%
+        % If the linebreak is at a space, the latter will be displayed as visible
+        % space at end of first line, and a continuation symbol starts next line.
+        % Stretch/shrink are however usually zero for typewriter font.
+        \def\FV@Space {%
+            \nobreak\hskip\z@ plus\fontdimen3\font minus\fontdimen4\font
+            \discretionary{\copy\Wrappedvisiblespacebox}{\Wrappedafterbreak}
+            {\kern\fontdimen2\font}%
+        }%
+
+        % Allow breaks at special characters using \PYG... macros.
+        \Wrappedbreaksatspecials
+        % Breaks at punctuation characters . , ; ? ! and / need catcode=\active
+        \OriginalVerbatim[#1,codes*=\Wrappedbreaksatpunct]%
+    }
+    \makeatother
+
+    % Exact colors from NB
+    \definecolor{incolor}{HTML}{303F9F}
+    \definecolor{outcolor}{HTML}{D84315}
+    \definecolor{cellborder}{HTML}{CFCFCF}
+    \definecolor{cellbackground}{HTML}{F7F7F7}
+
+    % prompt
+    \makeatletter
+    \newcommand{\boxspacing}{\kern\kvtcb@left@rule\kern\kvtcb@boxsep}
+    \makeatother
+    \newcommand{\prompt}[4]{
+        {\ttfamily\llap{{\color{#2}[#3]:\hspace{3pt}#4}}\vspace{-\baselineskip}}
+    }
+    
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+\begin{document}
+    
+    \maketitle
+    
+    
+
+    
+    \subsection{Session 2: An introduction to Qiskit and to IBM's
+interface}\label{session-2-an-introduction-to-qiskit-and-to-ibms-interface}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{59}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} A classical simulator of quantum circuits}
+\PY{k+kn}{from} \PY{n+nn}{qiskit\PYZus{}aer} \PY{k+kn}{import} \PY{n}{AerSimulator}
+
+\PY{c+c1}{\PYZsh{} Class QuantumCircuit, with methods (functions) to define quantum circuits}
+\PY{k+kn}{from} \PY{n+nn}{qiskit} \PY{k+kn}{import} \PY{n}{QuantumCircuit}
+
+\PY{c+c1}{\PYZsh{} A function yielding a histogram with the probabilities of each of the eigenstates taken by the measured qubits}
+\PY{k+kn}{from} \PY{n+nn}{qiskit}\PY{n+nn}{.}\PY{n+nn}{visualization} \PY{k+kn}{import} \PY{n}{plot\PYZus{}histogram}
+
+\PY{c+c1}{\PYZsh{} Class Statvector, to retrieve the state of the circuit}
+\PY{k+kn}{from} \PY{n+nn}{qiskit}\PY{n+nn}{.}\PY{n+nn}{quantum\PYZus{}info} \PY{k+kn}{import} \PY{n}{Statevector}
+
+\PY{c+c1}{\PYZsh{} Class PhaseGate, essential for quantum Fourier transform}
+\PY{k+kn}{from} \PY{n+nn}{qiskit}\PY{n+nn}{.}\PY{n+nn}{circuit}\PY{n+nn}{.}\PY{n+nn}{library} \PY{k+kn}{import} \PY{n}{PhaseGate}
+
+\PY{c+c1}{\PYZsh{} Other usual imports}
+\PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+\PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \textbf{Sections 1 and 2 walk us through the basics of Qiskit.}
+
+\subsubsection{\texorpdfstring{\textbf{3. Executing
+circuits}}{3. Executing circuits}}\label{executing-circuits}
+
+    \textbf{Question:} Why does the histogram have only one bar
+corresponding to \textbar1\textgreater{} ?
+
+\textbf{Answer:} Because the qubit is initialized to the state
+\(|1\rangle\), it has no component along \(|0\rangle\).
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{60}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{sim} \PY{o}{=} \PY{n}{AerSimulator}\PY{p}{(}\PY{p}{)}
+\PY{n}{qc11} \PY{o}{=} \PY{n}{QuantumCircuit}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)} \PY{c+c1}{\PYZsh{} circuit with 1 qubit y 1 classical bit}
+\PY{n}{state\PYZus{}1} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]} \PY{c+c1}{\PYZsh{} this would be |1\PYZgt{}, trivially normalized}
+\PY{n}{qc11}\PY{o}{.}\PY{n}{initialize}\PY{p}{(}\PY{n}{state\PYZus{}1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}
+\PY{n}{qc11}\PY{o}{.}\PY{n}{measure}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}
+\PY{n}{resultmeasure} \PY{o}{=} \PY{n}{sim}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{qc11}\PY{p}{)}\PY{o}{.}\PY{n}{result}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} Execute the circuite qc11 in the simulator}
+\PY{n}{counts} \PY{o}{=} \PY{n}{resultmeasure}\PY{o}{.}\PY{n}{get\PYZus{}counts}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} Results of the measurements}
+\PY{n}{plot\PYZus{}histogram}\PY{p}{(}\PY{n}{counts}\PY{p}{)} \PY{c+c1}{\PYZsh{} Plot a histogram with that variable}
+\end{Verbatim}
+\end{tcolorbox}
+ 
+            
+\prompt{Out}{outcolor}{60}{}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{ZapataFergusonM_Session2_files/ZapataFergusonM_Session2_4_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    \paragraph{\texorpdfstring{\textbf{4. Generation of truly random numbers
+with a quantum
+computer}}{4. Generation of truly random numbers with a quantum computer}}\label{generation-of-truly-random-numbers-with-a-quantum-computer}
+
+    Question: Can you write in a piece of paper the initial state in the
+second line of the next paragraph?
+
+\textbf{Answer:} Let
+\(|+\rangle=\frac{1}{\sqrt{2}}(|0\rangle+|1\rangle)\) in the
+computational, single-qubit basis --- the initial state is
+\(|+\rangle\otimes|+\rangle\otimes|+\rangle\otimes|+\rangle\). In the
+\(\{|n\rangle\}_{n=0}^{15}\) basis, where \(|n\rangle\) is the binary
+representation of n, taking the digits \(0\) or \(1\) to be qubits
+\(|0\rangle\), \(|1\rangle\) tensored with each other,
+\(|\mathrm{init}\rangle=\frac{1}{4}\sum\limits_{n=0}^{15}|n\rangle\).
+Indeed, this is what the \texttt{draw} method shows, an equal
+superposition of states, which is what we would need to simulate a
+uniform probability distribution.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{61}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{qrng} \PY{o}{=} \PY{n}{QuantumCircuit}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}
+\PY{n}{init\PYZus{}state} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{kron}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{kron}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{kron}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} Kron is a Python command for Cartesian (or Kronecker) products}
+\PY{n}{init\PYZus{}state\PYZus{}normal} \PY{o}{=} \PY{n}{init\PYZus{}state}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{norm}\PY{p}{(}\PY{n}{init\PYZus{}state}\PY{p}{)}
+\PY{n}{qrng}\PY{o}{.}\PY{n}{initialize}\PY{p}{(}\PY{n}{init\PYZus{}state\PYZus{}normal}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}
+\PY{n}{qrng}\PY{o}{.}\PY{n}{draw}\PY{p}{(}\PY{n}{output}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mpl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+ 
+            
+\prompt{Out}{outcolor}{61}{}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{ZapataFergusonM_Session2_files/ZapataFergusonM_Session2_7_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    We may encapsulate random number generation in the following function:
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{62}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{QRNG}\PY{p}{(}\PY{n}{N\PYZus{}qubits}\PY{p}{)}\PY{p}{:} \PY{c+c1}{\PYZsh{}a quantum random number generator}
+    \PY{n}{qrng} \PY{o}{=} \PY{n}{QuantumCircuit}\PY{p}{(}\PY{n}{N\PYZus{}qubits}\PY{p}{)}
+    \PY{n}{qrng}\PY{o}{.}\PY{n}{h}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{N\PYZus{}qubits}\PY{p}{)}\PY{p}{)}
+    \PY{n}{qrng}\PY{o}{.}\PY{n}{measure\PYZus{}all}\PY{p}{(}\PY{p}{)}
+    \PY{n}{result} \PY{o}{=} \PY{n}{sim}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{qrng}\PY{p}{,} \PY{n}{shots}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{result}\PY{p}{(}\PY{p}{)}
+    \PY{n}{counts} \PY{o}{=} \PY{n}{result}\PY{o}{.}\PY{n}{get\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+    \PY{k}{return} \PY{n+nb}{int}\PY{p}{(}\PY{o}{*}\PY{n}{counts}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    Question: run the circuit a few times and write down the number obtained
+
+\textbf{Answer:} After running it a few times we obtained the following
+list of numbers:
+\texttt{14,\ 3,\ 5,\ 9,\ 8,\ 12,\ 1,\ 10,\ 6,\ 11,\ 2,\ 6,\ 0,\ 10,\ 7,\ 13,\ 6,\ 14,\ 5,\ 1,\ 0,\ 14,\ 4}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{63}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{QRNG}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{63}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+9
+\end{Verbatim}
+\end{tcolorbox}
+        
+    Question: Write a loop that generates 32 random numbers and plot a
+histogram with their distribution.
+
+\textbf{Answer:}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{64}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{N\PYZus{}qubits} \PY{o}{=} \PY{l+m+mi}{4}
+\PY{n}{N} \PY{o}{=} \PY{l+m+mi}{32}
+\PY{n}{distrib} \PY{o}{=} \PY{p}{[}\PY{n}{QRNG}\PY{p}{(}\PY{n}{N\PYZus{}qubits}\PY{p}{)} \PY{k}{for} \PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{]}
+
+\PY{n}{dim} \PY{o}{=} \PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{N\PYZus{}qubits}
+\PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{distrib}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{n+nb}{range}\PY{p}{(}\PY{n}{dim}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{density}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{align}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{ticks}\PY{o}{=}\PY{n+nb}{range}\PY{p}{(}\PY{n}{dim}\PY{p}{)}\PY{p}{,} \PY{n}{labels}\PY{o}{=}\PY{n+nb}{range}\PY{p}{(}\PY{n}{dim}\PY{p}{)}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Quantum RNG distribution}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{64}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+Text(0.5, 1.0, 'Quantum RNG distribution')
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{ZapataFergusonM_Session2_files/ZapataFergusonM_Session2_13_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Question: Write down in a piece of paper all the methods that you have
+learned here
+
+    \textbf{Answer:} We have learnt the following methods:
+
+Applied to a \texttt{QuantumCircuit} - \texttt{draw}: Plots a diagram of
+the circuit. - \texttt{initialize}: Given a normalised statevector of
+the appropriate dimension, prepares the circuit or subset of the circuit
+in that state. - \texttt{measure}: Collapses a particular qubit and
+stores result in a particular cbit. - \texttt{measure\_all}: Adds a cbit
+for each qubit in the circuit and measures all.
+
+Applied to an \texttt{AerSimulator} - \texttt{run}: Runs
+\texttt{QuantumCircuit} on the Aer backend and returns asynchronous
+simulation job.
+
+Applied to an \texttt{AerJob} - \texttt{result}: Awaits job result.
+
+Applied to a \texttt{Result} - \texttt{get\_counts}: Gets the histogram
+data of a quantum simulation.
+
+    \paragraph{\texorpdfstring{\textbf{5. Quantum Fourier
+Transform}}{5. Quantum Fourier Transform}}\label{quantum-fourier-transform}
+
+    The discrete Fourier transform (DFT) changes the elements of a
+computational basis \(B\) to the Fourier basis \(F(B)\) according to the
+formula
+
+\[
+\left|j\right\rangle_{B}\rightarrow \left|j\right\rangle_{F(B)} =  \frac{1}{\sqrt{N}}\sum^{N-1}_{k=0} e^{2\pi i j k /N}\left|k\right\rangle_{B}
+\]
+
+It is worth noting that the elements of the computational basis in a
+\(2^n\) dimensional Hilbert space may be labeled by the number \(j\), or
+by its representation as an \(n\)-bit binary string,
+
+\[
+j \equiv j_1 j_2 ... j_n \equiv \sum\limits_{\ell=1}^{n} j_\ell 2^{n-\ell}
+\]
+
+, i.e.~we can choose the basis states to be the tensor products of the
+single-qubit basis states \(|j_\ell\rangle_B\), \(j_\ell\in\{0,1\}\).
+
+We call the application of the DFT to a quantum state the quantum
+Fourier transform (QFT), and it has a computationally efficient
+alternative formula:
+
+\[
+QFT_n |j\rangle_{B} = \frac{1}{\sqrt{N}}\sum^{N-1}_{k=0} e^{2\pi i j k /N}\left|k\right\rangle_{B} = 
+\frac{1}{2^{n/2}}\sum^{2^n-1}_{k=0} e^{2\pi i j k 2^{-n}}\left|k\right\rangle_{B} = 
+\]
+
+\[
+= \frac{1}{2^{n/2}}\sum^{1}_{k_1=0}\sum^{1}_{k_2=0}...\sum^{1}_{k_n=0}
+e^{2\pi i j \sum\limits_{\ell=1}^{n} k_\ell 2^{-\ell}}\left|k_1 k_2 ... k_n\right\rangle_{B} =
+\]
+
+\[
+= \frac{1}{2^{n/2}}\sum^{1}_{k_1=0}e^{2\pi i j k_1 2^{-1}}|k_1\rangle_B
+\sum^{1}_{k_2=0}e^{2\pi i j k_2 2^{-2}}|k_2\rangle_B... 
+\sum^{1}_{k_n=0}e^{2\pi i j k_n 2^{-n}}|k_n\rangle_B = 
+\frac{1}{2^{n/2}} \bigotimes\limits_{m=1}^{n}\sum\limits_{k_m=0}^1 e^{2\pi i j k_m 2^{-m}}|k_\ell\rangle_B = 
+\]
+
+\[
+= \frac{1}{2^{n/2}} \bigotimes\limits_{m=1}^{n}\left(|0\rangle + e^{2\pi i j 2^{-m}}|1\rangle \right) = 
+\frac{1}{2^{n/2}} \bigotimes\limits_{m=1}^{n}\left(|0\rangle + e^{2\pi i \sum\limits_{\ell=1}^n j_\ell 2^{n-\ell-m}}|1\rangle \right) 
+\]
+
+Since integer rotations in the complex plane don't add any phase, the
+expression for the QFT finally simplifies to
+
+\[
+QFT_n |j\rangle_{B} = \frac{1}{2^{n/2}} \bigotimes\limits_{m=1}^{n}\left(|0\rangle + e^{2\pi i \sum\limits_{\ell=1}^{m} j_{n+\ell-m} 2^{-\ell}}|1\rangle \right) 
+\]
+
+    \textbf{In the exercise notebook we're walked through programming the
+QFT:}
+
+The operation
+
+\[\alpha |0\rangle + \beta | 1 \rangle \rightarrow  \alpha | 0 \rangle +\beta e^{2\pi i\ /\ 2^k} | 1 \rangle \]
+
+Can be represented in matrix form as
+
+\[R_k = \begin{pmatrix}
+1 & 0 \\
+0 & e^{2\pi i /2^k}
+\end{pmatrix},\]
+
+while one of the basic transformations in the Qiskit package is
+\emph{PhaseGate}, with matrix representation
+
+\[\text{PhaseGate}(\phi) = \begin{pmatrix}
+1 & 0 \\
+0 & e^{i\phi}
+\end{pmatrix}.\]
+
+Hence,
+
+\textbf{Question 5.1.} Check that the following function implements the
+\(R_k\) transformation:
+
+\textbf{Answer:}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{65}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{R}\PY{p}{(}\PY{n}{k}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{n}{PhaseGate}\PY{p}{(}\PY{p}{(}\PY{l+m+mf}{2.}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{)}\PY{o}{/}\PY{n+nb}{pow}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{k}\PY{p}{)}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Indeed, we can plot R(k) ∀ k with a parametrised circuit.}
+\PY{c+c1}{\PYZsh{} We see the transformation is implemented as desired.}
+\PY{k+kn}{from} \PY{n+nn}{qiskit}\PY{n+nn}{.}\PY{n+nn}{circuit} \PY{k+kn}{import} \PY{n}{Parameter}
+\PY{n}{k} \PY{o}{=} \PY{n}{Parameter}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{ans} \PY{o}{=} \PY{n}{QuantumCircuit}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+\PY{n}{ans}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{R}\PY{p}{(}\PY{n}{k}\PY{p}{)}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+\PY{n}{ans}\PY{o}{.}\PY{n}{draw}\PY{p}{(}\PY{n}{output}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mpl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+ 
+            
+\prompt{Out}{outcolor}{65}{}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{ZapataFergusonM_Session2_files/ZapataFergusonM_Session2_19_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    We can try this gate and compare it to what we should get for a couple
+of values of \(k\)
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{66}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{maxK} \PY{o}{=} \PY{l+m+mi}{6}
+\PY{n}{result} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{*} \PY{n}{maxK}
+\PY{n}{expected} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{*} \PY{n}{maxK}
+
+\PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{maxK}\PY{p}{)}\PY{p}{:}
+  \PY{c+c1}{\PYZsh{} Rk circuit}
+  \PY{n}{circ1} \PY{o}{=} \PY{n}{QuantumCircuit}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+  \PY{n}{circ1}\PY{o}{.}\PY{n}{x}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)} \PY{c+c1}{\PYZsh{} Initialise to |1\PYZgt{}}
+  \PY{n}{circ1}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{R}\PY{p}{(}\PY{n}{k}\PY{p}{)}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{} Apply Rk}
+  \PY{n}{psi} \PY{o}{=} \PY{n}{Statevector}\PY{p}{(}\PY{n}{circ1}\PY{p}{)}
+  \PY{n}{result}\PY{p}{[}\PY{n}{k}\PY{p}{]} \PY{o}{=} \PY{n}{psi}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+  \PY{c+c1}{\PYZsh{} Expected phase}
+  \PY{n}{expected}\PY{p}{[}\PY{n}{k}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1}\PY{n}{j}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{k}\PY{p}{)}
+
+\PY{n+nb}{print}\PY{p}{(}
+\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}\PYZsq{}\PYZsq{}}
+\PY{l+s+s1}{What we got        }\PY{l+s+si}{\PYZob{}}\PY{n}{result}\PY{l+s+si}{\PYZcb{}}
+\PY{l+s+s1}{What we should get }\PY{l+s+si}{\PYZob{}}\PY{n}{expected}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{\PYZsq{}\PYZsq{}\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+What we got        [(1-2.4492935982947064e-16j), (-1+1.2246467991473532e-16j),
+(6.123233995736766e-17+1j), (0.7071067811865476+0.7071067811865476j),
+(0.9238795325112867+0.3826834323650898j),
+(0.9807852804032304+0.19509032201612825j)]
+What we should get [(1-2.4492935982947064e-16j), (-1+1.2246467991473532e-16j),
+(6.123233995736766e-17+1j), (0.7071067811865476+0.7071067811865476j),
+(0.9238795325112867+0.3826834323650898j),
+(0.9807852804032304+0.19509032201612825j)]
+    \end{Verbatim}
+
+    We can appreciate the \(R_k\) gate performs the previously described
+transformation perfectly, although there may be some precision error in
+both calculations.
+
+    \textbf{In sections 5.1-5.2 we're walked through programming a
+3-register QFT.} At the step at which we accomplish
+
+\[| j_1j_2j_3\rangle \rightarrow | \psi_1\rangle = \frac{1}{\sqrt{2}}\left(\left|0\right\rangle+e^{2\pi i (j_1/2 +j_2/4)}\left|1\right\rangle\right)\otimes | j_2j_3\rangle.\]
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{67}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{qft\PYZus{}circuit} \PY{o}{=} \PY{n}{QuantumCircuit}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{QFT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{qft\PYZus{}circuit}\PY{o}{.}\PY{n}{h}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+\PY{n}{qft\PYZus{}circuit}\PY{o}{.}\PY{n}{draw}\PY{p}{(}\PY{p}{)}
+\PY{n}{qft\PYZus{}circuit}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{R}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{.}\PY{n}{control}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\PY{n}{qft\PYZus{}circuit}\PY{o}{.}\PY{n}{draw}\PY{p}{(}\PY{n}{output}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mpl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+ 
+            
+\prompt{Out}{outcolor}{67}{}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{ZapataFergusonM_Session2_files/ZapataFergusonM_Session2_24_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    \textbf{Question 5.2} Write the state resulting from applying that
+transformation to the initial ket \(| 010\rangle\). Check, with the
+Statevector class that the circuit generates the correct output.
+
+\textbf{Answer:} We may compute the resulting state by hand. It is
+\(\frac{1}{\sqrt{2}}(|0\rangle+i|1\rangle)\otimes|10\rangle\) or, in the
+binary basis, \(\frac{1}{\sqrt{2}}(|2\rangle+i|6\rangle)\).
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{68}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{init\PYZus{}state} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{)}
+\PY{n}{init\PYZus{}state}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+\PY{n}{qc} \PY{o}{=} \PY{n}{QuantumCircuit}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+\PY{n}{qc}\PY{o}{.}\PY{n}{initialize}\PY{p}{(}\PY{n}{init\PYZus{}state}\PY{p}{,} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+\PY{n}{qc}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{qft\PYZus{}circuit}\PY{p}{,} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+\PY{n}{phians} \PY{o}{=} \PY{n}{Statevector}\PY{p}{(}\PY{n}{qc}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} By printing the result, this checks out}
+\PY{n}{phians}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Statevector([0.00000000e+00+0.j        , 0.00000000e+00+0.j        ,
+             7.07106781e-01+0.j        , 0.00000000e+00+0.j        ,
+             0.00000000e+00+0.j        , 0.00000000e+00+0.j        ,
+             4.32978028e-17+0.70710678j, 0.00000000e+00+0.j        ],
+            dims=(2, 2, 2))
+    \end{Verbatim}
+
+    \paragraph{\texorpdfstring{ 5.3 QFT full
+exercise}{ 5.3 QFT full exercise}}\label{qft-full-exercise}
+
+Please implement now the Quantum Fourier Transform as a gate acting over
+5 qubits. Apply this gate to the following states.
+
+\[ |\phi_1\rangle = \frac{1}{2^{5/2}}\left(\left|0\right\rangle+\left|1\right\rangle\right)\left(\left|0\right\rangle+\left|1\right\rangle\right)\left(\left|0\right\rangle+\left|1\right\rangle\right)\left(\left|0\right\rangle+\left|1\right\rangle\right)\left(\left|0\right\rangle-\left|1\right\rangle\right)\]
+\[ |\phi_2\rangle = \frac{1}{2^{5/2}}\left(\left|0\right\rangle+\left|1\right\rangle\right)\left(\left|0\right\rangle+\left|1\right\rangle\right)\left(\left|0\right\rangle+\left|1\right\rangle\right)\left(\left|0\right\rangle-\left|1\right\rangle\right)\left(\left|0\right\rangle+\left|1\right\rangle\right)\]
+\[ |\phi_3\rangle = \frac{1}{2^{5/2}}\left(\left|0\right\rangle+\left|1\right\rangle\right)\left(\left|0\right\rangle+\left|1\right\rangle\right)\left(\left|0\right\rangle-\left|1\right\rangle\right)\left(\left|0\right\rangle+\left|1\right\rangle\right)\left(\left|0\right\rangle+\left|1\right\rangle\right)\]
+\[ |\phi_4\rangle = \frac{1}{2^{5/2}}\left(\left|0\right\rangle+\left|1\right\rangle\right)\left(\left|0\right\rangle-\left|1\right\rangle\right)\left(\left|0\right\rangle+\left|1\right\rangle\right)\left(\left|0\right\rangle+\left|1\right\rangle\right)\left(\left|0\right\rangle+\left|1\right\rangle\right)\]
+
+Briefly comment on the results.
+
+\textbf{Answer:} A QFT circuit implements the following transformation:
+
+\[
+|j_1j_2...j_n\rangle_B\rightarrow \frac{1}{2^{n/2}}
+\left(|0\rangle + e^{2\pi i \frac{j_n}{2}}|1\rangle \right) 
+\left(|0\rangle + e^{2\pi i (\frac{j_{n-1}}{2}+\frac{j_n}{4})}|1\rangle \right)
+... 
+\left(|0\rangle + e^{2\pi i (\frac{j_1}{2}+...+\frac{j_n}{2^n})}|1\rangle \right) 
+\]
+
+As we can see, the value of qubit 1 (\(j_n\)) appears in every term (and
+\(j_{n-1}\) appears in every term up to the penultimate, so on and so
+forth). This implies we have to act on the least significant bit last,
+so as to not modify \(j_n\) while we still need its value (likewise with
+\(j_{n-1}\), etc.).
+
+On the other hand, the least significant half of the transformed bits
+require information from bits more significant than them, so we have to
+apply the QFT from least significant bit to most significant bit.
+
+The way to solve this conundrum is to store the transformed qubits in
+reverse order, and to afterwards apply a series of swaps to recover the
+proper ordering. We can apply the required phases with Hadamard and
+controlled \(R_k\) gates.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{69}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} First, it is actually easier and more convenient to implement an N register QFT}
+
+\PY{k}{def} \PY{n+nf}{QFT}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+    \PY{n}{qc} \PY{o}{=} \PY{n}{QuantumCircuit}\PY{p}{(}\PY{n}{N}\PY{p}{)}
+    \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{N}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+        \PY{n}{qc}\PY{o}{.}\PY{n}{h}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+        \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+            \PY{n}{qc}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{R}\PY{p}{(}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{n}{j}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{control}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{]}\PY{p}{)}
+    \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{o}{/}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+        \PY{n}{qc}\PY{o}{.}\PY{n}{swap}\PY{p}{(}\PY{n}{i}\PY{p}{,} \PY{n}{N}\PY{o}{\PYZhy{}}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+    \PY{k}{return} \PY{n}{qc}
+
+\PY{n}{QFT}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{o}{.}\PY{n}{draw}\PY{p}{(}\PY{n}{output}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mpl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+ 
+            
+\prompt{Out}{outcolor}{69}{}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{ZapataFergusonM_Session2_files/ZapataFergusonM_Session2_28_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{70}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Next, let\PYZsq{}s notice the kets are}
+\PY{c+c1}{\PYZsh{} |phi1\PYZgt{} = |+\PYZgt{}|+\PYZgt{}|+\PYZgt{}|+\PYZgt{}|\PYZhy{}\PYZgt{}}
+\PY{c+c1}{\PYZsh{} |phi2\PYZgt{} = |+\PYZgt{}|+\PYZgt{}|+\PYZgt{}|\PYZhy{}\PYZgt{}|+\PYZgt{}}
+\PY{c+c1}{\PYZsh{} |phi3\PYZgt{} = |+\PYZgt{}|+\PYZgt{}|\PYZhy{}\PYZgt{}|+\PYZgt{}|+\PYZgt{}}
+\PY{c+c1}{\PYZsh{} |phi4\PYZgt{} = |+\PYZgt{}|\PYZhy{}\PYZgt{}|+\PYZgt{}|+\PYZgt{}|+\PYZgt{}}
+\PY{c+c1}{\PYZsh{} So it will be easiest to prepare the initial states with Hadamard gates as follows:}
+
+
+\PY{k}{def} \PY{n+nf}{phi}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+    \PY{n}{qc} \PY{o}{=} \PY{n}{QuantumCircuit}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+    \PY{n}{qc}\PY{o}{.}\PY{n}{x}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+    \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+        \PY{n}{qc}\PY{o}{.}\PY{n}{h}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+    \PY{k}{return} \PY{n}{qc}
+
+\PY{n}{phi}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{o}{.}\PY{n}{draw}\PY{p}{(}\PY{n}{output}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mpl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+ 
+            
+\prompt{Out}{outcolor}{70}{}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{ZapataFergusonM_Session2_files/ZapataFergusonM_Session2_29_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{71}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Next we must create a 5\PYZhy{}register QFT gate}
+\PY{n}{qft5} \PY{o}{=} \PY{n}{QFT}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{o}{.}\PY{n}{to\PYZus{}gate}\PY{p}{(}\PY{p}{)}
+\PY{c+c1}{\PYZsh{} And apply it to each prepared state}
+
+\PY{n}{prec} \PY{o}{=} \PY{l+m+mi}{2} \PY{c+c1}{\PYZsh{} Decimal precision}
+\PY{n}{phihat\PYZus{}q} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{empty}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{32}\PY{p}{)}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{cdouble}\PY{p}{)}
+\PY{n}{ket\PYZus{}q} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+\PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{:}
+    \PY{n}{qc} \PY{o}{=} \PY{n}{phi}\PY{p}{(}\PY{n}{k}\PY{p}{)}
+    \PY{c+c1}{\PYZsh{} Quantum Fourier transform}
+    \PY{n}{qc}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{qft5}\PY{p}{,} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+    \PY{n}{phihat\PYZus{}q}\PY{p}{[}\PY{n}{k}\PY{p}{]} \PY{o}{=} \PY{n}{Statevector}\PY{p}{(}\PY{n}{qc}\PY{p}{)}
+    \PY{c+c1}{\PYZsh{} Format ket as a linear combination of basis vectors (string)}
+    \PY{n}{idx} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{phihat\PYZus{}q}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{o}{\PYZhy{}}\PY{n}{prec}\PY{p}{)}
+    \PY{n}{ket\PYZus{}q}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{+}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{p}{[}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{(}\PY{l+s+si}{\PYZob{}}\PY{n}{phihat\PYZus{}q}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{l+s+si}{:}\PY{l+s+s1}{.}\PY{l+s+si}{\PYZob{}}\PY{n}{prec}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{f}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{)|}\PY{l+s+si}{\PYZob{}}\PY{n}{j}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{\PYZgt{}}\PY{l+s+s1}{\PYZsq{}} \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n}{idx}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Print out Fourier transformed kets}
+\PY{n}{ket\PYZus{}q}
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{71}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+['(1.00+0.00j)|16>',
+ '(0.50+0.50j)|8>+(0.50-0.50j)|24>',
+ '(0.25+0.60j)|4>+(0.25+0.10j)|12>+(0.25-0.10j)|20>+(0.25-0.60j)|28>',
+ '(0.12+0.63j)|2>+(0.12+0.19j)|6>+(0.12+0.08j)|10>+(0.12+0.02j)|14>+(0.12-
+0.02j)|18>+(0.12-0.08j)|22>+(0.12-0.19j)|26>+(0.12-0.63j)|30>']
+\end{Verbatim}
+\end{tcolorbox}
+        
+    Let \(QFT_5\) be the Quantum Fourier transform of 5 qubits, we obtained
+the following results: - \(QFT_5|\phi_1\rangle = |16⟩\) -
+\(QFT_5|\phi_2\rangle = \frac{1}{2}(1+i)|8⟩+\frac{1}{2}(1-i)|24⟩\) -
+\(QFT_5|\phi_3\rangle = (0.25+0.60i)|4⟩+(0.25+0.10 i)|12⟩+(0.25-0.10 i) |20⟩ + (0.25-0.60i)|28⟩\)
+-
+\(QFT_5|\phi_4\rangle = (0.12+0.63i)|2⟩+(0.12+0.19i)|6⟩+(0.12+0.08i)|10⟩+(0.12+0.02i)|14⟩+(0.12-0.02i)|18⟩+(0.12-0.08i)|22⟩+(0.12-0.19i)|26⟩+(0.12-0.63i)|30⟩\)
+
+The QFT is so efficient because the number of quantum gates it requires
+for \(n\) qubits scales like \(O(n^2)\), whereas the dimension of the
+Hilbert space scales like \(N=2^n\). This can be compared to best DFT
+algorithm, the Fast Fourier Transform (FFT), which has complexity
+\(O(N\log N)=O(n2^n)\) --- that is, the QFT has an exponential advantage
+over the classical DFT.
+
+We could also check whether we obtain the same result via classical
+computing methods (bearing in mind that the convention for Fourier /
+inverse Fourier transform in signal processing is opposite that of
+quantum computing).
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{72}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{phihat\PYZus{}c} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{empty}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{32}\PY{p}{)}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{cdouble}\PY{p}{)}
+\PY{n}{ket\PYZus{}c} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+\PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{:}
+    \PY{n}{qc} \PY{o}{=} \PY{n}{phi}\PY{p}{(}\PY{n}{k}\PY{p}{)}
+    \PY{c+c1}{\PYZsh{} Classical Fourier transform}
+    \PY{n}{phihat\PYZus{}c}\PY{p}{[}\PY{n}{k}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{ifft}\PY{p}{(}\PY{n}{Statevector}\PY{p}{(}\PY{n}{qc}\PY{p}{)}\PY{p}{,} \PY{n}{norm}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ortho}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+    \PY{c+c1}{\PYZsh{} Format ket as a linear combination of basis vectors (string)}
+    \PY{n}{idx} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{phihat\PYZus{}c}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{o}{\PYZhy{}}\PY{n}{prec}\PY{p}{)}
+    \PY{n}{ket\PYZus{}c}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{+}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{p}{[}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{(}\PY{l+s+si}{\PYZob{}}\PY{n}{phihat\PYZus{}c}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{l+s+si}{:}\PY{l+s+s1}{.}\PY{l+s+si}{\PYZob{}}\PY{n}{prec}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{f}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{)|}\PY{l+s+si}{\PYZob{}}\PY{n}{j}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{\PYZgt{}}\PY{l+s+s1}{\PYZsq{}} \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n}{idx}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Print out Fourier transformed kets}
+\PY{n}{ket\PYZus{}c}
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{72}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+['(1.00+0.00j)|16>',
+ '(0.50+0.50j)|8>+(0.50-0.50j)|24>',
+ '(0.25+0.60j)|4>+(0.25+0.10j)|12>+(0.25-0.10j)|20>+(0.25-0.60j)|28>',
+ '(0.12+0.63j)|2>+(0.12+0.19j)|6>+(0.12+0.08j)|10>+(0.12+0.02j)|14>+(0.12-
+0.02j)|18>+(0.12-0.08j)|22>+(0.12-0.19j)|26>+(0.12-0.63j)|30>']
+\end{Verbatim}
+\end{tcolorbox}
+        
+    Looks promising! Just so our eyes don't deceive us, let's compare both
+calculations programatically.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{73}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{phihat\PYZus{}q} \PY{o}{\PYZhy{}} \PY{n}{phihat\PYZus{}c}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{73}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+3.3306690738754696e-16
+\end{Verbatim}
+\end{tcolorbox}
+        
+    As we can see, the discrepancy between both calculations is at most on
+the order of \(10^{-16}\), which could be attributed to machine error.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+\end{document}

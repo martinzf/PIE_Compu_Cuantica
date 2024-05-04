@@ -1,0 +1,1358 @@
+\documentclass[11pt]{article}
+
+    \usepackage[breakable]{tcolorbox}
+    \usepackage{parskip} % Stop auto-indenting (to mimic markdown behaviour)
+    
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % Maintain compatibility with old templates. Remove in nbconvert 6.0
+    \let\Oldincludegraphics\includegraphics
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionFormat{nocaption}{}
+    \captionsetup{format=nocaption,aboveskip=0pt,belowskip=0pt}
+
+    \usepackage{float}
+    \floatplacement{figure}{H} % forces figures to be placed at the correct location
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+
+    \usepackage{iftex}
+    \ifPDFTeX
+        \usepackage[T1]{fontenc}
+        \IfFileExists{alphabeta.sty}{
+              \usepackage{alphabeta}
+          }{
+              \usepackage[mathletters]{ucs}
+              \usepackage[utf8x]{inputenc}
+          }
+    \else
+        \usepackage{fontspec}
+        \usepackage{unicode-math}
+    \fi
+
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics
+                         % to support a larger range
+    \makeatletter % fix for old versions of grffile with XeLaTeX
+    \@ifpackagelater{grffile}{2019/11/01}
+    {
+      % Do nothing on new versions
+    }
+    {
+      \def\Gread@@xetex#1{%
+        \IfFileExists{"\Gin@base".bb}%
+        {\Gread@eps{\Gin@base.bb}}%
+        {\Gread@@xetex@aux#1}%
+      }
+    }
+    \makeatother
+    \usepackage[Export]{adjustbox} % Used to constrain images to a maximum size
+    \adjustboxset{max size={0.9\linewidth}{0.9\paperheight}}
+
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    % The default LaTeX title has an obnoxious amount of whitespace. By default,
+    % titling removes some of it. It also provides customization options.
+    \usepackage{titling}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage{array}     % table support for pandoc >= 2.11.3
+    \usepackage{calc}      % table minipage width calculation for pandoc >= 2.11.1
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{soul}      % strikethrough (\st) support for pandoc >= 3.0.0
+    \usepackage{mathrsfs}
+    
+
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % common color for the border for error outputs.
+    \definecolor{outerrorbackground}{HTML}{FFDFDF}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+
+
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{ZapataFergusonM\_Session3}
+    
+    
+    
+    
+    
+    
+    
+% Pygments definitions
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\@namedef{PY@tok@w}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\@namedef{PY@tok@c}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cp}{\def\PY@tc##1{\textcolor[rgb]{0.61,0.40,0.00}{##1}}}
+\@namedef{PY@tok@k}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kp}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kt}{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\@namedef{PY@tok@o}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@ow}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\@namedef{PY@tok@nb}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@nf}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@nc}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@nn}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@ne}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.80,0.25,0.22}{##1}}}
+\@namedef{PY@tok@nv}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@no}{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\@namedef{PY@tok@nl}{\def\PY@tc##1{\textcolor[rgb]{0.46,0.46,0.00}{##1}}}
+\@namedef{PY@tok@ni}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.44,0.44,0.44}{##1}}}
+\@namedef{PY@tok@na}{\def\PY@tc##1{\textcolor[rgb]{0.41,0.47,0.13}{##1}}}
+\@namedef{PY@tok@nt}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@nd}{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\@namedef{PY@tok@s}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sd}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@si}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.64,0.35,0.47}{##1}}}
+\@namedef{PY@tok@se}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.36,0.12}{##1}}}
+\@namedef{PY@tok@sr}{\def\PY@tc##1{\textcolor[rgb]{0.64,0.35,0.47}{##1}}}
+\@namedef{PY@tok@ss}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@sx}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@m}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@gh}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\@namedef{PY@tok@gu}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\@namedef{PY@tok@gd}{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\@namedef{PY@tok@gi}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.52,0.00}{##1}}}
+\@namedef{PY@tok@gr}{\def\PY@tc##1{\textcolor[rgb]{0.89,0.00,0.00}{##1}}}
+\@namedef{PY@tok@ge}{\let\PY@it=\textit}
+\@namedef{PY@tok@gs}{\let\PY@bf=\textbf}
+\@namedef{PY@tok@ges}{\let\PY@bf=\textbf\let\PY@it=\textit}
+\@namedef{PY@tok@gp}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\@namedef{PY@tok@go}{\def\PY@tc##1{\textcolor[rgb]{0.44,0.44,0.44}{##1}}}
+\@namedef{PY@tok@gt}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\@namedef{PY@tok@err}{\def\PY@bc##1{{\setlength{\fboxsep}{\string -\fboxrule}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}}
+\@namedef{PY@tok@kc}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kd}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kn}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kr}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@bp}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@fm}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@vc}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vg}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vi}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vm}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@sa}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sb}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sc}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@dl}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@s2}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sh}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@s1}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@mb}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mf}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mh}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mi}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@il}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mo}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@ch}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cm}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cpf}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@c1}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cs}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % For linebreaks inside Verbatim environment from package fancyvrb.
+    \makeatletter
+        \newbox\Wrappedcontinuationbox
+        \newbox\Wrappedvisiblespacebox
+        \newcommand*\Wrappedvisiblespace {\textcolor{red}{\textvisiblespace}}
+        \newcommand*\Wrappedcontinuationsymbol {\textcolor{red}{\llap{\tiny$\m@th\hookrightarrow$}}}
+        \newcommand*\Wrappedcontinuationindent {3ex }
+        \newcommand*\Wrappedafterbreak {\kern\Wrappedcontinuationindent\copy\Wrappedcontinuationbox}
+        % Take advantage of the already applied Pygments mark-up to insert
+        % potential linebreaks for TeX processing.
+        %        {, <, #, %, $, ' and ": go to next line.
+        %        _, }, ^, &, >, - and ~: stay at end of broken line.
+        % Use of \textquotesingle for straight quote.
+        \newcommand*\Wrappedbreaksatspecials {%
+            \def\PYGZus{\discretionary{\char`\_}{\Wrappedafterbreak}{\char`\_}}%
+            \def\PYGZob{\discretionary{}{\Wrappedafterbreak\char`\{}{\char`\{}}%
+            \def\PYGZcb{\discretionary{\char`\}}{\Wrappedafterbreak}{\char`\}}}%
+            \def\PYGZca{\discretionary{\char`\^}{\Wrappedafterbreak}{\char`\^}}%
+            \def\PYGZam{\discretionary{\char`\&}{\Wrappedafterbreak}{\char`\&}}%
+            \def\PYGZlt{\discretionary{}{\Wrappedafterbreak\char`\<}{\char`\<}}%
+            \def\PYGZgt{\discretionary{\char`\>}{\Wrappedafterbreak}{\char`\>}}%
+            \def\PYGZsh{\discretionary{}{\Wrappedafterbreak\char`\#}{\char`\#}}%
+            \def\PYGZpc{\discretionary{}{\Wrappedafterbreak\char`\%}{\char`\%}}%
+            \def\PYGZdl{\discretionary{}{\Wrappedafterbreak\char`\$}{\char`\$}}%
+            \def\PYGZhy{\discretionary{\char`\-}{\Wrappedafterbreak}{\char`\-}}%
+            \def\PYGZsq{\discretionary{}{\Wrappedafterbreak\textquotesingle}{\textquotesingle}}%
+            \def\PYGZdq{\discretionary{}{\Wrappedafterbreak\char`\"}{\char`\"}}%
+            \def\PYGZti{\discretionary{\char`\~}{\Wrappedafterbreak}{\char`\~}}%
+        }
+        % Some characters . , ; ? ! / are not pygmentized.
+        % This macro makes them "active" and they will insert potential linebreaks
+        \newcommand*\Wrappedbreaksatpunct {%
+            \lccode`\~`\.\lowercase{\def~}{\discretionary{\hbox{\char`\.}}{\Wrappedafterbreak}{\hbox{\char`\.}}}%
+            \lccode`\~`\,\lowercase{\def~}{\discretionary{\hbox{\char`\,}}{\Wrappedafterbreak}{\hbox{\char`\,}}}%
+            \lccode`\~`\;\lowercase{\def~}{\discretionary{\hbox{\char`\;}}{\Wrappedafterbreak}{\hbox{\char`\;}}}%
+            \lccode`\~`\:\lowercase{\def~}{\discretionary{\hbox{\char`\:}}{\Wrappedafterbreak}{\hbox{\char`\:}}}%
+            \lccode`\~`\?\lowercase{\def~}{\discretionary{\hbox{\char`\?}}{\Wrappedafterbreak}{\hbox{\char`\?}}}%
+            \lccode`\~`\!\lowercase{\def~}{\discretionary{\hbox{\char`\!}}{\Wrappedafterbreak}{\hbox{\char`\!}}}%
+            \lccode`\~`\/\lowercase{\def~}{\discretionary{\hbox{\char`\/}}{\Wrappedafterbreak}{\hbox{\char`\/}}}%
+            \catcode`\.\active
+            \catcode`\,\active
+            \catcode`\;\active
+            \catcode`\:\active
+            \catcode`\?\active
+            \catcode`\!\active
+            \catcode`\/\active
+            \lccode`\~`\~
+        }
+    \makeatother
+
+    \let\OriginalVerbatim=\Verbatim
+    \makeatletter
+    \renewcommand{\Verbatim}[1][1]{%
+        %\parskip\z@skip
+        \sbox\Wrappedcontinuationbox {\Wrappedcontinuationsymbol}%
+        \sbox\Wrappedvisiblespacebox {\FV@SetupFont\Wrappedvisiblespace}%
+        \def\FancyVerbFormatLine ##1{\hsize\linewidth
+            \vtop{\raggedright\hyphenpenalty\z@\exhyphenpenalty\z@
+                \doublehyphendemerits\z@\finalhyphendemerits\z@
+                \strut ##1\strut}%
+        }%
+        % If the linebreak is at a space, the latter will be displayed as visible
+        % space at end of first line, and a continuation symbol starts next line.
+        % Stretch/shrink are however usually zero for typewriter font.
+        \def\FV@Space {%
+            \nobreak\hskip\z@ plus\fontdimen3\font minus\fontdimen4\font
+            \discretionary{\copy\Wrappedvisiblespacebox}{\Wrappedafterbreak}
+            {\kern\fontdimen2\font}%
+        }%
+
+        % Allow breaks at special characters using \PYG... macros.
+        \Wrappedbreaksatspecials
+        % Breaks at punctuation characters . , ; ? ! and / need catcode=\active
+        \OriginalVerbatim[#1,codes*=\Wrappedbreaksatpunct]%
+    }
+    \makeatother
+
+    % Exact colors from NB
+    \definecolor{incolor}{HTML}{303F9F}
+    \definecolor{outcolor}{HTML}{D84315}
+    \definecolor{cellborder}{HTML}{CFCFCF}
+    \definecolor{cellbackground}{HTML}{F7F7F7}
+
+    % prompt
+    \makeatletter
+    \newcommand{\boxspacing}{\kern\kvtcb@left@rule\kern\kvtcb@boxsep}
+    \makeatother
+    \newcommand{\prompt}[4]{
+        {\ttfamily\llap{{\color{#2}[#3]:\hspace{3pt}#4}}\vspace{-\baselineskip}}
+    }
+    
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+\begin{document}
+    
+    \maketitle
+    
+    
+
+    
+    \subsection{Session 3: Execution of real quantum circuits on IBM's
+computers}\label{session-3-execution-of-real-quantum-circuits-on-ibms-computers}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{2}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Importing standard Qiskit libraries}
+\PY{k+kn}{from} \PY{n+nn}{qiskit} \PY{k+kn}{import} \PY{n}{QuantumCircuit}\PY{p}{,} \PY{n}{transpile}
+\PY{k+kn}{from} \PY{n+nn}{qiskit\PYZus{}aer} \PY{k+kn}{import} \PY{n}{AerSimulator}
+\PY{k+kn}{from} \PY{n+nn}{qiskit\PYZus{}ibm\PYZus{}runtime} \PY{k+kn}{import} \PY{n}{QiskitRuntimeService}\PY{p}{,} \PY{n}{SamplerV2}\PY{p}{,} \PY{n}{EstimatorV2}
+\PY{k+kn}{from} \PY{n+nn}{qiskit}\PY{n+nn}{.}\PY{n+nn}{quantum\PYZus{}info} \PY{k+kn}{import} \PY{n}{SparsePauliOp}\PY{p}{,} \PY{n}{Operator}
+
+\PY{c+c1}{\PYZsh{} Other imports}
+\PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+\PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+\PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+\end{Verbatim}
+\end{tcolorbox}
+
+    In the lab session we used premium accounts to fast forward over the
+long queue list of IBM's quantum machines. However at home we can use
+our free accounts to schedule calculations.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{3}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Recover previous session information}
+\PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{session.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Loading account}
+\PY{n}{service} \PY{o}{=} \PY{n}{QiskitRuntimeService}\PY{p}{(}\PY{n}{channel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ibm\PYZus{}quantum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{token}\PY{o}{=}\PY{n}{df}\PY{o}{.}\PY{n}{token}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} 
+
+\PY{c+c1}{\PYZsh{} Simulation machine}
+\PY{n}{backend\PYZus{}S} \PY{o}{=} \PY{n}{AerSimulator}\PY{p}{(}\PY{p}{)}
+\PY{c+c1}{\PYZsh{} In the lab we used backend\PYZus{}S = service.backend(\PYZsq{}ibmq\PYZus{}qasm\PYZus{}simulator\PYZsq{}), }
+\PY{c+c1}{\PYZsh{} however cloud simulators have been deprecated and will be removed on 15 May 2024}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Quantum machine}
+\PY{n}{backend\PYZus{}Q} \PY{o}{=} \PY{n}{service}\PY{o}{.}\PY{n}{least\PYZus{}busy}\PY{p}{(}\PY{n}{operational}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{simulator}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{min\PYZus{}num\PYZus{}qubits}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Save backend}
+\PY{n}{df}\PY{o}{.}\PY{n}{backend\PYZus{}Q} \PY{o}{=} \PY{n}{backend\PYZus{}Q}\PY{o}{.}\PY{n}{name}
+\PY{n}{df}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{session.txt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{3}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{backend\PYZus{}Q} \PY{o}{=} \PY{n}{service}\PY{o}{.}\PY{n}{get\PYZus{}backend}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{backend\PYZus{}Q}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} 
+\PY{n}{backend\PYZus{}Q}\PY{o}{.}\PY{n}{status}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{3}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+<qiskit.providers.models.backendstatus.BackendStatus at 0x2109434b090>
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{4}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Maximum execution time in seconds}
+\PY{n}{my\PYZus{}options} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max\PYZus{}execution\PYZus{}time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{30}\PY{p}{\PYZcb{}}
+
+\PY{c+c1}{\PYZsh{} Classical and quantum estimators}
+\PY{n}{estimator\PYZus{}S} \PY{o}{=} \PY{n}{EstimatorV2}\PY{p}{(}\PY{n}{backend}\PY{o}{=}\PY{n}{backend\PYZus{}S}\PY{p}{)}
+\PY{n}{estimator\PYZus{}Q} \PY{o}{=} \PY{n}{EstimatorV2}\PY{p}{(}\PY{n}{backend}\PY{o}{=}\PY{n}{backend\PYZus{}Q}\PY{p}{,} \PY{n}{options}\PY{o}{=}\PY{n}{my\PYZus{}options}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Classical and quantum samplers}
+\PY{n}{sampler\PYZus{}S} \PY{o}{=} \PY{n}{SamplerV2}\PY{p}{(}\PY{n}{backend}\PY{o}{=}\PY{n}{backend\PYZus{}S}\PY{p}{)}
+\PY{n}{sampler\PYZus{}Q} \PY{o}{=} \PY{n}{SamplerV2}\PY{p}{(}\PY{n}{backend}\PY{o}{=}\PY{n}{backend\PYZus{}Q}\PY{p}{,} \PY{n}{options}\PY{o}{=}\PY{n}{my\PYZus{}options}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \subsubsection{\texorpdfstring{\textbf{Random numbers}
+}{Random numbers }}\label{random-numbers}
+
+The generation of random numbers using a classical simulator of a
+quantum machine was conducted during the second session. Now, let's
+generate ``true random numbers''! To achieve this, we define a 3-qubit
+circuit that prepares each of them in the superposition
+\(\tfrac{1}{\sqrt2}(|0\rangle+|1\rangle)\) and measures them in the
+computational basis \({|0\rangle,|1\rangle}\). This setup ensures that
+the measurement outcomes will be 0 or 1 with equal probabilities of 0.5.
+\#\#\#\# \textbf{Question 1}: Study the definition of the circuit with
+care
+
+\textbf{Answer:} It creates a barrier of Hadamard gates, which prepares
+each qubit in an equal superposition of \(|0\rangle\) and \(|1\rangle\).
+The circuit assigns three qubits to each random number to be generated,
+meaning the random numbers range between \(0\) and \(7\). This is an
+example of the \emph{Hadamard transform}, which in this case performs
+the following operation:
+
+\[
+H^{\otimes 90}|0\rangle^{\otimes 90} = |+\rangle^{\otimes 90}
+\]
+
+More generally, if we have a register initialised to a state
+\(|j\rangle\) of the computational basis, the action of a Hadamard
+transform is the following:
+
+\[
+H^{\otimes n}|j\rangle = \bigotimes_{i=0}^{n}H|j_i\rangle = 
+\frac{1}{2^{n/2}} \bigotimes_{i=0}^{n}(|0\rangle+(-1)^{j_i}|1\rangle) = 
+\frac{1}{2^{n/2}} \bigotimes_{i=0}^{n}\sum\limits_{k_i=0}^1 (-1)^{k_ij_i}|k_i\rangle =
+\]
+
+\[
+= \frac{1}{2^{n/2}} \sum\limits_{k_1=0}^1 (-1)^{k_1j_1}|k_1\rangle
+\sum\limits_{k_2=0}^1 (-1)^{k_2j_2}|k_2\rangle... 
+\sum\limits_{k_n=0}^1 (-1)^{k_nj_n}|k_n\rangle = 
+\]
+
+\[
+= \frac{1}{2^{n/2}} \sum\limits_{k_1=0}^1\sum\limits_{k_2=0}^1...\sum\limits_{k_n=0}^1
+ (-1)^{\sum\limits_{i=1}^{n}k_ij_i}|k_1k_2...k_n\rangle \equiv
+\]
+
+\[
+\equiv\frac{1}{2^{n/2}} \sum\limits_{k=0}^{2^n-1}(-1)^{\sum\limits_{i=1}^{n}k_ij_i}|k\rangle
+\]
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{100}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} How many random numbers will be produced in a single shot:}
+\PY{n}{Nnumbers} \PY{o}{=} \PY{l+m+mi}{30}  \PY{c+c1}{\PYZsh{} Must be smaller than [127 qubits/3]=42}
+\PY{c+c1}{\PYZsh{} Prepare the input circuit}
+\PY{n}{QRNG} \PY{o}{=} \PY{n}{QuantumCircuit}\PY{p}{(}\PY{l+m+mi}{3}\PY{o}{*}\PY{n}{Nnumbers}\PY{p}{)} \PY{c+c1}{\PYZsh{} Three qubits per number}
+\PY{n}{QRNG}\PY{o}{.}\PY{n}{h}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{o}{*}\PY{n}{Nnumbers}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} Apply Hadamard gate to each of the qubits}
+\PY{n}{QRNG}\PY{o}{.}\PY{n}{measure\PYZus{}all}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} Measure all qubits}
+\PY{n}{QRNG} \PY{o}{=} \PY{n}{transpile}\PY{p}{(}\PY{n}{QRNG}\PY{p}{,} \PY{n}{backend}\PY{o}{=}\PY{n}{backend\PYZus{}Q}\PY{p}{)} \PY{c+c1}{\PYZsh{} Adapt circuit to architecture of quantum machine}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{34}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Execute the circuit directly on a quantum computer}
+\PY{n}{job\PYZus{}qrng} \PY{o}{=} \PY{n}{sampler\PYZus{}Q}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{p}{[}\PY{n}{QRNG}\PY{p}{]}\PY{p}{,} \PY{n}{shots}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Save job identification code for later}
+\PY{n}{df}\PY{o}{.}\PY{n}{qrng\PYZus{}id} \PY{o}{=} \PY{n}{job\PYZus{}qrng}\PY{o}{.}\PY{n}{job\PYZus{}id}\PY{p}{(}\PY{p}{)}
+\PY{n}{df}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{session.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+c:\textbackslash{}Users\textbackslash{}zapat\textbackslash{}Escritorio\textbackslash{}CODE\textbackslash{}PIE\_Compu\_Cuantica\textbackslash{}venv\textbackslash{}Lib\textbackslash{}site-
+packages\textbackslash{}qiskit\_ibm\_runtime\textbackslash{}qiskit\_runtime\_service.py:879: UserWarning: Your
+current pending jobs are estimated to consume 649.5556236231932 quantum seconds,
+but you only have 600 quantum seconds left in your monthly quota; therefore, it
+is likely this job will be canceled
+  warnings.warn(warning\_message)
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{81}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} The following cell retrieves information about the job}
+\PY{n}{job\PYZus{}qrng} \PY{o}{=} \PY{n}{service}\PY{o}{.}\PY{n}{job}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{qrng\PYZus{}id}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+\PY{n}{job\PYZus{}qrng}\PY{o}{.}\PY{n}{status}\PY{p}{(}\PY{p}{)} 
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{81}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+<JobStatus.DONE: 'job has successfully run'>
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{82}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} The next statement can put your session on hold until the job runs and returns}
+\PY{n}{result\PYZus{}qrng} \PY{o}{=} \PY{n}{job\PYZus{}qrng}\PY{o}{.}\PY{n}{result}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \paragraph{\texorpdfstring{ \textbf{Question 2}: Comment on your results
+}{ Question 2: Comment on your results }}\label{question-2-comment-on-your-results}
+
+\textbf{Answer:} We obtained the following result from the IBM Quantum
+computer run in the lab with UCM tokens:
+
+\texttt{{[}\{236732400872330227231122054:\ 1.0\}{]}}
+
+After depuration we obtain the following list of numbers
+
+\texttt{{[}6,\ 0,\ 2,\ 1,\ 6,\ 4,\ 4,\ 5,\ 2,\ 2,\ 3,\ 3,\ 4,\ 2,\ 2,\ 3,\ 2,\ 1,\ 2,\ 5,\ 2,\ 2,\ 2,\ 0,\ 2,\ 2,\ 7,\ 1,\ 4,\ 1{]}}
+
+that we can plot in a histogram.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{7}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{RandomNumbers} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{6}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}
+\PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{RandomNumbers}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{9}\PY{p}{)}\PY{p}{,} \PY{n}{align}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{ZapataFergusonM_Session3_files/ZapataFergusonM_Session3_13_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    We can likewise retrieve our own results run at home.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{134}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{bits}\PY{p}{,} \PY{o}{=} \PY{n}{result\PYZus{}qrng}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{o}{.}\PY{n}{meas}\PY{o}{.}\PY{n}{get\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\PY{n}{numbers} \PY{o}{=} \PY{p}{[}\PY{n}{bits}\PY{p}{[}\PY{n}{i}\PY{p}{:}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{3}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{3}\PY{o}{*}\PY{n}{Nnumbers}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{]}
+\PY{n}{decimal\PYZus{}numbers} \PY{o}{=} \PY{p}{[}\PY{n+nb}{int}\PY{p}{(}\PY{n}{n}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)} \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n}{numbers}\PY{p}{]}
+\PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{decimal\PYZus{}numbers}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{9}\PY{p}{)}\PY{p}{,} \PY{n}{align}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{ZapataFergusonM_Session3_files/ZapataFergusonM_Session3_15_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The distribution is not ``particularly uniform'', it rather looks more
+log-normal. However, we generated very few random numbers, to draw any
+statistical conclusions we would likely have to produce many more.
+
+    \subsubsection{\texorpdfstring{\textbf{Deutsch's
+algorithm}}{Deutsch's algorithm}}\label{deutschs-algorithm}
+
+To encode the action of a Boolean fuction, Deutsch's algorithm uses the
+following operation over two qubits
+
+\[
+|x\rangle|y\rangle\to |x\rangle|y\oplus f(x)\rangle
+\]
+
+where \(\oplus\) denotes the binary addition (i.e.~the addition mod. 2).
+
+\paragraph{\texorpdfstring{\textbf{Homework 1} (to do later after the
+lab on pen and paper): Prove that this is a unitary operation.
+}{Homework 1 (to do later after the lab on pen and paper):   Prove that this is a unitary operation. }}\label{homework-1-to-do-later-after-the-lab-on-pen-and-paper-prove-that-this-is-a-unitary-operation.}
+
+\textbf{Answer:} It is clear that the quantum oracle preserves the norm,
+therefore it is unitary. If we take
+\((x,y)\in\{0,1\}^2, f(x)\in\{0,1\}\), we have that
+\(y\oplus f(x)\in\{0,1\}\) --- in other words,
+\(|x\rangle|y\oplus f(x)\rangle\) is a ket from the computational basis
+of the Hilbert space. The operation might be non-invertible if it mapped
+two different kets to a single one, but this is impossible, since
+\(0\oplus f(x)\neq 1\oplus f(x)\):
+
+\[
+(\langle x|\langle 0|)U_f^\dagger U_f(|x\rangle|1\rangle) =
+(\langle x|\langle 0\oplus f(x)|)(|x\rangle|1\oplus f(x)\rangle) = 
+\langle x|x\rangle\langle 0\oplus f(x)|1\oplus f(x)\rangle = 0
+\]
+
+Alternatively, given there exist a finite number of Boolean functions,
+we can calculate the oracle matrix for each \(f\) to better understand
+what \(U_f\) does. If we place the control qubit \(|x\rangle\) first, as
+we'll later do in the circuits (so
+\(|y,x\rangle\rightarrow|y\oplus f(x), x\rangle\)), the representations
+of \(U_f\) are
+
+\[
+\begin{aligned}
+f(x)&=0:\quad
+U_f = \begin{pmatrix}
+1 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{pmatrix},
+&
+f(x)&=1:\quad
+U_f = \begin{pmatrix}
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1 \\
+1 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0
+\end{pmatrix}
+\end{aligned}
+\]
+
+\[
+\begin{aligned}
+f(x)&=x: \quad
+U_f = \begin{pmatrix}
+1 & 0 & 0 & 0 \\
+0 & 0 & 0 & 1 \\
+0 & 0 & 1 & 0 \\
+0 & 1 & 0 & 0
+\end{pmatrix},
+&
+f(x)&=\neg x:\quad
+U_f = \begin{pmatrix}
+0 & 0 & 1 & 0 \\
+0 & 1 & 0 & 0 \\
+1 & 0 & 0 & 0 \\
+0 & 0 & 0 & 1
+\end{pmatrix}
+\end{aligned}
+\]
+
+These matrices all represent permutations, which are unitary operations.
+
+    \paragraph{\texorpdfstring{ \textbf{Question 2}: Complete the following
+cells to create quantum circuits for Oracle\_f that decides whether
+\(f\) is (or not) constant using the classical method with two
+evaluations
+}{ Question 2: Complete the following cells to create quantum circuits for Oracle\_f that decides whether f is (or not) constant using the classical method with two evaluations }}\label{question-2-complete-the-following-cells-to-create-quantum-circuits-for-oracle_f-that-decides-whether-f-is-or-not-constant-using-the-classical-method-with-two-evaluations}
+
+\textbf{Answer:} To evaluate \(f\) using the oracle we can measure the
+leftmost qubit in the following two states:
+
+\[
+U_f|0\rangle|0\rangle = |f(0)\rangle|0\rangle
+\]
+
+\[
+U_f|0\rangle|1\rangle = |f(1)\rangle|1\rangle
+\]
+
+N.B.: Qubit significance and indexing in Qiskit goes from right to left,
+top to bottom, \(0\) to \(n\).
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{9}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{Oracle\PYZus{}f} \PY{o}{=} \PY{n}{Operator}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+\PY{n}{Oracle\PYZus{}g} \PY{o}{=} \PY{n}{Operator}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} First evaluation}
+\PY{n}{Check\PYZus{}f0} \PY{o}{=} \PY{n}{QuantumCircuit}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+\PY{n}{Check\PYZus{}f0}\PY{o}{.}\PY{n}{unitary}\PY{p}{(}\PY{n}{Oracle\PYZus{}f}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Oracle\PYZus{}f}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{Check\PYZus{}f0}\PY{o}{.}\PY{n}{measure}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+\PY{n}{Check\PYZus{}f0}\PY{o}{.}\PY{n}{draw}\PY{p}{(}\PY{n}{output}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mpl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+ 
+            
+\prompt{Out}{outcolor}{9}{}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{ZapataFergusonM_Session3_files/ZapataFergusonM_Session3_19_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{123}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Second evaluation}
+\PY{n}{Check\PYZus{}f1} \PY{o}{=} \PY{n}{QuantumCircuit}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+\PY{n}{Check\PYZus{}f1}\PY{o}{.}\PY{n}{x}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+\PY{n}{Check\PYZus{}f1}\PY{o}{.}\PY{n}{unitary}\PY{p}{(}\PY{n}{Oracle\PYZus{}f}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Oracle\PYZus{}f}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{Check\PYZus{}f1}\PY{o}{.}\PY{n}{measure}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}
+\PY{n}{Check\PYZus{}f1}\PY{o}{.}\PY{n}{draw}\PY{p}{(}\PY{n}{output}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mpl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+ 
+            
+\prompt{Out}{outcolor}{123}{}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{ZapataFergusonM_Session3_files/ZapataFergusonM_Session3_20_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{183}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Run both evaluations}
+\PY{n}{job\PYZus{}clf} \PY{o}{=} \PY{n}{sampler\PYZus{}S}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{p}{[}\PY{n}{Check\PYZus{}f0}\PY{p}{,} \PY{n}{Check\PYZus{}f1}\PY{p}{]}\PY{p}{,} \PY{n}{shots}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\PY{n}{result\PYZus{}clf} \PY{o}{=} \PY{n}{job\PYZus{}clf}\PY{o}{.}\PY{n}{result}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \paragraph{\texorpdfstring{ \textbf{Question 3}: By printing
+``result\_clf.quasi\_dists'', explain why the following cell gives the
+calculated result for \(f(0)\) and \(f(1)\).
+}{ Question 3: By printing ``result\_clf.quasi\_dists'', explain why the following cell gives the calculated result for f(0) and f(1). }}\label{question-3-by-printing-result_clf.quasi_dists-explain-why-the-following-cell-gives-the-calculated-result-for-f0-and-f1.}
+
+\textbf{Answer:} The function \(f(x)\) appears to be \(\neg x\), and
+therefore a balanced function. Indeed, if we compare the
+\texttt{Oracle\_f} with the matrix we calculated above for
+\(f(x)=\neg x\), they coincide.
+
+N.B.: For my calculations at home I used the \texttt{SamplerV2} class
+which has slightly different methods for retrieving results as compared
+to \texttt{Sampler}.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{184}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Print the measurement results}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{f(0) = }\PY{l+s+si}{\PYZob{}}\PY{n+nb}{int}\PY{p}{(}\PY{o}{*}\PY{n}{result\PYZus{}clf}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{o}{.}\PY{n}{c}\PY{o}{.}\PY{n}{get\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{f(1) = }\PY{l+s+si}{\PYZob{}}\PY{n+nb}{int}\PY{p}{(}\PY{o}{*}\PY{n}{result\PYZus{}clf}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{o}{.}\PY{n}{c}\PY{o}{.}\PY{n}{get\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+f(0) = 1
+f(1) = 0
+    \end{Verbatim}
+
+    \paragraph{\texorpdfstring{ \textbf{Question 4}: Complete the following
+cells to create quantum circuits for Oracle\_g that solve the problem of
+whether \(g\) is constant using the classical method of two evaluations
+}{ Question 4: Complete the following cells to create quantum circuits for Oracle\_g that solve the problem of whether g is constant using the classical method of two evaluations }}\label{question-4-complete-the-following-cells-to-create-quantum-circuits-for-oracle_g-that-solve-the-problem-of-whether-g-is-constant-using-the-classical-method-of-two-evaluations}
+
+\textbf{Answer:} We may repeat the previous process. We find that
+\(g(x)=1\), therefore \(g\) is a constant function.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{186}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} First evaluation}
+\PY{n}{Check\PYZus{}g0} \PY{o}{=} \PY{n}{QuantumCircuit}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+\PY{n}{Check\PYZus{}g0}\PY{o}{.}\PY{n}{unitary}\PY{p}{(}\PY{n}{Oracle\PYZus{}g}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Oracle\PYZus{}g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{Check\PYZus{}g0}\PY{o}{.}\PY{n}{measure}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Second evaluation}
+\PY{n}{Check\PYZus{}g1} \PY{o}{=} \PY{n}{QuantumCircuit}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+\PY{n}{Check\PYZus{}g1}\PY{o}{.}\PY{n}{x}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+\PY{n}{Check\PYZus{}g1}\PY{o}{.}\PY{n}{unitary}\PY{p}{(}\PY{n}{Oracle\PYZus{}g}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Oracle\PYZus{}g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{Check\PYZus{}g1}\PY{o}{.}\PY{n}{measure}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Run both evaluations}
+\PY{n}{job\PYZus{}clg} \PY{o}{=} \PY{n}{sampler\PYZus{}S}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{p}{[}\PY{n}{Check\PYZus{}g0}\PY{p}{,} \PY{n}{Check\PYZus{}g1}\PY{p}{]}\PY{p}{,} \PY{n}{shots}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\PY{n}{result\PYZus{}clg} \PY{o}{=} \PY{n}{job\PYZus{}clg}\PY{o}{.}\PY{n}{result}\PY{p}{(}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Print the measurement results}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g(0) = }\PY{l+s+si}{\PYZob{}}\PY{n+nb}{int}\PY{p}{(}\PY{o}{*}\PY{n}{result\PYZus{}clg}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{o}{.}\PY{n}{c}\PY{o}{.}\PY{n}{get\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g(1) = }\PY{l+s+si}{\PYZob{}}\PY{n+nb}{int}\PY{p}{(}\PY{o}{*}\PY{n}{result\PYZus{}clg}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{o}{.}\PY{n}{c}\PY{o}{.}\PY{n}{get\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+g(0) = 1
+g(1) = 1
+    \end{Verbatim}
+
+    The idea of Deutsch's algorithm is based on the use of quantum
+superposition to attempt a simultaneous evaluation and comparison of
+\(f(0)\) and \(f(1)\) with a single action of the quantum oracle.
+
+If \(f(0)=f(1)\),
+
+\[
+U_f|+\rangle|-\rangle=\frac{1}{2}\big[|0\rangle|f(0)\rangle-|0\rangle|1\oplus f(0)\rangle+|1\rangle|f(0)\rangle-|1\rangle|1\oplus f(0)\rangle\big]\]
+\[=\frac{1}{2}\big[\big(|0\rangle+|1\rangle\big)|f(0)\rangle-\big(|0\rangle+|1\rangle\big)|1\oplus f(0)\rangle\big]=|+\rangle \left[\frac{|f(0)\rangle-|1\oplus f(0)\rangle}{\sqrt{2}}\right]
+\]
+
+\paragraph{\texorpdfstring{\textbf{Homework question 5}: Prove (after
+the lab, on pen and
+paper):}{Homework question 5: Prove (after the lab, on pen and paper):}}\label{homework-question-5-prove-after-the-lab-on-pen-and-paper}
+
+the alternative case, that if \(f(0)\neq f(1)\), the final state
+becomes:
+
+\[
+|-\rangle \left[\frac{|f(0)\rangle-|f(1)\rangle}{\sqrt{2}}\right].
+\]
+
+    \textbf{Answer:} If \(f(0)\neq f(1)\), then \(f(0)\oplus 1=f(1)\) and
+\(f(1)\oplus 1=f(0)\), therefore \[
+|+\rangle|-\rangle=\frac{1}{2}\big(|0\rangle|0\rangle-|0\rangle|1\rangle+|1\rangle|0\rangle-|1\rangle|1\rangle\big)\to \]
+\[\frac{1}{2}\big[|0\rangle|f(0)\rangle-|0\rangle|1\oplus f(0)\rangle+|1\rangle|f(1)\rangle-|1\rangle|1\oplus f(1)\rangle\big] = \]
+\[ = \frac{1}{2}\big[|0\rangle|f(0)\rangle-|0\rangle|f(1)\rangle+|1\rangle|f(1)\rangle-|1\rangle|f(0)\rangle\big] = \]
+\[ = \frac{1}{2}\big[|0\rangle-|1\rangle\big]\big[|f(0)\rangle-|f(1)\rangle\big] =|-\rangle \left[\frac{|f(0)\rangle-|f(1)\rangle}{\sqrt{2}}\right]\]
+
+After running \(|+\rangle|-\rangle\) through the oracle, we may apply a
+Hadamard gate to the leftmost qubit and then measure it. This way we
+obtain \(H|+\rangle=|0\rangle\) if \(f\) is constant and
+\(H|-\rangle=|1\rangle\) if \(f\) is balanced.
+
+A better way to understand the solution to Deutsch's problem is through
+\emph{phase kickback}, the fact that controlled operations apply a phase
+to their control qubits. By considering it, we can simultaneously solve
+both cases in the problem statement:
+
+\[
+U_f|+\rangle|-\rangle = \frac{1}{2}
+\bigg(|0\rangle\big(|f(0)\oplus 0\rangle-|f(0)\oplus 1\rangle\big)+|1\rangle\big(|f(1)\oplus 0\rangle-|f(1)\oplus 1\rangle\big)\bigg) = 
+\]
+
+\[
+=  \frac{1}{2}
+\bigg((-1)^{f(0)} |0\rangle\big(|0\rangle-|1\rangle\big)+(-1)^{f(1)} |1\rangle\big(|0\rangle-|1\rangle\big)\bigg) = 
+\]
+
+\[
+= \frac{1}{\sqrt{2}}\bigg((-1)^{f(0)} |0\rangle+(-1)^{f(1)} |1\rangle\bigg)|-\rangle =
+\]
+
+\[
+= \frac{(-1)^{f(0)}}{\sqrt{2}}\bigg(|0\rangle+(-1)^{f(0)\oplus f(1)} |1\rangle\bigg)|-\rangle
+\]
+
+The modest quantum advantage in the Deutsch algortihm can be improved by
+keeping phase kickback in mind. In the Deutsch-Jozsa algorithm {[}1{]},
+the oracle now implements \(f:\{0,1\}^n\rightarrow\{0,1\}\), which we
+are promised is either constant or balanced, and we are asked to
+classify it. We start with state \(|0\rangle^{\otimes n}|1\rangle\), to
+which we apply a Hadamard transform:
+
+\[
+H^{\otimes(n+1)}(|0\rangle^{\otimes n}|1\rangle) = \frac{1}{2^{n/2}}\sum\limits_{x=0}^{2^n-1}|x\rangle|-\rangle
+\]
+
+If we now run this state through the oracle, as before, we get
+
+\[
+ \frac{1}{2^{n/2}}\sum\limits_{x=0}^{2^n-1}(-1)^{f(x)}|x\rangle|-\rangle
+\]
+
+Next, we take the \(n\) control qubits and apply a Hadamard transform to
+them:
+
+\[
+H^{\otimes n}\left[\frac{1}{2^{n/2}}\sum\limits_{x=0}^{2^n-1}(-1)^{f(x)}|x\rangle\right]= 
+\frac{1}{2^{n/2}}\sum\limits_{x=0}^{2^n-1}(-1)^{f(x)}
+\left[\frac{1}{2^{n/2}}\sum\limits_{y=0}^{2^n-1}(-1)^{x\cdot y}|y\rangle\right] = 
+\sum\limits_{y=0}^{2^n-1}\left[\frac{1}{2^n}\sum\limits_{x=0}^{2^n-1}(-1)^{f(x)}(-1)^{x\cdot y}\right]|y\rangle
+\]
+
+Finally, we conclude that the probability to measure \(|z\rangle\) is
+\(\left|\frac{1}{2^n}\sum\limits_{x=0}^{2^n-1}(-1)^{f(x)}(-1)^{x\cdot z}\right|^2\),
+so
+
+\[
+\mathrm{Prob}(|0\rangle^{\otimes n}) =  
+\left|\frac{1}{2^n}\sum\limits_{x=0}^{2^n-1}(-1)^{f(x)}\right|^2 =
+\begin{cases}
+1\ \text{if}\ f(x)\ \text{is constant} \\[1em]
+0\ \text{if}\ f(x)\ \text{is balanced}
+\end{cases}
+\]
+
+thus solving the problem in a single evaluation of \(f\). For a
+classical solution, we would have to check just over half of all
+possible bit strings (\(2^{n-1}+1\)), meaning the Deutsch-Jozsa
+algorithm has an exponential advantage over classical algorithms.
+
+    \paragraph{\texorpdfstring{ \textbf{Question 6}: Define a quantum
+circuit to implement Deutsch's algorithm with the function \(f\) and
+another with the function \(g\)
+}{ Question 6: Define a quantum circuit to implement Deutsch's algorithm with the function f and another with the function g }}\label{question-6-define-a-quantum-circuit-to-implement-deutschs-algorithm-with-the-function-f-and-another-with-the-function-g}
+
+\textbf{Answer:}
+
+    For the function \(f\):
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{10}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{deutsch\PYZus{}f} \PY{o}{=} \PY{n}{QuantumCircuit}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+\PY{n}{deutsch\PYZus{}f}\PY{o}{.}\PY{n}{x}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+\PY{n}{deutsch\PYZus{}f}\PY{o}{.}\PY{n}{h}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\PY{n}{deutsch\PYZus{}f}\PY{o}{.}\PY{n}{unitary}\PY{p}{(}\PY{n}{Oracle\PYZus{}f}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Oracle\PYZus{}f}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{deutsch\PYZus{}f}\PY{o}{.}\PY{n}{h}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+\PY{n}{deutsch\PYZus{}f}\PY{o}{.}\PY{n}{measure}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}
+\PY{n}{deutsch\PYZus{}f}\PY{o}{.}\PY{n}{draw}\PY{p}{(}\PY{n}{output}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mpl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+ 
+            
+\prompt{Out}{outcolor}{10}{}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{ZapataFergusonM_Session3_files/ZapataFergusonM_Session3_30_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    And for the function \(g\) we just change the oracle:
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{11}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{deutsch\PYZus{}g} \PY{o}{=} \PY{n}{QuantumCircuit}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+\PY{n}{deutsch\PYZus{}g}\PY{o}{.}\PY{n}{x}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+\PY{n}{deutsch\PYZus{}g}\PY{o}{.}\PY{n}{h}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\PY{n}{deutsch\PYZus{}g}\PY{o}{.}\PY{n}{unitary}\PY{p}{(}\PY{n}{Oracle\PYZus{}g}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Oracle\PYZus{}g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{deutsch\PYZus{}g}\PY{o}{.}\PY{n}{h}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+\PY{n}{deutsch\PYZus{}g}\PY{o}{.}\PY{n}{measure}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}
+\PY{n}{deutsch\PYZus{}g}\PY{o}{.}\PY{n}{draw}\PY{p}{(}\PY{n}{output}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mpl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+ 
+            
+\prompt{Out}{outcolor}{11}{}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{ZapataFergusonM_Session3_files/ZapataFergusonM_Session3_32_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{26}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Execute the circuit}
+\PY{n}{job\PYZus{}Deutsch\PYZus{}S} \PY{o}{=} \PY{n}{sampler\PYZus{}S}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{p}{[}\PY{n}{deutsch\PYZus{}f}\PY{p}{,} \PY{n}{deutsch\PYZus{}g}\PY{p}{]}\PY{p}{,} \PY{n}{shots}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\PY{n}{result\PYZus{}Deutsch\PYZus{}S} \PY{o}{=} \PY{n}{job\PYZus{}Deutsch\PYZus{}S}\PY{o}{.}\PY{n}{result}\PY{p}{(}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Print the measurement results}
+\PY{k}{if} \PY{n+nb}{int}\PY{p}{(}\PY{o}{*}\PY{n}{result\PYZus{}Deutsch\PYZus{}S}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{o}{.}\PY{n}{c}\PY{o}{.}\PY{n}{get\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{f is constant}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{k}{else}\PY{p}{:}
+    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{f is balanced}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{k}{if} \PY{n+nb}{int}\PY{p}{(}\PY{o}{*}\PY{n}{result\PYZus{}Deutsch\PYZus{}S}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{o}{.}\PY{n}{c}\PY{o}{.}\PY{n}{get\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g is constant}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{k}{else}\PY{p}{:}
+    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g is balanced}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+f is balanced
+g is constant
+    \end{Verbatim}
+
+    \paragraph{\texorpdfstring{ \textbf{Question 7}: Does the result of your
+quantum computation using Deutsch's algorithm agree with the previous
+classical
+result?}{ Question 7: Does the result of your quantum computation using Deutsch's algorithm agree with the previous classical result?}}\label{question-7-does-the-result-of-your-quantum-computation-using-deutschs-algorithm-agree-with-the-previous-classical-result}
+
+    \textbf{Answer:} The classical result is that \(f\) is balanced and
+\(g\) is constant. After applying Deutsch's algorithm to both functions,
+we obtained the same result --- that is, that \(f\) is balanced and
+\(g\) is constant. Our run in the lab with UCM tokens yielded the same
+result.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{13}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Transpile circuits to backend architecture}
+\PY{n}{deutsch\PYZus{}f\PYZus{}t} \PY{o}{=} \PY{n}{transpile}\PY{p}{(}\PY{n}{deutsch\PYZus{}f}\PY{p}{,} \PY{n}{backend}\PY{o}{=}\PY{n}{backend\PYZus{}Q}\PY{p}{)}
+\PY{n}{deutsch\PYZus{}g\PYZus{}t} \PY{o}{=} \PY{n}{transpile}\PY{p}{(}\PY{n}{deutsch\PYZus{}g}\PY{p}{,} \PY{n}{backend}\PY{o}{=}\PY{n}{backend\PYZus{}Q}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Execute the circuit}
+\PY{n}{job\PYZus{}Deutsch\PYZus{}Q} \PY{o}{=} \PY{n}{sampler\PYZus{}Q}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{p}{[}\PY{n}{deutsch\PYZus{}f\PYZus{}t}\PY{p}{,} \PY{n}{deutsch\PYZus{}g\PYZus{}t}\PY{p}{]}\PY{p}{,} \PY{n}{shots}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Save job identification code for later}
+\PY{n}{df}\PY{o}{.}\PY{n}{deutsch\PYZus{}id} \PY{o}{=} \PY{n}{job\PYZus{}Deutsch\PYZus{}Q}\PY{o}{.}\PY{n}{job\PYZus{}id}\PY{p}{(}\PY{p}{)}
+\PY{n}{df}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{session.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+c:\textbackslash{}Users\textbackslash{}zapat\textbackslash{}Escritorio\textbackslash{}CODE\textbackslash{}PIE\_Compu\_Cuantica\textbackslash{}venv\textbackslash{}Lib\textbackslash{}site-
+packages\textbackslash{}qiskit\_ibm\_runtime\textbackslash{}qiskit\_runtime\_service.py:879: UserWarning: Your
+current pending jobs are estimated to consume 649.5556236231932 quantum seconds,
+but you only have 588 quantum seconds left in your monthly quota; therefore, it
+is likely this job will be canceled
+  warnings.warn(warning\_message)
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{5}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} The following cell retrieves information about the job}
+\PY{n}{job\PYZus{}Deutsch\PYZus{}Q} \PY{o}{=} \PY{n}{service}\PY{o}{.}\PY{n}{job}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{deutsch\PYZus{}id}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+\PY{n}{job\PYZus{}Deutsch\PYZus{}Q}\PY{o}{.}\PY{n}{status}\PY{p}{(}\PY{p}{)} 
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{5}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+<JobStatus.DONE: 'job has successfully run'>
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{6}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} The next statement can put your session on hold until the job runs and returns}
+\PY{n}{result\PYZus{}Deutsch\PYZus{}Q} \PY{o}{=} \PY{n}{job\PYZus{}Deutsch\PYZus{}Q}\PY{o}{.}\PY{n}{result}\PY{p}{(}\PY{p}{)}
+\PY{n}{ans\PYZus{}f} \PY{o}{=} \PY{n}{result\PYZus{}Deutsch\PYZus{}Q}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{o}{.}\PY{n}{c}\PY{o}{.}\PY{n}{get\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\PY{n}{ans\PYZus{}g} \PY{o}{=} \PY{n}{result\PYZus{}Deutsch\PYZus{}Q}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{o}{.}\PY{n}{c}\PY{o}{.}\PY{n}{get\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Print the measurement results}
+\PY{k}{if} \PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{max}\PY{p}{(}\PY{n}{ans\PYZus{}f}\PY{p}{,} \PY{n}{key}\PY{o}{=}\PY{n}{ans\PYZus{}f}\PY{o}{.}\PY{n}{get}\PY{p}{)}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{f is constant}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{k}{else}\PY{p}{:}
+    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{f is balanced}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{k}{if} \PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{max}\PY{p}{(}\PY{n}{ans\PYZus{}g}\PY{p}{,} \PY{n}{key}\PY{o}{=}\PY{n}{ans\PYZus{}g}\PY{o}{.}\PY{n}{get}\PY{p}{)}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g is constant}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{k}{else}\PY{p}{:}
+    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g is balanced}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+f is balanced
+g is constant
+    \end{Verbatim}
+
+    \subsubsection{\texorpdfstring{\textbf{Experimental measurement of a
+Bell inequality (CHSH combination of
+correlators)}}{Experimental measurement of a Bell inequality   (CHSH combination of correlators)}}\label{experimental-measurement-of-a-bell-inequality-chsh-combination-of-correlators}
+
+If \(\{A_1, A_2\}\) and \(\{B_1,B_2\}\) are two pairs of observables
+(with dichotomic/binary outcome) of two spatially separated systems, the
+expected values of their products \(\langle A_i B_j \rangle\) according
+to any local hidden variable model (that is, an attempt at trying to
+explain away quantum features with additional classical mechanics
+variables) satisfy the classical CHSH inequality
+
+\[
+|\langle A_1 B_1\rangle +\langle A_1 B_2\rangle + \langle A_2 B_1\rangle - \langle A_2 B_2\rangle|\leq 2 .
+\]
+
+Quantum theory, on the contrary, predicts that this inequality is
+violated for a suitable choice of observables, obtaining the maximum
+violation, in the case of two qubits, when
+
+\[
+A_1=X,\quad A_2=Y, \quad B_1=\frac{-(X+Y)}{\sqrt{2}}, \quad B_2=\frac{-(X-Y)}{\sqrt{2}}
+\] or rotationally equivalent configurations. Here \(X\) and \(Y\)
+denote the \(\sigma_x\) and \(\sigma_y\) Pauli matrices.
+
+    \paragraph{\texorpdfstring{ \textbf{Question 2}: Using this command,
+define the four product observables that appear in the CHSH inequality:
+\(A_1B_1\), \(A_2B_1\), \(A_1B_2\), and \(A_2B_2\):
+}{ Question 2: Using this command, define the four product observables that appear in the CHSH inequality: A\_1B\_1, A\_2B\_1, A\_1B\_2, and A\_2B\_2: }}\label{question-2-using-this-command-define-the-four-product-observables-that-appear-in-the-chsh-inequality-a_1b_1-a_2b_1-a_1b_2-and-a_2b_2}
+
+\textbf{Answer:}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{4}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Define pairs of observables for maximum violation of the CHSH innequality}
+\PY{n}{coef} \PY{o}{=} \PY{l+m+mi}{1} \PY{o}{/} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+\PY{n}{A1B1aux} \PY{o}{=} \PY{n}{SparsePauliOp}\PY{o}{.}\PY{n}{from\PYZus{}list}\PY{p}{(}\PY{p}{[}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{XX}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{o}{\PYZhy{}} \PY{n}{coef}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{XY}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{o}{\PYZhy{}} \PY{n}{coef}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+\PY{n}{A1B2aux} \PY{o}{=} \PY{n}{SparsePauliOp}\PY{o}{.}\PY{n}{from\PYZus{}list}\PY{p}{(}\PY{p}{[}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{XX}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{o}{\PYZhy{}} \PY{n}{coef}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{XY}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{o}{+} \PY{n}{coef}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+\PY{n}{A2B1aux} \PY{o}{=} \PY{n}{SparsePauliOp}\PY{o}{.}\PY{n}{from\PYZus{}list}\PY{p}{(}\PY{p}{[}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YX}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{o}{\PYZhy{}} \PY{n}{coef}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YY}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{o}{\PYZhy{}} \PY{n}{coef}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+\PY{n}{A2B2aux} \PY{o}{=} \PY{n}{SparsePauliOp}\PY{o}{.}\PY{n}{from\PYZus{}list}\PY{p}{(}\PY{p}{[}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YX}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{o}{\PYZhy{}} \PY{n}{coef}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YY}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{o}{+} \PY{n}{coef}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+\PY{n}{Obsaux} \PY{o}{=} \PY{p}{[}\PY{n}{A1B1aux}\PY{p}{,} \PY{n}{A1B2aux}\PY{p}{,} \PY{n}{A2B1aux}\PY{p}{,} \PY{n}{A2B2aux}\PY{p}{]}
+
+\PY{c+c1}{\PYZsh{} We need to fill the rest of the qubits with the identity (do nothing) }
+\PY{c+c1}{\PYZsh{} this is thought for the current 127\PYZhy{}qubit machines}
+\PY{n}{n\PYZus{}remaining\PYZus{}qubits} \PY{o}{=} \PY{l+m+mi}{125}
+\PY{n}{I125} \PY{o}{=} \PY{n}{SparsePauliOp}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{I}\PY{l+s+s1}{\PYZsq{}} \PY{o}{*} \PY{n}{n\PYZus{}remaining\PYZus{}qubits}\PY{p}{)}
+\PY{n}{Obs} \PY{o}{=} \PY{p}{[}\PY{n}{I125}\PY{o}{.}\PY{n}{tensor}\PY{p}{(}\PY{n}{op}\PY{p}{)} \PY{k}{for} \PY{n}{op} \PY{o+ow}{in} \PY{n}{Obsaux}\PY{p}{]}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \paragraph{\texorpdfstring{ \textbf{Question 1}: Define a circuit that
+prepares the ``singlet state'' of two qubits
+\(|\Psi^-\rangle=\tfrac{1}{\sqrt2}(|01\rangle-|10\rangle)\).}{ Question 1: Define a circuit that prepares the ``singlet state'' of two qubits \textbar\textbackslash Psi\^{}-\textbackslash rangle=\textbackslash tfrac\{1\}\{\textbackslash sqrt2\}(\textbar01\textbackslash rangle-\textbar10\textbackslash rangle).}}\label{question-1-define-a-circuit-that-prepares-the-singlet-state-of-two-qubits-psi-rangletfrac1sqrt201rangle-10rangle.}
+
+\textbf{Answer:} The following circuit specifically prepares the state
+\(\tfrac{i}{\sqrt2}(|01\rangle-|10\rangle)\), which is physically
+equivalent to the requested state.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{5}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Prepare the input circuit:}
+\PY{n}{chsh\PYZus{}circuit} \PY{o}{=} \PY{n}{QuantumCircuit}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+\PY{n}{chsh\PYZus{}circuit}\PY{o}{.}\PY{n}{h}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)} \PY{c+c1}{\PYZsh{} Hadamard on the first qubit}
+\PY{n}{chsh\PYZus{}circuit}\PY{o}{.}\PY{n}{cx}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)} \PY{c+c1}{\PYZsh{} NOT controlled to the first qubit}
+\PY{n}{chsh\PYZus{}circuit}\PY{o}{.}\PY{n}{y}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{} Y\PYZhy{}Pauli gate to the first qubit}
+\PY{n}{chsh\PYZus{}circuit}\PY{o}{.}\PY{n}{draw}\PY{p}{(}\PY{n}{output}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mpl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+ 
+            
+\prompt{Out}{outcolor}{5}{}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{ZapataFergusonM_Session3_files/ZapataFergusonM_Session3_43_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    \paragraph{\texorpdfstring{ \textbf{Question 3}: Calculate the simulated
+value obtained for the CHSH inequality jointly with its error
+}{ Question 3: Calculate the simulated value obtained for the CHSH inequality jointly with its error }}\label{question-3-calculate-the-simulated-value-obtained-for-the-chsh-inequality-jointly-with-its-error}
+
+    \textbf{Answer:} The code we ran in the lab with UCM tokens yielded:
+
+\texttt{The\ simulated\ result\ is\ 2.81824\ +\ 0.04:}
+
+\texttt{does\ it\ exceed\ 2\ with\ sufficient\ statistical\ certainty?}
+
+We can perform the calculations again ourselves.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{8}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Execute the circuit}
+\PY{n}{job\PYZus{}CHSH\PYZus{}S} \PY{o}{=} \PY{n}{estimator\PYZus{}S}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{p}{[}\PY{p}{(}\PY{n}{chsh\PYZus{}circuit}\PY{p}{,} \PY{n}{Obsaux}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+\PY{n}{result\PYZus{}S} \PY{o}{=} \PY{n}{job\PYZus{}CHSH\PYZus{}S}\PY{o}{.}\PY{n}{result}\PY{p}{(}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Statistical results}
+\PY{n}{values\PYZus{}S} \PY{o}{=} \PY{n}{result\PYZus{}S}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{o}{.}\PY{n}{evs}
+\PY{n}{Standard\PYZus{}errors\PYZus{}S} \PY{o}{=} \PY{n}{result\PYZus{}S}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{o}{.}\PY{n}{stds}
+
+\PY{c+c1}{\PYZsh{} Print simulated expectation values}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Simulated expectation values for the four correlators:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{p}{[}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}}\PY{n}{v}\PY{l+s+si}{:}\PY{l+s+s1}{.3f}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{ ± }\PY{l+s+si}{\PYZob{}}\PY{n}{s}\PY{l+s+si}{:}\PY{l+s+s1}{.3f}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{\PYZsq{}} \PY{k}{for} \PY{n}{v}\PY{p}{,} \PY{n}{s} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{values\PYZus{}S}\PY{p}{,} \PY{n}{Standard\PYZus{}errors\PYZus{}S}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Simulated expectation values for the four correlators:
+['0.711 ± 0.011', '0.703 ± 0.011', '0.702 ± 0.011', '-0.713 ± 0.011']
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{9}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} CHSH value}
+\PY{n}{CHSH\PYZus{}mean\PYZus{}S} \PY{o}{=} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{values\PYZus{}S}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{+} \PY{n}{values\PYZus{}S}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{n}{values\PYZus{}S}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{values\PYZus{}S}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}
+\PY{n}{CHSH\PYZus{}uncertainty\PYZus{}S} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{Standard\PYZus{}errors\PYZus{}S}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}\PYZsq{}\PYZsq{}}
+\PY{l+s+s1}{The simulated result is }\PY{l+s+si}{\PYZob{}}\PY{n}{CHSH\PYZus{}mean\PYZus{}S}\PY{l+s+si}{:}\PY{l+s+s1}{.3f}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{ ± }\PY{l+s+si}{\PYZob{}}\PY{n}{CHSH\PYZus{}uncertainty\PYZus{}S}\PY{l+s+si}{:}\PY{l+s+s1}{.3f}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{:}
+\PY{l+s+s1}{does it exceed 2 with sufficient statistical certainty?}
+\PY{l+s+s1}{\PYZsq{}\PYZsq{}\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+The simulated result is 2.828 ± 0.044:
+does it exceed 2 with sufficient statistical certainty?
+
+    \end{Verbatim}
+
+    \paragraph{\texorpdfstring{ \textbf{Question 4}: Compute, with a hand
+calculator or simple python commands, the experimental value obtained
+for the CHSH inequality jointly with its error from the quantum data
+obtained.
+}{ Question 4: Compute, with a hand calculator or simple python commands, the experimental value obtained for the CHSH inequality jointly with its error from the quantum data obtained. }}\label{question-4-compute-with-a-hand-calculator-or-simple-python-commands-the-experimental-value-obtained-for-the-chsh-inequality-jointly-with-its-error-from-the-quantum-data-obtained.}
+
+    \textbf{Answer:} The code we ran in the lab with UCM tokens yielded:
+
+\texttt{The\ simulated\ result\ is\ 2.60215\ +\ 0.41467:}
+
+\texttt{does\ it\ exceed\ 2\ with\ sufficient\ statistical\ certainty?}
+
+Let's perform the calculations again ourselves.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{65}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Transpile circuit to backend architecture}
+\PY{n}{chsh\PYZus{}circuit\PYZus{}t} \PY{o}{=} \PY{n}{transpile}\PY{p}{(}\PY{n}{chsh\PYZus{}circuit}\PY{p}{,} \PY{n}{backend}\PY{o}{=}\PY{n}{backend\PYZus{}Q}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Execute the circuit}
+\PY{n}{job\PYZus{}CHSH\PYZus{}Q} \PY{o}{=} \PY{n}{estimator\PYZus{}Q}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{p}{[}\PY{p}{(}\PY{n}{chsh\PYZus{}circuit\PYZus{}t}\PY{p}{,} \PY{n}{Obs}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Save job identification code for later}
+\PY{n}{df}\PY{o}{.}\PY{n}{chsh\PYZus{}id} \PY{o}{=} \PY{n}{job\PYZus{}CHSH\PYZus{}Q}\PY{o}{.}\PY{n}{job\PYZus{}id}\PY{p}{(}\PY{p}{)}
+\PY{n}{df}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{session.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+c:\textbackslash{}Users\textbackslash{}zapat\textbackslash{}Escritorio\textbackslash{}CODE\textbackslash{}PIE\_Compu\_Cuantica\textbackslash{}venv\textbackslash{}Lib\textbackslash{}site-
+packages\textbackslash{}qiskit\_ibm\_runtime\textbackslash{}qiskit\_runtime\_service.py:879: UserWarning: Your
+current pending jobs are estimated to consume 623.1034379365619 quantum seconds,
+but you only have 586 quantum seconds left in your monthly quota; therefore, it
+is likely this job will be canceled
+  warnings.warn(warning\_message)
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{7}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} The following cell retrieves information about the job}
+\PY{n}{job\PYZus{}CHSH\PYZus{}Q} \PY{o}{=} \PY{n}{service}\PY{o}{.}\PY{n}{job}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{chsh\PYZus{}id}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+\PY{n}{job\PYZus{}CHSH\PYZus{}Q}\PY{o}{.}\PY{n}{status}\PY{p}{(}\PY{p}{)} 
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{7}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+<JobStatus.DONE: 'job has successfully run'>
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{8}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} The next statement can put your session on hold until the job runs and returns}
+\PY{n}{result\PYZus{}Q} \PY{o}{=} \PY{n}{job\PYZus{}CHSH\PYZus{}Q}\PY{o}{.}\PY{n}{result}\PY{p}{(}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Statistical results}
+\PY{n}{values\PYZus{}Q} \PY{o}{=} \PY{n}{result\PYZus{}Q}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{o}{.}\PY{n}{evs}
+\PY{n}{Standard\PYZus{}errors\PYZus{}Q} \PY{o}{=} \PY{n}{result\PYZus{}Q}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{o}{.}\PY{n}{stds}
+
+\PY{c+c1}{\PYZsh{} Print simulated expectation values}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Simulated expectation values for the four correlators:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{p}{[}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}}\PY{n}{v}\PY{l+s+si}{:}\PY{l+s+s1}{.3f}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{ ± }\PY{l+s+si}{\PYZob{}}\PY{n}{s}\PY{l+s+si}{:}\PY{l+s+s1}{.3f}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{\PYZsq{}} \PY{k}{for} \PY{n}{v}\PY{p}{,} \PY{n}{s} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{values\PYZus{}Q}\PY{p}{,} \PY{n}{Standard\PYZus{}errors\PYZus{}Q}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Simulated expectation values for the four correlators:
+['0.689 ± 0.036', '0.801 ± 0.036', '0.744 ± 0.034', '-0.665 ± 0.034']
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{9}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} CHSH value}
+\PY{n}{values\PYZus{}Q} \PY{o}{=} \PY{n}{result\PYZus{}Q}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{o}{.}\PY{n}{evs}
+\PY{n}{Standard\PYZus{}errors\PYZus{}Q} \PY{o}{=} \PY{n}{result\PYZus{}Q}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{o}{.}\PY{n}{stds}
+\PY{n}{CHSH\PYZus{}mean\PYZus{}Q} \PY{o}{=} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{values\PYZus{}Q}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{+} \PY{n}{values\PYZus{}Q}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{n}{values\PYZus{}Q}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{values\PYZus{}Q}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}
+\PY{n}{CHSH\PYZus{}uncertainty\PYZus{}Q} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{Standard\PYZus{}errors\PYZus{}Q}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}\PYZsq{}\PYZsq{}}
+\PY{l+s+s1}{The simulated result is }\PY{l+s+si}{\PYZob{}}\PY{n}{CHSH\PYZus{}mean\PYZus{}Q}\PY{l+s+si}{:}\PY{l+s+s1}{.3f}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{ ± }\PY{l+s+si}{\PYZob{}}\PY{n}{CHSH\PYZus{}uncertainty\PYZus{}Q}\PY{l+s+si}{:}\PY{l+s+s1}{.3f}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{:}
+\PY{l+s+s1}{does it exceed 2 with sufficient statistical certainty?}
+\PY{l+s+s1}{\PYZsq{}\PYZsq{}\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+The simulated result is 2.899 ± 0.139:
+does it exceed 2 with sufficient statistical certainty?
+
+    \end{Verbatim}
+
+    The qubits we used for our computation exhibit quantum statistics, and
+thus are properly entangled. A computation such as this serves just as
+much as a proof of CHSH violation as it does as a calibration of a
+quantum computer.
+
+    \subsubsection{\texorpdfstring{\textbf{References}}{References}}\label{references}
+
+{[}1{]} Cleve, R., Ekert, A., Macchiavello, C., \& Mosca, M. (1998).
+Quantum algorithms revisited. \emph{Proceedings of the Royal Society of
+London. Series A: Mathematical, Physical and Engineering Sciences,
+454(1969), 339--354}. Retrieved from
+https://arxiv.org/abs/quant-ph/9708016.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+\end{document}
