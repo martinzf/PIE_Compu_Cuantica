@@ -1805,8 +1805,11 @@ OUTPUT ZapataFergusonM_Session1.pdf
 INPUT C:\Users\zapat\AppData\Local\Programs\MiKTeX\fonts\tfm\jknappen\ec\eccc1095.tfm
 INPUT C:\Users\zapat\AppData\Local\Programs\MiKTeX\fonts\tfm\jknappen\ec\ecrm2074.tfm
 INPUT C:\Users\zapat\AppData\Local\Programs\MiKTeX\fonts\tfm\jknappen\ec\eccc2074.tfm
-INPUT C:\Users\zapat\AppData\Local\Programs\MiKTeX\fonts\tfm\jknappen\ec\ecrm1728.tfm
 INPUT C:\Users\zapat\AppData\Local\Programs\MiKTeX\fonts\tfm\jknappen\ec\ecrm1200.tfm
+INPUT C:\Users\zapat\AppData\Local\Programs\MiKTeX\fonts\tfm\jknappen\ec\ecrm1728.tfm
+INPUT C:\Users\zapat\AppData\Local\Programs\MiKTeX\fonts\tfm\jknappen\ec\ecrm1440.tfm
+INPUT C:\Users\zapat\AppData\Local\Programs\MiKTeX\fonts\tfm\jknappen\ec\ecbx1440.tfm
+INPUT C:\Users\zapat\AppData\Local\Programs\MiKTeX\fonts\tfm\jknappen\ec\ecbx2074.tfm
 INPUT C:\Users\zapat\AppData\Local\Programs\MiKTeX\fonts\tfm\jknappen\ec\ecti1095.tfm
 INPUT C:\Users\zapat\AppData\Local\MiKTeX\fonts\map\pdftex\pdftex.map
 INPUT C:\Users\zapat\AppData\Local\Programs\MiKTeX\tex\latex\base\t1cmtt.fd
@@ -1842,6 +1845,8 @@ INPUT C:\Users\zapat\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\c
 INPUT C:\Users\zapat\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmsy10.pfb
 INPUT C:\Users\zapat\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmsy8.pfb
 INPUT C:\Users\zapat\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmsy8.pfb
+INPUT C:\Users\zapat\AppData\Local\Programs\MiKTeX\fonts\type1\public\cm-super\sfbx2074.pfb
+INPUT C:\Users\zapat\AppData\Local\Programs\MiKTeX\fonts\type1\public\cm-super\sfbx2074.pfb
 INPUT C:\Users\zapat\AppData\Local\Programs\MiKTeX\fonts\type1\public\cm-super\sfcc1095.pfb
 INPUT C:\Users\zapat\AppData\Local\Programs\MiKTeX\fonts\type1\public\cm-super\sfcc1095.pfb
 INPUT C:\Users\zapat\AppData\Local\Programs\MiKTeX\fonts\type1\public\cm-super\sfcc2074.pfb

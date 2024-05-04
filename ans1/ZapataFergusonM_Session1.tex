@@ -80,16 +80,17 @@
 \begin{center}
             \textsc{Universidad Complutense de Madrid}\\
             \huge\textsc{Proyecto de Innovación Educativa en
-Computación Cuántica}\\
-            \LARGE Curso 2023-2024\\ \vspace{.2cm}
-            \large Grupo 1 Viernes\\ \vspace{.2cm}
-            \normalsize Autores:\\ \vspace{-0cm}
+Computación Cuántica}\\ \vspace{.1cm}
+            \large 2023-2024\\ \vspace{.2cm}
+            \LARGE Friday group 1 \\ \vspace{.2cm}
+            \normalsize Authors:\\ \vspace{.2cm}
             \begin{multicols}{3}
              Ruth Macías Asenjo \\  Eduardo Martínez Valdelvira\\
              Fernando Poblet Estévez \\ Miguel González Cuenca\\
               Juan Antonio Viñuelas Iniesta \\ Martín Zapata Ferguson
             \end{multicols}
 \end{center}
+\section*{\huge Session 1: Visual introduction to quantum circuits with Quirk}
 \begin{enumerate}[label*=\arabic*.]
 \setcounter{enumi}{1}
     \item Exercises
@@ -155,6 +156,11 @@ a single qubit initialized to $\ket{0}$, generates the following 1-qubit states:
 
             Any two numbers in a field can add to another number in said field, therefore the operation is not invertible and thus not unitary.
             
+            * This question was later changed to: \emph{Adding two elements $a, b \in \{0, 1, ..., d-1\} \mod d$, keeping none of them ($\ket{a}\ket{b} \rightarrow 
+            |a\overset{d}{\oplus} b\rangle\ket{0}$)}.
+            
+            For the same reason as previously the operation is not invertible. Even if $a$, $b$ belong to some finite list, there are multiple possible combinations which result in the same sum.
+
             \item Adding two elements ($a$ and $b$) keeping one and only one of them
 
             This operation may be invertible, however in matrix form:
@@ -180,6 +186,14 @@ a single qubit initialized to $\ket{0}$, generates the following 1-qubit states:
                 0 & 1
             \end{pmatrix}
             $$
+
+            * This question was later changed to: \emph{Adding two elements $a, b \in \{0, 1, ..., d-1\} \mod d$, keeping one and only one of them ($\ket{a}\ket{b} \rightarrow 
+            |a\overset{d}{\oplus} b\rangle\ket{b}$)}.
+            
+            In this case the operation \emph{would} be unitary. If $a, b \in \{0, 1, ..., d-1\}$, clearly also $a\overset{d}{\oplus} b \in \{0, 1, ..., d-1\}$. We can then build a single element Hilbert space 
+            $\mathcal{H}=\mathrm{span}\{\ket{i}\}_{i=0}^{d-1}$ and a tensor product space $\mathcal{H}^2=\mathcal{H}\otimes\mathcal{H}$. In these spaces both $\ket{a}\ket{b}$ and $|a\overset{d}{\oplus} b\rangle\ket{b}$ 
+            would be basis kets --- the operation would then be norm preserving only if it permuted the basis kets, i.e. if it didn't map multiple kets to one. This is certainly the case, since $a\overset{d}{\oplus} b
+            \neq a'\overset{d}{\oplus} b\;\; \forall\;\; a\neq a'$.
             
             \item Symmetryzing two states. That is, if we have $\ket{i} \ket{j}$, generating $\frac{1}{\sqrt{2}}(\ket{i}\ket{j}+\ket{j}\ket{i})$.
 
