@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (MiKTeX 22.3) (preloaded format=xelatex 2024.4.27)  4 MAY 2024 13:00
+This is XeTeX, Version 3.141592653-2.6-0.999994 (MiKTeX 22.3) (preloaded format=xelatex 2024.4.27)  4 MAY 2024 13:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -158,7 +158,10 @@ Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1373.
 Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1374.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1375.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1376.
-)
+
+(C:\Users\zapat\AppData\Local\Programs\MiKTeX\tex/latex/graphics\dvipsnam.def
+File: dvipsnam.def 2016/06/17 v3.0m Driver-dependent file (DPC,SPQR)
+))
 (C:\Users\zapat\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
 e.code.tex
 Package: pgfcore 2021/05/15 v3.1.9a (3.1.9a)
@@ -1227,24 +1230,24 @@ LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10.95> not available
 
 ]
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 10.95116pt on input line 482.
+(Font)              scaled to size 10.95116pt on input line 481.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 7.6658pt on input line 482.
+(Font)              scaled to size 7.6658pt on input line 481.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 5.47559pt on input line 482.
+(Font)              scaled to size 5.47559pt on input line 481.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 10.94882pt on input line 482.
+(Font)              scaled to size 10.94882pt on input line 481.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 7.66417pt on input line 482.
+(Font)              scaled to size 7.66417pt on input line 481.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 5.47441pt on input line 482.
+(Font)              scaled to size 5.47441pt on input line 481.
 
 
 LaTeX Font Warning: Font shape `U/rsfs/m/n' in size <5.475> not available
-(Font)              size <5> substituted on input line 482.
+(Font)              size <5> substituted on input line 481.
 
 [2]
-Underfull \hbox (badness 10000) in paragraph at lines 594--595
+Underfull \hbox (badness 10000) in paragraph at lines 593--594
 []\TU/lmtt/m/n/10.95 [6, 0, 2, 1, 6, 4, 4, 5, 2, 2, 3, 3, 4, 2, 2, 3, 2, 1, 2, 
 5, 2, 2, 2, 0, 2, 2, 7,
  []
@@ -1253,7 +1256,7 @@ File: ZapataFergusonM_Session3_files/ZapataFergusonM_Session3_13_0.png Graphic
 file (type bmp)
 <ZapataFergusonM_Session3_files/ZapataFergusonM_Session3_13_0.png>
 [3]
-Underfull \hbox (badness 10000) in paragraph at lines 610--611
+Underfull \hbox (badness 10000) in paragraph at lines 609--610
 
  []
 
@@ -1261,7 +1264,7 @@ File: ZapataFergusonM_Session3_files/ZapataFergusonM_Session3_15_0.png Graphic
 file (type bmp)
 <ZapataFergusonM_Session3_files/ZapataFergusonM_Session3_15_0.png>
 [4]
-Underfull \hbox (badness 10000) in paragraph at lines 628--629
+Underfull \hbox (badness 10000) in paragraph at lines 627--628
 
  []
 
@@ -1270,7 +1273,7 @@ File: ZapataFergusonM_Session3_files/ZapataFergusonM_Session3_19_0.png Graphic
 file (type bmp)
 <ZapataFergusonM_Session3_files/ZapataFergusonM_Session3_19_0.png>
  [6]
-Underfull \hbox (badness 10000) in paragraph at lines 754--755
+Underfull \hbox (badness 10000) in paragraph at lines 753--754
 
  []
 
@@ -1278,12 +1281,12 @@ File: ZapataFergusonM_Session3_files/ZapataFergusonM_Session3_20_0.png Graphic
 file (type bmp)
 <ZapataFergusonM_Session3_files/ZapataFergusonM_Session3_20_0.png>
 
-Underfull \hbox (badness 10000) in paragraph at lines 775--776
+Underfull \hbox (badness 10000) in paragraph at lines 774--775
 
  []
 
 [7] [8]
-Overfull \hbox (44.59605pt too wide) detected at line 935
+Overfull \hbox (44.59605pt too wide) detected at line 934
 [][] [] [] [] [][][][][][] [] [] [] [] [][][]
  []
 
@@ -1292,7 +1295,7 @@ File: ZapataFergusonM_Session3_files/ZapataFergusonM_Session3_30_0.png Graphic
 file (type bmp)
 <ZapataFergusonM_Session3_files/ZapataFergusonM_Session3_30_0.png>
 
-Underfull \hbox (badness 10000) in paragraph at lines 983--984
+Underfull \hbox (badness 10000) in paragraph at lines 982--983
 
  []
 
@@ -1301,7 +1304,7 @@ File: ZapataFergusonM_Session3_files/ZapataFergusonM_Session3_32_0.png Graphic
 file (type bmp)
 <ZapataFergusonM_Session3_files/ZapataFergusonM_Session3_32_0.png>
 
-Underfull \hbox (badness 10000) in paragraph at lines 1007--1008
+Underfull \hbox (badness 10000) in paragraph at lines 1006--1007
 
  []
 
@@ -1310,7 +1313,7 @@ File: ZapataFergusonM_Session3_files/ZapataFergusonM_Session3_43_0.png Graphic
 file (type bmp)
 <ZapataFergusonM_Session3_files/ZapataFergusonM_Session3_43_0.png>
  [13]
-Underfull \hbox (badness 10000) in paragraph at lines 1188--1189
+Underfull \hbox (badness 10000) in paragraph at lines 1186--1187
 
  []
 
@@ -1333,12 +1336,12 @@ Package rerunfilecheck Info: Checksums for `ZapataFergusonM_Session3.out':
 (rerunfilecheck)             After:  D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 30801 strings out of 410670
- 599449 string characters out of 2816708
- 1075412 words of memory out of 3000000
- 51394 multiletter control sequences out of 15000+600000
- 475487 words of font info for 81 fonts, out of 8000000 for 9000
+ 30871 strings out of 410670
+ 600549 string characters out of 2816708
+ 1077561 words of memory out of 3000000
+ 51462 multiletter control sequences out of 15000+600000
+ 475479 words of font info for 80 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 99i,12n,115p,812b,631s stack positions out of 10000i,1000n,20000p,200000b,80000s
+ 99i,12n,115p,812b,633s stack positions out of 10000i,1000n,20000p,200000b,80000s
 
 Output written on ZapataFergusonM_Session3.pdf (16 pages).

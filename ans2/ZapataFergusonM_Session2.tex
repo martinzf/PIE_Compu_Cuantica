@@ -1,4 +1,4 @@
-\documentclass[11pt]{article}
+\documentclass[11pt,dvipsnames]{article}
 
     \usepackage[breakable]{tcolorbox}
     \usepackage{parskip} % Stop auto-indenting (to mimic markdown behaviour)
@@ -390,7 +390,7 @@
     
 
     
-    \section*{Session 2: An introduction to Qiskit and to IBM's
+    \section*{\huge Session 2: An introduction to Qiskit and to IBM's
 interface}\label{session-2-an-introduction-to-qiskit-and-to-ibms-interface}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
@@ -419,11 +419,11 @@ interface}\label{session-2-an-introduction-to-qiskit-and-to-ibms-interface}
 
     \textbf{Sections 1 and 2 walk us through the basics of Qiskit.}
 
-\subsection*{\texorpdfstring{\textbf{3. Executing
+\section*{\texorpdfstring{\textbf{3. Executing
 circuits}}{3. Executing circuits}}\label{executing-circuits}
 
-    \textbf{Question:} Why does the histogram have only one bar
-corresponding to \textbar1\textgreater{} ?
+    \textcolor{teal}{\textbf{Question:} Why does the histogram have only one bar
+corresponding to \textbar1\textgreater{} ?}
 
 \textbf{Answer:} Because the qubit is initialized to the state
 \(|1\rangle\), it has no component along \(|0\rangle\).
@@ -451,12 +451,10 @@ corresponding to \textbar1\textgreater{} ?
     { \hspace*{\fill} \\}
     
 
-    \paragraph{\texorpdfstring{\textbf{4. Generation of truly random numbers
-with a quantum
-computer}}{4. Generation of truly random numbers with a quantum computer}}\label{generation-of-truly-random-numbers-with-a-quantum-computer}
+    \textbf{4. Generation of truly random numbers with a quantum computer}
 
-    Question: Can you write in a piece of paper the initial state in the
-second line of the next paragraph?
+\textcolor{teal}{Question: Can you write in a piece of paper the initial state in the
+second line of the next paragraph?}
 
 \textbf{Answer:} Let
 \(|+\rangle=\frac{1}{\sqrt{2}}(|0\rangle+|1\rangle)\) in the
@@ -505,7 +503,7 @@ uniform probability distribution.
 \end{Verbatim}
 \end{tcolorbox}
 
-    Question: run the circuit a few times and write down the number obtained
+\textcolor{teal}{Question: run the circuit a few times and write down the number obtained}
 
 \textbf{Answer:} After running it a few times we obtained the following
 list of numbers:
@@ -525,8 +523,8 @@ list of numbers:
 \end{Verbatim}
 \end{tcolorbox}
         
-    Question: Write a loop that generates 32 random numbers and plot a
-histogram with their distribution.
+\textcolor{teal}{Question: Write a loop that generates 32 random numbers and plot a
+histogram with their distribution.}
 
 \textbf{Answer:}
 
@@ -556,8 +554,8 @@ Text(0.5, 1.0, 'Quantum RNG distribution')
     \end{center}
     { \hspace*{\fill} \\}
     
-    Question: Write down in a piece of paper all the methods that you have
-learned here
+    \textcolor{teal}{Question: Write down in a piece of paper all the methods that you have
+learned here}
 
     \textbf{Answer:} We have learnt the following methods:
 
@@ -595,7 +593,7 @@ Applied to a \texttt{Result}
     data of a quantum simulation.
 \end{itemize}
 
-    \subsection*{5. Quantum Fourier Transform}\label{quantum-fourier-transform}
+    \section*{5. Quantum Fourier Transform}\label{quantum-fourier-transform}
 
     The discrete Fourier transform (DFT) changes the elements of a
 computational basis \(B\) to the Fourier basis \(F(B)\) according to the
@@ -652,6 +650,7 @@ QFT_n |j\rangle_{B} = \frac{1}{2^{n/2}} \bigotimes\limits_{m=1}^{n}\left(|0\rang
     \textbf{In the exercise notebook we're walked through programming the
 QFT:}
 
+{\color{teal}
 The operation
 
 \[\alpha |0\rangle + \beta | 1 \rangle \rightarrow  \alpha | 0 \rangle +\beta e^{2\pi i\ /\ 2^k} | 1 \rangle \]
@@ -674,7 +673,7 @@ while one of the basic transformations in the Qiskit package is
 Hence,
 
 \textbf{Question 5.1.} Check that the following function implements the
-\(R_k\) transformation:
+\(R_k\) transformation:}
 
 \textbf{Answer:}
 
@@ -747,9 +746,9 @@ transformation perfectly, although there may be some precision error in
 both calculations.
 
     \textbf{In sections 5.1-5.2 we're walked through programming a
-3-register QFT.} At the step at which we accomplish
+3-register QFT.} {\color{teal}At the step at which we accomplish
 
-\[| j_1j_2j_3\rangle \rightarrow | \psi_1\rangle = \frac{1}{\sqrt{2}}\left(\left|0\right\rangle+e^{2\pi i (j_1/2 +j_2/4)}\left|1\right\rangle\right)\otimes | j_2j_3\rangle.\]
+\[| j_1j_2j_3\rangle \rightarrow | \psi_1\rangle = \frac{1}{\sqrt{2}}\left(\left|0\right\rangle+e^{2\pi i (j_1/2 +j_2/4)}\left|1\right\rangle\right)\otimes | j_2j_3\rangle.\]}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{67}{\boxspacing}
@@ -771,9 +770,9 @@ both calculations.
     { \hspace*{\fill} \\}
     
 
-    \textbf{Question 5.2} Write the state resulting from applying that
+    \textcolor{teal}{\textbf{Question 5.2} Write the state resulting from applying that
 transformation to the initial ket \(| 010\rangle\). Check, with the
-Statevector class that the circuit generates the correct output.
+Statevector class that the circuit generates the correct output.}
 
 \textbf{Answer:} We may compute the resulting state by hand. It is
 \(\frac{1}{\sqrt{2}}(|0\rangle+i|1\rangle)\otimes|10\rangle\) or, in the
@@ -802,10 +801,9 @@ Statevector([0.00000000e+00+0.j        , 0.00000000e+00+0.j        ,
             dims=(2, 2, 2))
     \end{Verbatim}
 
-    \paragraph{\texorpdfstring{ 5.3 QFT full
-exercise}{ 5.3 QFT full exercise}}\label{qft-full-exercise}
+\textbf{ 5.3 QFT full exercise}
 
-Please implement now the Quantum Fourier Transform as a gate acting over
+{\color{teal}Please implement now the Quantum Fourier Transform as a gate acting over
 5 qubits. Apply this gate to the following states.
 
 \[ |\phi_1\rangle = \frac{1}{2^{5/2}}\left(\left|0\right\rangle+\left|1\right\rangle\right)\left(\left|0\right\rangle+\left|1\right\rangle\right)\left(\left|0\right\rangle+\left|1\right\rangle\right)\left(\left|0\right\rangle+\left|1\right\rangle\right)\left(\left|0\right\rangle-\left|1\right\rangle\right)\]
@@ -813,7 +811,7 @@ Please implement now the Quantum Fourier Transform as a gate acting over
 \[ |\phi_3\rangle = \frac{1}{2^{5/2}}\left(\left|0\right\rangle+\left|1\right\rangle\right)\left(\left|0\right\rangle+\left|1\right\rangle\right)\left(\left|0\right\rangle-\left|1\right\rangle\right)\left(\left|0\right\rangle+\left|1\right\rangle\right)\left(\left|0\right\rangle+\left|1\right\rangle\right)\]
 \[ |\phi_4\rangle = \frac{1}{2^{5/2}}\left(\left|0\right\rangle+\left|1\right\rangle\right)\left(\left|0\right\rangle-\left|1\right\rangle\right)\left(\left|0\right\rangle+\left|1\right\rangle\right)\left(\left|0\right\rangle+\left|1\right\rangle\right)\left(\left|0\right\rangle+\left|1\right\rangle\right)\]
 
-Briefly comment on the results.
+Briefly comment on the results.}
 
 \textbf{Answer:} A QFT circuit implements the following transformation:
 
@@ -935,11 +933,14 @@ controlled \(R_k\) gates.
 \end{tcolorbox}
         
     Let \(QFT_5\) be the Quantum Fourier transform of 5 qubits, we obtained
-the following results: - \(QFT_5|\phi_1\rangle = |16⟩\) -
-\(QFT_5|\phi_2\rangle = \frac{1}{2}(1+i)|8⟩+\frac{1}{2}(1-i)|24⟩\) -
-\(QFT_5|\phi_3\rangle = (0.25+0.60i)|4⟩+(0.25+0.10 i)|12⟩+(0.25-0.10 i) |20⟩ + (0.25-0.60i)|28⟩\)
--
-\(QFT_5|\phi_4\rangle = (0.12+0.63i)|2⟩+(0.12+0.19i)|6⟩+(0.12+0.08i)|10⟩+(0.12+0.02i)|14⟩+(0.12-0.02i)|18⟩+(0.12-0.08i)|22⟩+(0.12-0.19i)|26⟩+(0.12-0.63i)|30⟩\)
+the following results: 
+
+\begin{itemize}
+    \item \(QFT_5|\phi_1\rangle = |16⟩\) 
+    \item \(QFT_5|\phi_2\rangle = \frac{1}{2}(1+i)|8⟩+\frac{1}{2}(1-i)|24⟩\) 
+    \item \(QFT_5|\phi_3\rangle = (0.25+0.60i)|4⟩+(0.25+0.10 i)|12⟩+(0.25-0.10 i) |20⟩ + (0.25-0.60i)|28⟩\)
+    \item \(QFT_5|\phi_4\rangle = (0.12+0.63i)|2⟩+(0.12+0.19i)|6⟩+(0.12+0.08i)|10⟩+(0.12+0.02i)|14⟩+(0.12-0.02i)|18⟩+(0.12-0.08i)|22⟩+(0.12-0.19i)|26⟩+(0.12-0.63i)|30⟩\) 
+\end{itemize}
 
 The QFT is so efficient because the number of quantum gates it requires
 for \(n\) qubits scales like \(O(n^2)\), whereas the dimension of the
