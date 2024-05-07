@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.3) (preloaded format=pdflatex 2022.7.14)  4 MAY 2024 15:14
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.3) (preloaded format=pdflatex 2022.7.14)  7 MAY 2024 18:56
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1264,12 +1264,12 @@ Non-PDF special ignored!
 Non-PDF special ignored!
 <special> ps:tx@Dict begin  gsave STV CP T /ps@rot 0 def grestore  end
 {C:/Users/zapat/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
-Overfull \hbox (15.9335pt too wide) detected at line 151
+Overfull \hbox (15.9335pt too wide) detected at line 153
 [] \OML/cmm/m/it/10.95 P[]P [] \OT1/cmr/m/n/10.95 = [][] [][] [][] [][] \OML/cmm/m/it/10.95 ::: [][] [][] \OT1/cmr/m/n/10.95 = [][] [][] [][] [][] \OML/cmm/m/it/10.95 ::: [][] [][] \OT1/cmr/m/n/10.95 = []
  []
 
 [2]
-LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 238.
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 240.
  (C:\Users\zapat\AppData\Local\Programs\MiKTeX\tex/latex/base\t1cmtt.fd
 File: t1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 ) [3] [4] [5] [6] [7] (ZapataFergusonM_Session1.aux)
@@ -1279,13 +1279,13 @@ Package rerunfilecheck Info: File `ZapataFergusonM_Session1.out' has not changed
 Here is how much of TeX's memory you used:
  66532 strings out of 478351
  1665672 string characters out of 2837052
- 2430026 words of memory out of 3000000
+ 2431100 words of memory out of 3000000
  83954 multiletter control sequences out of 15000+600000
  485573 words of font info for 69 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  116i,16n,119p,1247b,1602s stack positions out of 10000i,1000n,20000p,200000b,80000s
 {C:/Users/zapat/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/cm-super/cm-super-ts1.enc}{C:/Users/zapat/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/cm-super/cm-super-t1.enc}<C:/Users/zapat/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/zapat/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/zapat/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/zapat/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/zapat/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/zapat/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/zapat/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/zapat/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/zapat/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/zapat/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfbx2074.pfb><C:/Users/zapat/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfcc1095.pfb><C:/Users/zapat/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfcc2074.pfb><C:/Users/zapat/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfrm1095.pfb><C:/Users/zapat/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfrm1200.pfb><C:/Users/zapat/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfrm1728.pfb><C:/Users/zapat/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfti1095.pfb><C:/Users/zapat/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sftt1095.pfb>
-Output written on ZapataFergusonM_Session1.pdf (7 pages, 276832 bytes).
+Output written on ZapataFergusonM_Session1.pdf (7 pages, 277316 bytes).
 PDF statistics:
  196 PDF objects out of 1000 (max. 8388607)
  61 named destinations out of 1000 (max. 500000)

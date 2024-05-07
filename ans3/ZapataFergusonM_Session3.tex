@@ -905,7 +905,7 @@ U_f|+\rangle|-\rangle = \frac{1}{2}
 = \frac{(-1)^{f(0)}}{\sqrt{2}}\bigg(|0\rangle+(-1)^{f(0)\oplus f(1)} |1\rangle\bigg)|-\rangle
 \]
 
-The modest quantum advantage in the Deutsch algortihm can be improved by
+The modest quantum advantage from the Deutsch algortihm can be improved by
 keeping phase kickback in mind. In the Deutsch-Jozsa algorithm {[}1{]},
 the oracle now implements \(f:\{0,1\}^n\rightarrow\{0,1\}\), which we
 are promised is either constant or balanced, and we are asked to
@@ -922,19 +922,17 @@ If we now run this state through the oracle, as before, we get
  \frac{1}{2^{n/2}}\sum\limits_{x=0}^{2^n-1}(-1)^{f(x)}|x\rangle|-\rangle
 \]
 
-Next, we take the \(n\) control qubits and apply a Hadamard transform to
-them:
+Next, we take the $n$ control qubits $\frac{1}{2^{n/2}}\sum\limits_{x=0}
+^{2^n-1}(-1)^{f(x)}|x\rangle$ and apply a Hadamard transform $H^{\otimes n}$ to them:
 
-\[
-H^{\otimes n}\left[\frac{1}{2^{n/2}}\sum\limits_{x=0}^{2^n-1}(-1)^{f(x)}|x\rangle\right]= 
+$$
 \frac{1}{2^{n/2}}\sum\limits_{x=0}^{2^n-1}(-1)^{f(x)}
-\left[\frac{1}{2^{n/2}}\sum\limits_{y=0}^{2^n-1}(-1)^{x\cdot y}|y\rangle\right] = 
-\sum\limits_{y=0}^{2^n-1}\left[\frac{1}{2^n}\sum\limits_{x=0}^{2^n-1}(-1)^{f(x)}(-1)^{x\cdot y}\right]|y\rangle
-\]
+\left[\frac{1}{2^{n/2}}\sum\limits_{y=0}^{2^n-1}(-1)^{\sum\limits_{i=1}^n x_iy_i}|y\rangle\right] = 
+\sum\limits_{y=0}^{2^n-1}\left[\frac{1}{2^n}\sum\limits_{x=0}^{2^n-1}(-1)^{f(x)}(-1)^{\sum\limits_{i=1}^n x_iy_i}\right]|y\rangle
+$$
 
-Finally, we conclude that the probability to measure \(|z\rangle\) is
-\(\left|\frac{1}{2^n}\sum\limits_{x=0}^{2^n-1}(-1)^{f(x)}(-1)^{x\cdot z}\right|^2\),
-so
+Finally, we conclude that the probability to measure $|z\rangle$ is 
+$\left|\frac{1}{2^n}\sum\limits_{x=0}^{2^n-1}(-1)^{f(x)}(-1)^{\sum\limits_{i=1}^n x_iz_i}\right|^2$, so
 
 \[
 \mathrm{Prob}(|0\rangle^{\otimes n}) =  
@@ -1127,9 +1125,168 @@ violation, in the case of two qubits, when
 \[
 A_1=X,\quad A_2=Y, \quad B_1=\frac{-(X+Y)}{\sqrt{2}}, \quad B_2=\frac{-(X-Y)}{\sqrt{2}}
 \] or rotationally equivalent configurations. Here \(X\) and \(Y\)
-denote the \(\sigma_x\) and \(\sigma_y\) Pauli matrices.
+denote the \(\sigma_x\) and \(\sigma_y\) Pauli matrices.}
 
-\textbf{Question 2}: Using this command,
+\textbf{Bell inequality proof} [2]:
+
+Let's consider a system of two spin-$\tfrac{1}{2}$ particles which move in opposite directions towards observers Alice and Bob. The observers perform measurements $A$ and $B$ of the spin of their respective particles ($A,B=\pm1$). The system is then described by the direction of $A$ and $B$'s Stern-Gerlach devices ($\mathbf{a}$, $\mathbf{b}$), as well as some local hidden variables $\lambda$ (with probability density $\rho(\lambda)$) which seek to explain quantum correlations at long distances. Since $A$ and $B$ are sufficiently separated $A\neq A(\mathbf{b})$, $B\neq B(\mathbf{a})$:
+
+$$
+\begin{aligned}
+A &= A(\mathbf{a}, \lambda) & B &= B(\mathbf{b}, \lambda)
+\end{aligned}
+$$
+
+We can be more general and average over potential hidden variables in the instruments, obtaining
+
+$$
+\begin{aligned}
+|\bar{A}| &\leq 1 & |\bar{B}| &\leq 1
+\end{aligned}
+$$
+
+Therefore the expected value of $\bar{A}\bar{B}$ (measurement correlation) in a particular set of directions is
+
+$$
+E(\mathbf{a}, \mathbf{b}) = 
+\int\mathrm{d}\lambda\rho(\lambda)\bar{A}(\mathbf{a}, \lambda)\bar{B}(\mathbf{b}, \lambda)
+$$
+
+If we consider a different set of directions $\mathbf{a'}$, $\mathbf{b'}$
+
+$$
+E(\mathbf{a}, \mathbf{b}) - E(\mathbf{a}, \mathbf{b'}) =
+$$
+
+$$
+= \int\mathrm{d}\lambda\rho(\lambda)
+\left[\bar{A}(\mathbf{a}, \lambda)\bar{B}(\mathbf{b}, \lambda) - 
+\bar{A}(\mathbf{a}, \lambda)\bar{B}(\mathbf{b'}, \lambda)\right] =
+$$
+
+$$
+= \int\mathrm{d}\lambda\rho(\lambda)
+\left[\bar{A}(\mathbf{a}, \lambda)\bar{B}(\mathbf{b}, \lambda)(1 \pm 
+\bar{A}(\mathbf{a'}, \lambda)\bar{B}(\mathbf{b'}, \lambda))\right] 
+$$
+
+$$
+- \int\mathrm{d}\lambda\rho(\lambda)
+\left[\bar{A}(\mathbf{a}, \lambda)\bar{B}(\mathbf{b'}, \lambda)(1 \pm 
+\bar{A}(\mathbf{a'}, \lambda)\bar{B}(\mathbf{b}, \lambda))\right] 
+$$
+
+Applying the triangle inequality and considering $|\bar{A}| \leq 1$, $ |\bar{B}| \leq 1$:
+
+$$
+|E(\mathbf{a}, \mathbf{b}) - E(\mathbf{a}, \mathbf{b'})|\leq
+$$
+
+$$
+\leq \left|\int\mathrm{d}\lambda\rho(\lambda)
+\left[\bar{A}(\mathbf{a}, \lambda)\bar{B}(\mathbf{b}, \lambda)(1 \pm 
+\bar{A}(\mathbf{a'}, \lambda)\bar{B}(\mathbf{b'}, \lambda))\right]\right|
+$$
+
+$$
++ \left|\int\mathrm{d}\lambda\rho(\lambda)
+\left[\bar{A}(\mathbf{a}, \lambda)\bar{B}(\mathbf{b'}, \lambda)(1 \pm 
+\bar{A}(\mathbf{a'}, \lambda)\bar{B}(\mathbf{b}, \lambda))\right]\right| \leq 
+$$
+
+$$
+\leq \int\mathrm{d}\lambda\rho(\lambda)
+(1 \pm \bar{A}(\mathbf{a'}, \lambda)\bar{B}(\mathbf{b'}, \lambda))
+$$
+
+$$
++ \int\mathrm{d}\lambda\rho(\lambda)
+(1 \pm \bar{A}(\mathbf{a'}, \lambda)\bar{B}(\mathbf{b}, \lambda)) =
+$$
+
+$$
+= 2 \pm [E(\mathbf{a'}, \mathbf{b'}) + E(\mathbf{a'}, \mathbf{b})]
+$$
+
+So we obtain the following:
+
+$$
+|E(\mathbf{a}, \mathbf{b}) - E(\mathbf{a}, \mathbf{b'})| \leq 
+2 \pm [E(\mathbf{a'}, \mathbf{b'}) + E(\mathbf{a'}, \mathbf{b})] \leq
+2 -   |E(\mathbf{a'}, \mathbf{b'}) + E(\mathbf{a'}, \mathbf{b})|
+$$
+
+And finally applying the triangle inequality again
+
+$$
+2 \geq |E(\mathbf{a}, \mathbf{b}) - E(\mathbf{a}, \mathbf{b'})| + 
+|E(\mathbf{a'}, \mathbf{b'}) + E(\mathbf{a'}, \mathbf{b})| \geq
+|E(\mathbf{a}, \mathbf{b}) -   E(\mathbf{a}, \mathbf{b'}) +
+E(\mathbf{a'}, \mathbf{b'}) +  E(\mathbf{a'}, \mathbf{b})|
+$$
+
+If we label $A(\mathbf{a})=A_2,\ A(\mathbf{a'})=A_1,\ B(\mathbf{b})=B_1,\ B(\mathbf{b'})=B_2$ we recover the inequality stated above.
+
+\textbf{Maximisation}:
+
+We want to maximise $S \equiv E(\mathbf{a}, \mathbf{b}) - E(\mathbf{a}, \mathbf{b'}) +
+E(\mathbf{a'}, \mathbf{b'}) + E(\mathbf{a'}, \mathbf{b})$ in a state $|\psi\rangle$.
+
+If we notice that 
+
+$$
+E(\mathbf{a}, \mathbf{b}) = \langle\psi|(a^i\sigma_i)\otimes(b^j\sigma_j)|\psi\rangle = 
+a^i\langle\psi|\sigma_i\otimes\sigma_j|\psi\rangle b^j
+$$
+
+and call the correlation matrix $\langle\psi|\sigma_i\otimes\sigma_j|\psi\rangle = C_{ij}$, we can rewrite the CHSH correlator as
+
+$$
+S = \mathbf{a}^\mathrm{T} C (\mathbf{b}-\mathbf{b'})+\mathbf{a'}^\mathrm{T} C (\mathbf{b}+\mathbf{b'})
+$$
+
+A general optimisation is complicated, but we need only consider the singlet state $|\Psi^-\rangle=\tfrac{1}{\sqrt{2}}(|01\rangle-|10\rangle)$, which we'll later use. In this state $C_{ij}=-\delta_{ij}$, therefore $E(\mathbf{a}, \mathbf{b})=-\mathbf{a}\cdot\mathbf{b}=-\cos\theta_{\mathbf{a}\mathbf{b}}$:
+
+
+$$
+\langle\psi|(a^i\sigma_i)\otimes(b^j\sigma_j)|\psi\rangle = 
+$$
+
+$$
+= \frac{1}{\sqrt{2}}\langle\Psi^-| 
+\bigg[(a_x|1\rangle+ia_y|1\rangle+a_z|0\rangle)(b_x|0\rangle-ib_y|0\rangle-b_z|1\rangle)
+$$
+
+$$
+- (a_x|0\rangle-ia_y|0\rangle-a_z|1\rangle)(b_x|1\rangle+ib_y|1\rangle+b_z|0\rangle)\bigg] = 
+$$
+
+$$
+=  \frac{1}{\sqrt{2}}\langle\Psi^-| 
+\bigg[-(\mathbf{a}\cdot\mathbf{b})|01\rangle-(\mathbf{a}\cdot\mathbf{b})|10\rangle+ \cdot\ |00\rangle+\cdot\ |11\rangle\bigg] = 
+$$
+
+$$
+= -\mathbf{a}\cdot\mathbf{b}
+$$
+
+Clearly $S$ is maximised for
+
+$$
+\begin{cases}
+(\mathbf{b}-\mathbf{b'})\ ||-\mathbf{a} \\[1em]
+(\mathbf{b}+\mathbf{b'})\ ||-\mathbf{a'}
+\end{cases}
+\ \Rightarrow\ 
+\begin{cases}
+\mathbf{b}  = \frac{-(\mathbf{a}+\mathbf{a'})}{\sqrt{2}} \\[1em]
+\mathbf{b'} = \frac{\mathbf{a}-\mathbf{a'}}{\sqrt{2}} 
+\end{cases}
+$$
+
+Finally, $S_{\max}=2\sqrt{2}\approx2.828>2$.
+
+\textcolor{teal}{\textbf{Question 2}: Using this command,
 define the four product observables that appear in the CHSH inequality:
 \(A_1B_1\), \(A_2B_1\), \(A_1B_2\), and \(A_2B_2\):}
 
@@ -1348,6 +1505,10 @@ Quantum algorithms revisited. \emph{Proceedings of the Royal Society of
 London. Series A: Mathematical, Physical and Engineering Sciences,
 454(1969), 339--354}. Retrieved from
 \href{https://arxiv.org/abs/quant-ph/9708016}{https://arxiv.org/abs/quant-ph/9708016}.
+
+{[}2{]} Bell, J. S. (1971). \emph{Introduction to the hidden-variable question} (No. CERN-TH-1220). 
+CM-P00058691. Retireved from 
+\href{https://cds.cern.ch/record/400330/files/CM-P00058691.pdf}{https://cds.cern.ch/record/400330/files/CM-P00058691.pdf}.
 
 
     % Add a bibliography block to the postdoc

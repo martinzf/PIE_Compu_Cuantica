@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (MiKTeX 22.3) (preloaded format=xelatex 2024.4.27)  4 MAY 2024 15:45
+This is XeTeX, Version 3.141592653-2.6-0.999994 (MiKTeX 22.3) (preloaded format=xelatex 2024.4.27)  7 MAY 2024 18:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1286,17 +1286,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 773--774
 
  []
 
-[7] [8]
-Overfull \hbox (44.59605pt too wide) detected at line 933
-[][] [] [] [] [][][][][][] [] [] [] [] [][][]
- []
-
-[9]
+[7] [8] [9]
 File: ZapataFergusonM_Session3_files/ZapataFergusonM_Session3_30_0.png Graphic 
 file (type bmp)
 <ZapataFergusonM_Session3_files/ZapataFergusonM_Session3_30_0.png>
 
-Underfull \hbox (badness 10000) in paragraph at lines 981--982
+Underfull \hbox (badness 10000) in paragraph at lines 979--980
 
  []
 
@@ -1304,20 +1299,20 @@ File: ZapataFergusonM_Session3_files/ZapataFergusonM_Session3_32_0.png Graphic
 file (type bmp)
 <ZapataFergusonM_Session3_files/ZapataFergusonM_Session3_32_0.png>
 [10]
-Underfull \hbox (badness 10000) in paragraph at lines 1005--1006
+Underfull \hbox (badness 10000) in paragraph at lines 1003--1004
 
  []
 
-[11] [12]
+[11] [12] [13] [14]
 File: ZapataFergusonM_Session3_files/ZapataFergusonM_Session3_43_0.png Graphic 
 file (type bmp)
 <ZapataFergusonM_Session3_files/ZapataFergusonM_Session3_43_0.png>
-
-Underfull \hbox (badness 10000) in paragraph at lines 1185--1186
+ [15]
+Underfull \hbox (badness 10000) in paragraph at lines 1342--1343
 
  []
 
-[13] [14] [15] [16] (ZapataFergusonM_Session3.aux)
+[16] [17] [18] (ZapataFergusonM_Session3.aux)
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 0.475pt have occurred.
@@ -1336,12 +1331,12 @@ Package rerunfilecheck Info: Checksums for `ZapataFergusonM_Session3.out':
 (rerunfilecheck)             After:  D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 30875 strings out of 410670
- 600636 string characters out of 2816708
+ 30883 strings out of 410670
+ 600856 string characters out of 2816708
  1077561 words of memory out of 3000000
- 51466 multiletter control sequences out of 15000+600000
- 475479 words of font info for 80 fonts, out of 8000000 for 9000
+ 51467 multiletter control sequences out of 15000+600000
+ 475511 words of font info for 84 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  99i,12n,115p,812b,633s stack positions out of 10000i,1000n,20000p,200000b,80000s
 
-Output written on ZapataFergusonM_Session3.pdf (16 pages).
+Output written on ZapataFergusonM_Session3.pdf (18 pages).

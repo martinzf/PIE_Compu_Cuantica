@@ -83,12 +83,14 @@
 Computación Cuántica}\\ \vspace{.1cm}
             \large 2023-2024\\ \vspace{.2cm}
             \LARGE Friday group 1 \\ \vspace{.2cm}
-            \normalsize Authors:\\ \vspace{.2cm}
+            \normalsize Members:\\ \vspace{.2cm}
             \begin{multicols}{3}
              Ruth Macías Asenjo \\  Eduardo Martínez Valdelvira\\
              Fernando Poblet Estévez \\ Miguel González Cuenca\\
               Juan Antonio Viñuelas Iniesta \\ Martín Zapata Ferguson
-            \end{multicols}
+            \end{multicols} \vspace{.2cm}
+            Author: Martín Zapata Ferguson
+
 \end{center}
 \section*{\huge Session 1: Visual introduction to quantum circuits with Quirk}
 \begin{enumerate}[label*=\arabic*.]
@@ -159,7 +161,7 @@ a single qubit initialized to $\ket{0}$, generates the following 1-qubit states:
             * This question was later changed to: \emph{Adding two elements $a, b \in \{0, 1, ..., d-1\} \mod d$, keeping none of them ($\ket{a}\ket{b} \rightarrow 
             |a\overset{d}{\oplus} b\rangle\ket{0}$)}.
             
-            For the same reason as previously the operation is not invertible. Even if $a$, $b$ belong to some finite list, there are multiple possible combinations which result in the same sum.
+            For the same reason as in the original question, the operation is not invertible. Even if $a$, $b$ belong to some finite list, there are multiple possible combinations which result in the same sum.
 
             \item Adding two elements ($a$ and $b$) keeping one and only one of them
 
@@ -349,7 +351,7 @@ Given that $H^2=I$, the first two qubits now become $X\otimes X\ket{00}=\ket{11}
 matricial language like Octave or Matlab) the effect of 2 Hadamard gates, $H \otimes H$, on a Bell
 state, $\displaystyle \ket{\Phi^-}=\frac{1}{\sqrt{2}}(\ket{0} \otimes \ket{0}-\ket{1} \otimes \ket{1})$ . Can you explain the QUIRK results?
 
-The result is $\frac{1}{\sqrt{2}}(\ket{01}+\ket{10})$. In QUIRK we can simply read out the results of the applied gate in the amplitude display.
+The result is $\ket{\Psi^+}=\frac{1}{\sqrt{2}}(\ket{01}+\ket{10})$. This explains the previous exercise (c), where register B is initialised to $\ket{\Phi^-}$. Now we see explicitly that $H^{\otimes2}\ket{\Phi^-}=\ket{\Psi^+}$.
 
 \end{enumerate}
     \end{enumerate}

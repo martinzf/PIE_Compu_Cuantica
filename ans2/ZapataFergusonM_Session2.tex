@@ -390,11 +390,12 @@
     
 
     
-    \section*{\huge Session 2: An introduction to Qiskit and to IBM's
+\section*{\huge Session 2: An introduction to Qiskit and to IBM's
 interface}\label{session-2-an-introduction-to-qiskit-and-to-ibms-interface}
 
+
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{59}{\boxspacing}
+\prompt{In}{incolor}{30}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} A classical simulator of quantum circuits}
 \PY{k+kn}{from} \PY{n+nn}{qiskit\PYZus{}aer} \PY{k+kn}{import} \PY{n}{AerSimulator}
@@ -414,13 +415,16 @@ interface}\label{session-2-an-introduction-to-qiskit-and-to-ibms-interface}
 \PY{c+c1}{\PYZsh{} Other usual imports}
 \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
 \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+
+\PY{c+c1}{\PYZsh{} Printing precision}
+\PY{n}{np}\PY{o}{.}\PY{n}{set\PYZus{}printoptions}\PY{p}{(}\PY{n}{precision}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
     \textbf{Sections 1 and 2 walk us through the basics of Qiskit.}
 
-\section*{\texorpdfstring{\textbf{3. Executing
-circuits}}{3. Executing circuits}}\label{executing-circuits}
+    \section*{\texorpdfstring{\textbf{3. Executing
+    circuits}}{3. Executing circuits}}\label{executing-circuits}
 
     \textcolor{teal}{\textbf{Question:} Why does the histogram have only one bar
 corresponding to \textbar1\textgreater{} ?}
@@ -429,7 +433,7 @@ corresponding to \textbar1\textgreater{} ?}
 \(|1\rangle\), it has no component along \(|0\rangle\).
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{60}{\boxspacing}
+\prompt{In}{incolor}{2}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{sim} \PY{o}{=} \PY{n}{AerSimulator}\PY{p}{(}\PY{p}{)}
 \PY{n}{qc11} \PY{o}{=} \PY{n}{QuantumCircuit}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)} \PY{c+c1}{\PYZsh{} circuit with 1 qubit y 1 classical bit}
@@ -443,7 +447,7 @@ corresponding to \textbar1\textgreater{} ?}
 \end{tcolorbox}
  
             
-\prompt{Out}{outcolor}{60}{}
+\prompt{Out}{outcolor}{2}{}
     
     \begin{center}
     \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{ZapataFergusonM_Session2_files/ZapataFergusonM_Session2_4_0.png}
@@ -469,7 +473,7 @@ superposition of states, which is what we would need to simulate a
 uniform probability distribution.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{61}{\boxspacing}
+\prompt{In}{incolor}{3}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{qrng} \PY{o}{=} \PY{n}{QuantumCircuit}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}
 \PY{n}{init\PYZus{}state} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{kron}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{kron}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{kron}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} Kron is a Python command for Cartesian (or Kronecker) products}
@@ -480,7 +484,7 @@ uniform probability distribution.
 \end{tcolorbox}
  
             
-\prompt{Out}{outcolor}{61}{}
+\prompt{Out}{outcolor}{3}{}
     
     \begin{center}
     \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{ZapataFergusonM_Session2_files/ZapataFergusonM_Session2_7_0.png}
@@ -491,7 +495,7 @@ uniform probability distribution.
     We may encapsulate random number generation in the following function:
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{62}{\boxspacing}
+\prompt{In}{incolor}{4}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{k}{def} \PY{n+nf}{QRNG}\PY{p}{(}\PY{n}{N\PYZus{}qubits}\PY{p}{)}\PY{p}{:} \PY{c+c1}{\PYZsh{}a quantum random number generator}
     \PY{n}{qrng} \PY{o}{=} \PY{n}{QuantumCircuit}\PY{p}{(}\PY{n}{N\PYZus{}qubits}\PY{p}{)}
@@ -503,33 +507,35 @@ uniform probability distribution.
 \end{Verbatim}
 \end{tcolorbox}
 
-\textcolor{teal}{Question: run the circuit a few times and write down the number obtained}
+\textcolor{teal}{Question: Run the circuit a few times and write down the number obtained.}
+
 
 \textbf{Answer:} After running it a few times we obtained the following
 list of numbers:
 \texttt{14,\ 3,\ 5,\ 9,\ 8,\ 12,\ 1,\ 10,\ 6,\ 11,\ 2,\ 6,\ 0,\ 10,\ 7,\ 13,\ 6,\ 14,\ 5,\ 1,\ 0,\ 14,\ 4}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{63}{\boxspacing}
+\prompt{In}{incolor}{5}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{QRNG}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
             \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
-\prompt{Out}{outcolor}{63}{\boxspacing}
+\prompt{Out}{outcolor}{5}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-9
+6
 \end{Verbatim}
 \end{tcolorbox}
         
 \textcolor{teal}{Question: Write a loop that generates 32 random numbers and plot a
 histogram with their distribution.}
 
+
 \textbf{Answer:}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{64}{\boxspacing}
+\prompt{In}{incolor}{6}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{N\PYZus{}qubits} \PY{o}{=} \PY{l+m+mi}{4}
 \PY{n}{N} \PY{o}{=} \PY{l+m+mi}{32}
@@ -543,7 +549,7 @@ histogram with their distribution.}
 \end{tcolorbox}
 
             \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
-\prompt{Out}{outcolor}{64}{\boxspacing}
+\prompt{Out}{outcolor}{6}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 Text(0.5, 1.0, 'Quantum RNG distribution')
 \end{Verbatim}
@@ -555,45 +561,48 @@ Text(0.5, 1.0, 'Quantum RNG distribution')
     { \hspace*{\fill} \\}
     
     \textcolor{teal}{Question: Write down in a piece of paper all the methods that you have
-learned here}
+learned here.}
 
     \textbf{Answer:} We have learnt the following methods:
 
-Applied to a \texttt{QuantumCircuit} 
+    Applied to a \texttt{QuantumCircuit} 
 
-\begin{itemize}
-    \item \texttt{draw}: Plots a diagram of
-    the circuit. 
-    \item \texttt{initialize}: Given a normalised statevector of
-    the appropriate dimension, prepares the circuit or subset of the circuit
-    in that state. 
-    \item \texttt{measure}: Collapses a particular qubit and
-    stores result in a particular cbit. 
-    \item \texttt{measure\_all}: Adds a cbit
-    for each qubit in the circuit and measures all.
-\end{itemize}
+    \begin{itemize}
+        \item \texttt{draw}: Plots a diagram of
+        the circuit. 
+        \item \texttt{initialize}: Given a normalised statevector of
+        the appropriate dimension, prepares the circuit or subset of the circuit
+        in that state. 
+        \item \texttt{measure}: Collapses a particular qubit and
+        stores result in a particular cbit. 
+        \item \texttt{measure\_all}: Adds a cbit
+        for each qubit in the circuit and measures all.
+    \end{itemize}
+    
+    Applied to an \texttt{AerSimulator} 
+    
+    \begin{itemize}
+        \item  \texttt{run}: Runs \texttt{QuantumCircuit} on the Aer backend and returns 
+        asynchronous simulation job.
+    \end{itemize}
+    
 
-Applied to an \texttt{AerSimulator} 
+    Applied to an \texttt{AerJob} 
 
-\begin{itemize}
-    \item  \texttt{run}: Runs \texttt{QuantumCircuit} on the Aer backend and returns 
-    asynchronous simulation job.
-\end{itemize}
-
-Applied to an \texttt{AerJob} 
-
-\begin{itemize}
-    \item \texttt{result}: Awaits job result.
-\end{itemize}
-
-Applied to a \texttt{Result} 
-
-\begin{itemize}
-    \item \texttt{get\_counts}: Gets the histogram
-    data of a quantum simulation.
-\end{itemize}
+    \begin{itemize}
+        \item \texttt{result}: Awaits job result.
+    \end{itemize}
+    
+    Applied to a \texttt{Result} 
+    
+    \begin{itemize}
+        \item \texttt{get\_counts}: Gets the histogram
+        data of a quantum simulation.
+    \end{itemize}
+    
 
     \section*{5. Quantum Fourier Transform}\label{quantum-fourier-transform}
+
 
     The discrete Fourier transform (DFT) changes the elements of a
 computational basis \(B\) to the Fourier basis \(F(B)\) according to the
@@ -647,7 +656,7 @@ expression for the QFT finally simplifies to
 QFT_n |j\rangle_{B} = \frac{1}{2^{n/2}} \bigotimes\limits_{m=1}^{n}\left(|0\rangle + e^{2\pi i \sum\limits_{\ell=1}^{m} j_{n+\ell-m} 2^{-\ell}}|1\rangle \right) 
 \]
 
-    \textbf{In the exercise notebook we're walked through programming the
+\textbf{In the exercise notebook we're walked through programming the
 QFT:}
 
 {\color{teal}
@@ -675,10 +684,11 @@ Hence,
 \textbf{Question 5.1.} Check that the following function implements the
 \(R_k\) transformation:}
 
+
 \textbf{Answer:}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{65}{\boxspacing}
+\prompt{In}{incolor}{7}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{k}{def} \PY{n+nf}{R}\PY{p}{(}\PY{n}{k}\PY{p}{)}\PY{p}{:}
     \PY{k}{return} \PY{n}{PhaseGate}\PY{p}{(}\PY{p}{(}\PY{l+m+mf}{2.}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{)}\PY{o}{/}\PY{n+nb}{pow}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{k}\PY{p}{)}\PY{p}{)}
@@ -694,7 +704,7 @@ Hence,
 \end{tcolorbox}
  
             
-\prompt{Out}{outcolor}{65}{}
+\prompt{Out}{outcolor}{7}{}
     
     \begin{center}
     \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{ZapataFergusonM_Session2_files/ZapataFergusonM_Session2_19_0.png}
@@ -706,7 +716,7 @@ Hence,
 of values of \(k\)
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{66}{\boxspacing}
+\prompt{In}{incolor}{31}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{maxK} \PY{o}{=} \PY{l+m+mi}{6}
 \PY{n}{result} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{*} \PY{n}{maxK}
@@ -724,34 +734,31 @@ of values of \(k\)
 
 \PY{n+nb}{print}\PY{p}{(}
 \PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}\PYZsq{}\PYZsq{}}
-\PY{l+s+s1}{What we got        }\PY{l+s+si}{\PYZob{}}\PY{n}{result}\PY{l+s+si}{\PYZcb{}}
-\PY{l+s+s1}{What we should get }\PY{l+s+si}{\PYZob{}}\PY{n}{expected}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{\PYZsq{}\PYZsq{}\PYZsq{}}\PY{p}{)}
+\PY{l+s+s1}{What we got        }\PY{l+s+si}{\PYZob{}}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{result}\PY{p}{)}\PY{l+s+si}{\PYZcb{}}
+\PY{l+s+s1}{What we should get }\PY{l+s+si}{\PYZob{}}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{expected}\PY{p}{)}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{\PYZsq{}\PYZsq{}\PYZsq{}}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
     \begin{Verbatim}[commandchars=\\\{\}]
 
-What we got        [(1-2.4492935982947064e-16j), (-1+1.2246467991473532e-16j),
-(6.123233995736766e-17+1j), (0.7071067811865476+0.7071067811865476j),
-(0.9238795325112867+0.3826834323650898j),
-(0.9807852804032304+0.19509032201612825j)]
-What we should get [(1-2.4492935982947064e-16j), (-1+1.2246467991473532e-16j),
-(6.123233995736766e-17+1j), (0.7071067811865476+0.7071067811865476j),
-(0.9238795325112867+0.3826834323650898j),
-(0.9807852804032304+0.19509032201612825j)]
+What we got        [ 1.00e+00-2.45e-16j -1.00e+00+1.22e-16j  6.12e-17+1.00e+00j
+7.07e-01+7.07e-01j  9.24e-01+3.83e-01j  9.81e-01+1.95e-01j]
+What we should get [ 1.00e+00-2.45e-16j -1.00e+00+1.22e-16j  6.12e-17+1.00e+00j
+7.07e-01+7.07e-01j  9.24e-01+3.83e-01j  9.81e-01+1.95e-01j]
     \end{Verbatim}
 
     We can appreciate the \(R_k\) gate performs the previously described
 transformation perfectly, although there may be some precision error in
 both calculations.
 
-    \textbf{In sections 5.1-5.2 we're walked through programming a
+\textbf{In sections 5.1-5.2 we're walked through programming a
 3-register QFT.} {\color{teal}At the step at which we accomplish
 
 \[| j_1j_2j_3\rangle \rightarrow | \psi_1\rangle = \frac{1}{\sqrt{2}}\left(\left|0\right\rangle+e^{2\pi i (j_1/2 +j_2/4)}\left|1\right\rangle\right)\otimes | j_2j_3\rangle.\]}
 
+
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{67}{\boxspacing}
+\prompt{In}{incolor}{9}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{qft\PYZus{}circuit} \PY{o}{=} \PY{n}{QuantumCircuit}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{QFT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \PY{n}{qft\PYZus{}circuit}\PY{o}{.}\PY{n}{h}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
@@ -762,7 +769,7 @@ both calculations.
 \end{tcolorbox}
  
             
-\prompt{Out}{outcolor}{67}{}
+\prompt{Out}{outcolor}{9}{}
     
     \begin{center}
     \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{ZapataFergusonM_Session2_files/ZapataFergusonM_Session2_24_0.png}
@@ -770,16 +777,17 @@ both calculations.
     { \hspace*{\fill} \\}
     
 
-    \textcolor{teal}{\textbf{Question 5.2} Write the state resulting from applying that
+\textcolor{teal}{\textbf{Question 5.2} Write the state resulting from applying that
 transformation to the initial ket \(| 010\rangle\). Check, with the
 Statevector class that the circuit generates the correct output.}
+    
 
 \textbf{Answer:} We may compute the resulting state by hand. It is
 \(\frac{1}{\sqrt{2}}(|0\rangle+i|1\rangle)\otimes|10\rangle\) or, in the
 binary basis, \(\frac{1}{\sqrt{2}}(|2\rangle+i|6\rangle)\).
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{68}{\boxspacing}
+\prompt{In}{incolor}{32}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{init\PYZus{}state} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{)}
 \PY{n}{init\PYZus{}state}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
@@ -794,14 +802,14 @@ binary basis, \(\frac{1}{\sqrt{2}}(|2\rangle+i|6\rangle)\).
 \end{tcolorbox}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-Statevector([0.00000000e+00+0.j        , 0.00000000e+00+0.j        ,
-             7.07106781e-01+0.j        , 0.00000000e+00+0.j        ,
-             0.00000000e+00+0.j        , 0.00000000e+00+0.j        ,
-             4.32978028e-17+0.70710678j, 0.00000000e+00+0.j        ],
+Statevector([0.00e+00+0.j  , 0.00e+00+0.j  , 7.07e-01+0.j  ,
+             0.00e+00+0.j  , 0.00e+00+0.j  , 0.00e+00+0.j  ,
+             4.33e-17+0.71j, 0.00e+00+0.j  ],
             dims=(2, 2, 2))
     \end{Verbatim}
 
-\textbf{ 5.3 QFT full exercise}
+    \paragraph{\texorpdfstring{ 5.3 QFT full
+exercise}{ 5.3 QFT full exercise}}\label{qft-full-exercise}
 
 {\color{teal}Please implement now the Quantum Fourier Transform as a gate acting over
 5 qubits. Apply this gate to the following states.
@@ -839,7 +847,7 @@ proper ordering. We can apply the required phases with Hadamard and
 controlled \(R_k\) gates.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{69}{\boxspacing}
+\prompt{In}{incolor}{11}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} First, it is actually easier and more convenient to implement an N register QFT}
 
@@ -858,7 +866,7 @@ controlled \(R_k\) gates.
 \end{tcolorbox}
  
             
-\prompt{Out}{outcolor}{69}{}
+\prompt{Out}{outcolor}{11}{}
     
     \begin{center}
     \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{ZapataFergusonM_Session2_files/ZapataFergusonM_Session2_28_0.png}
@@ -867,7 +875,7 @@ controlled \(R_k\) gates.
     
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{70}{\boxspacing}
+\prompt{In}{incolor}{12}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} Next, let\PYZsq{}s notice the kets are}
 \PY{c+c1}{\PYZsh{} |phi1\PYZgt{} = |+\PYZgt{}|+\PYZgt{}|+\PYZgt{}|+\PYZgt{}|\PYZhy{}\PYZgt{}}
@@ -889,7 +897,7 @@ controlled \(R_k\) gates.
 \end{tcolorbox}
  
             
-\prompt{Out}{outcolor}{70}{}
+\prompt{Out}{outcolor}{12}{}
     
     \begin{center}
     \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{ZapataFergusonM_Session2_files/ZapataFergusonM_Session2_29_0.png}
@@ -898,7 +906,7 @@ controlled \(R_k\) gates.
     
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{71}{\boxspacing}
+\prompt{In}{incolor}{13}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} Next we must create a 5\PYZhy{}register QFT gate}
 \PY{n}{qft5} \PY{o}{=} \PY{n}{QFT}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{o}{.}\PY{n}{to\PYZus{}gate}\PY{p}{(}\PY{p}{)}
@@ -922,7 +930,7 @@ controlled \(R_k\) gates.
 \end{tcolorbox}
 
             \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
-\prompt{Out}{outcolor}{71}{\boxspacing}
+\prompt{Out}{outcolor}{13}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 ['(1.00+0.00j)|16>',
  '(0.50+0.50j)|8>+(0.50-0.50j)|24>',
@@ -932,8 +940,8 @@ controlled \(R_k\) gates.
 \end{Verbatim}
 \end{tcolorbox}
         
-    Let \(QFT_5\) be the Quantum Fourier transform of 5 qubits, we obtained
-the following results: 
+    Let \(QFT_5\) be the quantum Fourier transform of 5 qubits, we obtained
+the following results:
 
 \begin{itemize}
     \item \(QFT_5|\phi_1\rangle = |16⟩\) 
@@ -955,7 +963,7 @@ inverse Fourier transform in signal processing is opposite that of
 quantum computing).
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{72}{\boxspacing}
+\prompt{In}{incolor}{14}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{phihat\PYZus{}c} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{empty}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{32}\PY{p}{)}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{cdouble}\PY{p}{)}
 \PY{n}{ket\PYZus{}c} \PY{o}{=} \PY{p}{[}\PY{p}{]}
@@ -973,7 +981,7 @@ quantum computing).
 \end{tcolorbox}
 
             \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
-\prompt{Out}{outcolor}{72}{\boxspacing}
+\prompt{Out}{outcolor}{14}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 ['(1.00+0.00j)|16>',
  '(0.50+0.50j)|8>+(0.50-0.50j)|24>',
@@ -987,14 +995,14 @@ quantum computing).
 calculations programatically.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{73}{\boxspacing}
+\prompt{In}{incolor}{15}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{phihat\PYZus{}q} \PY{o}{\PYZhy{}} \PY{n}{phihat\PYZus{}c}\PY{p}{)}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
             \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
-\prompt{Out}{outcolor}{73}{\boxspacing}
+\prompt{Out}{outcolor}{15}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 3.3306690738754696e-16
 \end{Verbatim}
