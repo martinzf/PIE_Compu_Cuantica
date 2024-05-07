@@ -1137,7 +1137,7 @@ A &= A(\mathbf{a}, \lambda) & B &= B(\mathbf{b}, \lambda)
 \end{aligned}
 $$
 
-We can be more general and average over potential hidden variables in the instruments, obtaining
+We can be more general and average over hidden variables in the measurement instruments, obtaining
 
 $$
 \begin{aligned}
@@ -1279,10 +1279,12 @@ $$
 \end{cases}
 \ \Rightarrow\ 
 \begin{cases}
-\mathbf{b}  = \frac{-(\mathbf{a}+\mathbf{a'})}{\sqrt{2}} \\[1em]
-\mathbf{b'} = \frac{\mathbf{a}-\mathbf{a'}}{\sqrt{2}} 
+\mathbf{b}  = \frac{-(\mathbf{a}+\mathbf{a'})}{\Vert\mathbf{a}+\mathbf{a'}\Vert} \\[1em]
+\mathbf{b'} = \frac{\mathbf{a}-\mathbf{a'}}{\Vert\mathbf{a}+\mathbf{a'}\Vert} 
 \end{cases}
 $$
+
+And we want $\Vert\mathbf{a}+\mathbf{a'}\Vert=\sqrt{2+2\cos\theta_{\mathbf{a}\mathbf{a'}}}$ to be minimum, which is obtained with $\mathbf{a}\perp\mathbf{a'}$.
 
 Finally, $S_{\max}=2\sqrt{2}\approx2.828>2$.
 
