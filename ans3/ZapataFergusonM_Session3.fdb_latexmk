@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1715100457 "c:/Users/zapat/Escritorio/CODE/PIE_Compu_Cuantica/ans3/ZapataFergusonM_Session3.tex" "ZapataFergusonM_Session3.pdf" "ZapataFergusonM_Session3" 1715100460 2
+["pdflatex"] 1715103067 "c:/Users/zapat/Escritorio/CODE/PIE_Compu_Cuantica/ans3/ZapataFergusonM_Session3.tex" "ZapataFergusonM_Session3.pdf" "ZapataFergusonM_Session3" 1715103069 2
   "C:/Users/zapat/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1657823389 10326701 e2e4399e9fc251996edc3b6a7e9cc71d ""
   "C:/Users/zapat/AppData/Local/Programs/MiKTeX/fonts/tfm/jknappen/ec/ecrm1095.tfm" 993062124 3172 eb6efaa83c6c52473a1c403f376eab0f ""
   "C:/Users/zapat/AppData/Local/Programs/MiKTeX/fonts/tfm/public/cm/cmr10.tfm" 1136768653 1296 45809c5a464d5f32c8f98ba97c1bb47f ""
@@ -47,9 +47,7 @@
   "C:/Users/zapat/AppData/Local/Programs/MiKTeX/tex/generic/pgf/pgf.revision.tex" 1621073264 465 d68603f8b820ea4a08cce534944db581 ""
   "C:/Users/zapat/AppData/Local/Programs/MiKTeX/tex/generic/pgf/systemlayer/pgf.cfg" 1621073245 926 2963ea0dcf6cc6c0a770b69ec46a477b ""
   "C:/Users/zapat/AppData/Local/Programs/MiKTeX/tex/generic/pgf/systemlayer/pgfsys-common-pdf.def" 1621073245 5546 f3f24d7898386cb7daac70bdd2c4d6dc ""
-  "C:/Users/zapat/AppData/Local/Programs/MiKTeX/tex/generic/pgf/systemlayer/pgfsys-dvipdfmx.def" 1621073245 18491 d0e112cb6dad363566090fd455960cec ""
   "C:/Users/zapat/AppData/Local/Programs/MiKTeX/tex/generic/pgf/systemlayer/pgfsys-pdftex.def" 1621073245 12601 4786e597516eddd82097506db7cfa098 ""
-  "C:/Users/zapat/AppData/Local/Programs/MiKTeX/tex/generic/pgf/systemlayer/pgfsys-xetex.def" 1621073245 2926 cf943e23420d552258ae428601f26fbf ""
   "C:/Users/zapat/AppData/Local/Programs/MiKTeX/tex/generic/pgf/systemlayer/pgfsys.code.tex" 1621073245 61163 9b2eefc24e021323e0fc140e9826d016 ""
   "C:/Users/zapat/AppData/Local/Programs/MiKTeX/tex/generic/pgf/systemlayer/pgfsysprotocol.code.tex" 1621073245 1896 b8e0ca0ac371d74c0ca05583f6313c91 ""
   "C:/Users/zapat/AppData/Local/Programs/MiKTeX/tex/generic/pgf/systemlayer/pgfsyssoftpath.code.tex" 1621073245 7778 53c8b5623d80238f6a20aa1df1868e63 ""
@@ -82,7 +80,6 @@
   "C:/Users/zapat/AppData/Local/Programs/MiKTeX/tex/latex/graphics-cfg/color.cfg" 1465894292 1213 620bba36b25224fa9b7e1ccb4ecb76fd ""
   "C:/Users/zapat/AppData/Local/Programs/MiKTeX/tex/latex/graphics-cfg/graphics.cfg" 1465894292 1224 978390e9c2234eab29404bc21b268d1e ""
   "C:/Users/zapat/AppData/Local/Programs/MiKTeX/tex/latex/graphics-def/pdftex.def" 1650125834 19103 48d29b6e2a64cb717117ef65f107b404 ""
-  "C:/Users/zapat/AppData/Local/Programs/MiKTeX/tex/latex/graphics-def/xetex.def" 1650125834 14373 b9e5d087883e127dd51fa6e9fdfce569 ""
   "C:/Users/zapat/AppData/Local/Programs/MiKTeX/tex/latex/graphics/dvipsnam.def" 1655058251 5009 d242512eef244b70f2fc3fde14419206 ""
   "C:/Users/zapat/AppData/Local/Programs/MiKTeX/tex/latex/graphics/graphics.sty" 1655058252 18387 8f900a490197ebaf93c02ae9476d4b09 ""
   "C:/Users/zapat/AppData/Local/Programs/MiKTeX/tex/latex/graphics/graphicx.sty" 1655058252 8010 a8d949cbdbc5c983593827c9eec252e1 ""
@@ -103,9 +100,9 @@
   "C:/Users/zapat/AppData/Local/Programs/MiKTeX/tex/latex/trimspaces/trimspaces.sty" 1253169183 1380 971a51b00a14503ddf754cab24c3f209 ""
   "C:/Users/zapat/AppData/Local/Programs/MiKTeX/tex/latex/upquote/upquote.sty" 1335534756 1088 517e01cde97c1c0baf72e69d43aa5a2e ""
   "C:/Users/zapat/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/xcolor.sty" 1656236890 56148 51a9a8571c07b9921892ae11063ae853 ""
-  "ZapataFergusonM_Session3.aux" 1715100457 34 3985256e7290058c681f74d7a3565a19 ""
-  "ZapataFergusonM_Session3.tex" 1715100452 81925 bb68f26ec514ca78b6843ffee8f22d7f ""
-  "c:/Users/zapat/Escritorio/CODE/PIE_Compu_Cuantica/ans3/ZapataFergusonM_Session3.tex" 1715100452 81925 bb68f26ec514ca78b6843ffee8f22d7f ""
+  "ZapataFergusonM_Session3.aux" 1715103067 34 3985256e7290058c681f74d7a3565a19 ""
+  "ZapataFergusonM_Session3.tex" 1715103062 81930 c3a9b6eb56ccebac9e1ff2df0cf6080a ""
+  "c:/Users/zapat/Escritorio/CODE/PIE_Compu_Cuantica/ans3/ZapataFergusonM_Session3.tex" 1715103062 81930 c3a9b6eb56ccebac9e1ff2df0cf6080a ""
   "ucs.sty" 0 -1 0 ""
   (generated)
   "ZapataFergusonM_Session3.log"
