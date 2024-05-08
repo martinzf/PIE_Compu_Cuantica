@@ -693,7 +693,7 @@ Hence,
 \PY{k}{def} \PY{n+nf}{R}\PY{p}{(}\PY{n}{k}\PY{p}{)}\PY{p}{:}
     \PY{k}{return} \PY{n}{PhaseGate}\PY{p}{(}\PY{p}{(}\PY{l+m+mf}{2.}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{)}\PY{o}{/}\PY{n+nb}{pow}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{k}\PY{p}{)}\PY{p}{)}
 
-\PY{c+c1}{\PYZsh{} Indeed, we can plot R(k) ∀ k with a parametrised circuit.}
+\PY{c+c1}{\PYZsh{} Indeed, we can plot R(k) for all k with a parametrised circuit.}
 \PY{c+c1}{\PYZsh{} We see the transformation is implemented as desired.}
 \PY{k+kn}{from} \PY{n+nn}{qiskit}\PY{n+nn}{.}\PY{n+nn}{circuit} \PY{k+kn}{import} \PY{n}{Parameter}
 \PY{n}{k} \PY{o}{=} \PY{n}{Parameter}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
@@ -748,7 +748,7 @@ What we should get [ 1.00e+00-2.45e-16j -1.00e+00+1.22e-16j  6.12e-17+1.00e+00j
     \end{Verbatim}
 
     We can appreciate the \(R_k\) gate performs the previously described
-transformation perfectly, although there may be some precision error in
+transformation perfectly, although there may be some numerical error in
 both calculations.
 
 \textbf{In sections 5.1-5.2 we're walked through programming a
